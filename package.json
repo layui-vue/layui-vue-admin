@@ -1,13 +1,13 @@
 {
-  "name": "layui-vue-sample",
-  "version": "0.0.0",
+  "name": "layui-vue-admin",
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview"
   },
   "dependencies": {
-    "@layui/layui-vue": "^0.1.4",
+    "@layui/layui-vue": "^0.1.7",
     "vue": "^3.2.20",
     "vue-router": "^4.0.11"
   },
