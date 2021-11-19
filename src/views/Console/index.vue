@@ -2,7 +2,9 @@
   <lay-container fluid="true">
     <lay-row space="10">
       <lay-col md="3">
-        <lay-card>1</lay-card>
+        <lay-card>
+          <lay-button>测试</lay-button>
+        </lay-card>
       </lay-col>
       <lay-col md="3">
         <lay-card>2</lay-card>
