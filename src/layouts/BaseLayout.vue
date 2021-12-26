@@ -1,9 +1,9 @@
 <template>
-  <lay-layout :class="[collapseState ? 'collapse' : '']">
+  <lay-layout>
     <!-- 侧边区域 -->
-    <lay-side :black="isBlack" :width="235">
+    <lay-side :black="isBlack" :width="collapseState ? 0 : 230">
       <lay-logo class="layui-bg-black">
-        <span class="title">layui admin</span>
+        <span>layui-admin</span>
       </lay-logo>
       <lay-menu :selectedKey="route.path" :openKeys="openKeys" :tree="isTree">
         <lay-menu-item title="工作空间" id="0">
@@ -117,10 +117,12 @@ export default {
       router.push(path);
     };
 
+    // 侧边状态
     const collapse = function () {
       collapseState.value = !collapseState.value;
     };
 
+    // 路由刷新
     const refresh = function () {
       isRouterAlive.value = false;
       setTimeout(function () {
@@ -128,7 +130,10 @@ export default {
       }, 500);
     };
 
-    const close = function (path) {};
+    const close = function (path) {
+      // 从数组中移除
+      tabs.value = tabs.value.filter(ele => ele.id != path);
+    };
 
     // watch
     watch(route, function () {
@@ -143,6 +148,7 @@ export default {
       }
     });
 
+    // return instance
     return {
       isRouterAlive,
       collapseState,
@@ -158,3 +164,35 @@ export default {
   },
 };
 </script>
+
+<style>
+.layui-header {
+  background: white;
+}
+.layui-header .layui-nav {
+  background: white;
+}
+.layui-header .layui-nav.layui-layout-left {
+  left: 0 !important ;
+  position: relative !important;
+}
+.layui-header .layui-nav * {
+  color: #393d49;
+}
+.layui-side {
+  z-index: 9999;
+  background: #393d49;
+  box-shadow: 2px 0 6px rgb(0 21 41 / 35%);
+}
+.layui-body {
+  background: whitesmoke;
+}
+.layui-logo {
+  font-size: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+.layui-logo span {
+  font-weight: normal;
+  color: #fff;
+}
+</style>

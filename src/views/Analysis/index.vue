@@ -1,5 +1,5 @@
 <template>
-  <lay-container fluid="true">
+  <lay-container fluid="true" style="padding:10px">
     <lay-row space="10">
       <lay-col md="3">
         <lay-card>1</lay-card>

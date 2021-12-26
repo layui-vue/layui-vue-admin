@@ -1,10 +1,8 @@
 <template>
-  <lay-container fluid="true">
+  <lay-container fluid="true" style="padding:10px">
     <lay-row space="10">
       <lay-col md="3">
-        <lay-card>
-          <lay-button>测试</lay-button>
-        </lay-card>
+        <lay-card>1</lay-card>
       </lay-col>
       <lay-col md="3">
         <lay-card>2</lay-card>
