@@ -21,21 +21,21 @@
   dependencies:
     vue "^3.2.26"
 
-"@layui/layer-vue@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@layui/layer-vue/-/layer-vue-1.2.2.tgz#5d20c591bba393a3a824347bbd6fb02fd3f88ca1"
-  integrity sha512-Yd4T4EWMIwU4e7clLvGn5DqqTNwDoXLKO+asAMNoNx82Lmq4X2/qcN9z2+n7OXEritQc5PgOW5AHgPs7B4idsQ==
+"@layui/layer-vue@^1.2.4":
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@layui/layer-vue/-/layer-vue-1.2.4.tgz#bd31c6a0cd657b635b2cb7c8deccf0a75e84c0da"
+  integrity sha512-4rXTMHxajUez8goqGLoVScjGXeYemThyk28cErH6/dLpKjOylv3170s+PqRHD9+3VUJqS+/UXXCJjLPrl+zTEA==
   dependencies:
     vue "^3.2.26"
 
-"@layui/layui-vue@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@layui/layui-vue/-/layui-vue-0.3.1.tgz#f9af83ba17bc5d31af5fe90a02e2cec433091c67"
-  integrity sha512-O1ELlD/16+pdWT9b64CZlg0nwG5FteLjKVALlk3z3+0gx7w5OyFJGDiIh3BBVnInopsGsyS4BrJvizDeV6Di2w==
+"@layui/layui-vue@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@layui/layui-vue/-/layui-vue-0.3.2.tgz#2bb88049658eb20428a7885f4fb4d000cf4d6b37"
+  integrity sha512-03lQWVGfNCUeB5euiHal5z5N9sKO7nZeioxsuusDuQ3vrDqm7lPrDJ+8WDAtrJkZoxKidsaBlCLQhUHEX5m5pw==
   dependencies:
     "@layui/hooks-vue" "^0.1.6"
     "@layui/icons-vue" "^1.0.2"
-    "@layui/layer-vue" "^1.2.2"
+    "@layui/layer-vue" "^1.2.4"
     async-validator "^4.0.7"
     countup.js "^2.0.8"
     evtd "^0.2.3"

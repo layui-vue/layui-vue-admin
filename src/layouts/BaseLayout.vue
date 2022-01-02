@@ -7,33 +7,33 @@
       </lay-logo>
       <lay-menu :selectedKey="route.path" :openKeys="openKeys" :tree="isTree">
         <lay-menu-item title="工作空间" id="0">
-          <lay-menu-child-item id="/console">
+          <lay-menu-item id="/console">
             <template v-slot:title>
               <router-link to="/console">控制台</router-link>
             </template>
-          </lay-menu-child-item>
-          <lay-menu-child-item id="/analysis">
+          </lay-menu-item>
+          <lay-menu-item id="/analysis">
             <template v-slot:title>
               <router-link to="/analysis">分析页</router-link>
             </template>
-          </lay-menu-child-item>
+          </lay-menu-item>
         </lay-menu-item>
         <lay-menu-item title="错误页面" id="3">
-          <lay-menu-child-item id="/error/403">
+          <lay-menu-item id="/error/403">
             <template v-slot:title>
               <router-link to="/error/403">403</router-link>
             </template>
-          </lay-menu-child-item>
-          <lay-menu-child-item id="/error/404">
+          </lay-menu-item>
+          <lay-menu-item id="/error/404">
             <template v-slot:title>
               <router-link to="/error/404">404</router-link>
             </template>
-          </lay-menu-child-item>
-          <lay-menu-child-item id="/error/500">
+          </lay-menu-item>
+          <lay-menu-item id="/error/500">
             <template v-slot:title>
               <router-link to="/error/500">500</router-link>
             </template>
-          </lay-menu-child-item>
+          </lay-menu-item>
         </lay-menu-item>
       </lay-menu>
     </lay-side>
