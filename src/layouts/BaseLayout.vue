@@ -1,10 +1,8 @@
 <template>
-  <lay-layout>
-    <!-- 侧边区域 -->
-    <lay-side :black="isBlack" :width="collapseState ? 0 : 230">
-      <lay-logo class="layui-bg-black">
-        <span>layui-admin</span>
-      </lay-logo>
+  <lay-layout :class="[collapseState ? 'collapse' : '']">
+    <!-- side -->
+    <lay-side :black="isBlack">
+      <lay-logo class="layui-bg-black"> </lay-logo>
       <lay-menu :selectedKey="route.path" :openKeys="openKeys" :tree="isTree">
         <lay-menu-item title="工作空间" id="0">
           <lay-menu-item id="/console">
@@ -38,6 +36,7 @@
       </lay-menu>
     </lay-side>
     <lay-layout>
+      <!-- header -->
       <lay-header>
         <lay-menu class="layui-layout-left">
           <lay-menu-item>
@@ -59,13 +58,16 @@
           </lay-menu-item>
         </lay-menu>
         <lay-menu class="layui-layout-right">
-          <lay-menu-item id="0">
-            <template v-slot:title>
-              <a href="javascript:void(0)">
-                <lay-icon type="layui-icon-notice"></lay-icon>
-              </a>
-            </template>
-          </lay-menu-item>
+          <lay-dropdown>
+            <lay-menu-item id="0">
+              <template v-slot:title>
+                <a href="javascript:void(0)">
+                  <lay-icon type="layui-icon-notice"></lay-icon>
+                </a>
+              </template>
+            </lay-menu-item>
+            <template #content> 内容 </template>
+          </lay-dropdown>
           <lay-menu-item id="1">
             <template v-slot:title>
               <a href="javascript:void(0)">
@@ -73,8 +75,8 @@
               </a>
             </template>
           </lay-menu-item> </lay-menu
-      ></lay-header>
-      <!-- 内容区域 -->
+      ></lay-header> 
+      <!-- content -->
       <lay-body>
         <lay-tab
           v-model="route.path"
@@ -100,6 +102,7 @@ import { ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 export default {
   setup() {
+    
     // router instance
     const router = useRouter();
     const route = useRoute();
@@ -130,12 +133,12 @@ export default {
       }, 500);
     };
 
+    // 关闭当前
     const close = function (path) {
-      // 从数组中移除
-      tabs.value = tabs.value.filter(ele => ele.id != path);
+      tabs.value = tabs.value.filter((ele) => ele.id != path);
     };
 
-    // watch
+    // 路由监听
     watch(route, function () {
       let bool = false;
       tabs.value.forEach((tab) => {
@@ -164,35 +167,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.layui-header {
-  background: white;
-}
-.layui-header .layui-nav {
-  background: white;
-}
-.layui-header .layui-nav.layui-layout-left {
-  left: 0 !important ;
-  position: relative !important;
-}
-.layui-header .layui-nav * {
-  color: #393d49;
-}
-.layui-side {
-  z-index: 9999;
-  background: #393d49;
-  box-shadow: 2px 0 6px rgb(0 21 41 / 35%);
-}
-.layui-body {
-  background: whitesmoke;
-}
-.layui-logo {
-  font-size: 20px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-}
-.layui-logo span {
-  font-weight: normal;
-  color: #fff;
-}
-</style>
