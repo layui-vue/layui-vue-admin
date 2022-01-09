@@ -1,3 +1,5 @@
 <template>
-    <div>404</div>
+    <lay-card>
+        404
+    </lay-card>
 </template>

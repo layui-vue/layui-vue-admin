@@ -43,6 +43,9 @@
 .layui-header .layui-nav * {
   color: #393d49;
 }
+.layui-header .layui-nav .layui-nav-item > a {
+  padding: 0px 24px;
+}
 
 .layui-side {
   z-index: 9999;

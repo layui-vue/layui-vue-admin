@@ -1,3 +1,5 @@
 <template>
-    <div>500</div>
+    <lay-card>
+        500
+    </lay-card>
 </template>

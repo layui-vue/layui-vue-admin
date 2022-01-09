@@ -16,7 +16,7 @@
             </template>
           </lay-menu-item>
         </lay-menu-item>
-        <lay-menu-item title="错误页面" id="3">
+        <lay-menu-item title="错误页面" id="1">
           <lay-menu-item id="/error/403">
             <template v-slot:title>
               <router-link to="/error/403">403</router-link>
@@ -30,6 +30,30 @@
           <lay-menu-item id="/error/500">
             <template v-slot:title>
               <router-link to="/error/500">500</router-link>
+            </template>
+          </lay-menu-item>
+        </lay-menu-item>
+        <lay-menu-item title="系统管理" id="2">
+          <lay-menu-item id="/system/user">
+            <template v-slot:title>
+              <router-link to="/system/user">用户管理</router-link>
+            </template>
+          </lay-menu-item>
+          <lay-menu-item id="/system/role">
+            <template v-slot:title>
+              <router-link to="/system/role">角色管理</router-link>
+            </template>
+          </lay-menu-item>
+        </lay-menu-item>
+        <lay-menu-item title="结果页面" id="3">
+          <lay-menu-item id="/result/success">
+            <template v-slot:title>
+              <router-link to="/result/success">成功页面</router-link>
+            </template>
+          </lay-menu-item>
+          <lay-menu-item id="/result/failure">
+            <template v-slot:title>
+              <router-link to="/result/failure">失败页面</router-link>
             </template>
           </lay-menu-item>
         </lay-menu-item>
@@ -53,21 +77,18 @@
           <lay-menu-item id="1">
             <template v-slot:title>
               <a href="javascript:void(0)" @click="refresh">
-                <lay-icon type="layui-icon-refresh-1"></lay-icon> </a
+                <lay-icon type="layui-icon-refresh-one"></lay-icon> </a
             ></template>
           </lay-menu-item>
         </lay-menu>
         <lay-menu class="layui-layout-right">
-          <lay-dropdown>
-            <lay-menu-item id="0">
-              <template v-slot:title>
-                <a href="javascript:void(0)">
-                  <lay-icon type="layui-icon-notice"></lay-icon>
-                </a>
-              </template>
-            </lay-menu-item>
-            <template #content> 内容 </template>
-          </lay-dropdown>
+          <lay-menu-item id="0">
+            <template v-slot:title>
+              <a href="javascript:void(0)">
+                <lay-icon type="layui-icon-notice"></lay-icon>
+              </a>
+            </template>
+          </lay-menu-item>
           <lay-menu-item id="1">
             <template v-slot:title>
               <a href="javascript:void(0)">
@@ -75,7 +96,7 @@
               </a>
             </template>
           </lay-menu-item> </lay-menu
-      ></lay-header> 
+      ></lay-header>
       <!-- content -->
       <lay-body>
         <lay-tab
@@ -102,7 +123,6 @@ import { ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 export default {
   setup() {
-    
     // router instance
     const router = useRouter();
     const route = useRoute();

@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@layui/layui-vue": "^0.3.2",
+    "axios": "^0.24.0",
     "vue": "^3.2.26",
     "vue-router": "^4.0.12"
   },
