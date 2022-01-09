@@ -28,10 +28,10 @@
   dependencies:
     vue "^3.2.26"
 
-"@layui/layui-vue@^0.3.2":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@layui/layui-vue/-/layui-vue-0.3.2.tgz#2bb88049658eb20428a7885f4fb4d000cf4d6b37"
-  integrity sha512-03lQWVGfNCUeB5euiHal5z5N9sKO7nZeioxsuusDuQ3vrDqm7lPrDJ+8WDAtrJkZoxKidsaBlCLQhUHEX5m5pw==
+"@layui/layui-vue@^0.3.3":
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@layui/layui-vue/-/layui-vue-0.3.3.tgz#ee445dd96087825777e7f5ca2de830dcdb14b413"
+  integrity sha512-CXJ8ICR1MN2IKjfmIAeJ/3c/ODI18mezvzWYPH92sVbxdNTgVc39POEN3fHsL8sBncBjNqQek10t9tCJhOntdQ==
   dependencies:
     "@layui/hooks-vue" "^0.1.6"
     "@layui/icons-vue" "^1.0.2"

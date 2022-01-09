@@ -3,60 +3,46 @@
     <!-- side -->
     <lay-side :black="isBlack">
       <lay-logo class="layui-bg-black"> </lay-logo>
-      <lay-menu :selectedKey="route.path" :openKeys="openKeys" :tree="isTree">
-        <lay-menu-item title="工作空间" id="0">
+      <lay-menu 
+        v-model:selectedKey="selectKey" 
+        v-model:openKeys="openKeys" 
+        :tree="isTree"
+        >
+        <lay-sub-menu title="工作空间" id="0">
           <lay-menu-item id="/console">
-            <template v-slot:title>
-              <router-link to="/console">控制台</router-link>
-            </template>
+            控制台
           </lay-menu-item>
           <lay-menu-item id="/analysis">
-            <template v-slot:title>
-              <router-link to="/analysis">分析页</router-link>
-            </template>
+            分析页
           </lay-menu-item>
-        </lay-menu-item>
-        <lay-menu-item title="错误页面" id="1">
+        </lay-sub-menu>
+        <lay-sub-menu title="错误页面" id="1">
           <lay-menu-item id="/error/403">
-            <template v-slot:title>
-              <router-link to="/error/403">403</router-link>
-            </template>
+            403
           </lay-menu-item>
           <lay-menu-item id="/error/404">
-            <template v-slot:title>
-              <router-link to="/error/404">404</router-link>
-            </template>
+            404
           </lay-menu-item>
           <lay-menu-item id="/error/500">
-            <template v-slot:title>
-              <router-link to="/error/500">500</router-link>
-            </template>
+            500
           </lay-menu-item>
-        </lay-menu-item>
-        <lay-menu-item title="系统管理" id="2">
+        </lay-sub-menu>
+        <lay-sub-menu title="系统管理" id="2">
           <lay-menu-item id="/system/user">
-            <template v-slot:title>
-              <router-link to="/system/user">用户管理</router-link>
-            </template>
+            用户管理
           </lay-menu-item>
           <lay-menu-item id="/system/role">
-            <template v-slot:title>
-              <router-link to="/system/role">角色管理</router-link>
-            </template>
+            角色管理
           </lay-menu-item>
-        </lay-menu-item>
-        <lay-menu-item title="结果页面" id="3">
+        </lay-sub-menu>
+        <lay-sub-menu title="结果页面" id="3">
           <lay-menu-item id="/result/success">
-            <template v-slot:title>
-              <router-link to="/result/success">成功页面</router-link>
-            </template>
+            成功页面
           </lay-menu-item>
           <lay-menu-item id="/result/failure">
-            <template v-slot:title>
-              <router-link to="/result/failure">失败页面</router-link>
-            </template>
+            失败页面
           </lay-menu-item>
-        </lay-menu-item>
+        </lay-sub-menu>
       </lay-menu>
     </lay-side>
     <lay-layout>
@@ -64,37 +50,30 @@
       <lay-header>
         <lay-menu class="layui-layout-left">
           <lay-menu-item>
-            <template v-slot:title>
-              <a href="javascript:void(0)" @click="collapse">
-                <lay-icon
-                  v-if="collapseState"
-                  type="layui-icon-spread-left"
-                ></lay-icon>
-                <lay-icon v-else type="layui-icon-shrink-right"></lay-icon>
-              </a>
-            </template>
+            <a href="javascript:void(0)" @click="collapse">
+              <lay-icon
+                v-if="collapseState"
+                type="layui-icon-spread-left"
+              ></lay-icon>
+              <lay-icon v-else type="layui-icon-shrink-right"></lay-icon>
+            </a>
           </lay-menu-item>
           <lay-menu-item id="1">
-            <template v-slot:title>
-              <a href="javascript:void(0)" @click="refresh">
-                <lay-icon type="layui-icon-refresh-one"></lay-icon> </a
-            ></template>
+            <a href="javascript:void(0)" @click="refresh">
+              <lay-icon type="layui-icon-refresh-one"></lay-icon>
+            </a>
           </lay-menu-item>
         </lay-menu>
         <lay-menu class="layui-layout-right">
           <lay-menu-item id="0">
-            <template v-slot:title>
-              <a href="javascript:void(0)">
-                <lay-icon type="layui-icon-notice"></lay-icon>
-              </a>
-            </template>
+            <a href="javascript:void(0)">
+              <lay-icon type="layui-icon-notice"></lay-icon>
+            </a>
           </lay-menu-item>
           <lay-menu-item id="1">
-            <template v-slot:title>
-              <a href="javascript:void(0)">
-                <lay-icon type="layui-icon-more-vertical"></lay-icon>
-              </a>
-            </template>
+            <a href="javascript:void(0)">
+              <lay-icon type="layui-icon-more-vertical"></lay-icon>
+            </a>
           </lay-menu-item> </lay-menu
       ></lay-header>
       <!-- content -->
@@ -131,14 +110,19 @@ export default {
     const isTree = ref(true);
     const isBlack = ref(true);
     const openKeys = ref(["0"]);
+    const selectKey = ref(route.path);
     const collapseState = ref(false);
     const isRouterAlive = ref(true);
     const tabs = ref([{ title: "首页", id: "/console" }]);
 
-    // event
-    const change = function (path) {
-      router.push(path);
-    };
+    watch(selectKey, () => {
+      router.push(selectKey.value)
+    })
+
+    const change = function(id) {
+      selectKey.value = id
+      router.push(id)
+    }
 
     // 侧边状态
     const collapse = function () {
@@ -175,6 +159,7 @@ export default {
     return {
       isRouterAlive,
       collapseState,
+      selectKey,
       collapse,
       openKeys,
       isBlack,
