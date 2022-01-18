@@ -75,3 +75,6 @@
 .layui-layout .layui-header .layui-layout-left {
   transition: all 0.3s;
 }
+.layui-layout {
+  height: 100%;
+}

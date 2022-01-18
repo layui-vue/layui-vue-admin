@@ -89,6 +89,7 @@
             :key="tab"
             :title="tab.title"
             :id="tab.id"
+            :closable="tab.closable"
           ></lay-tab-item>
         </lay-tab>
         <router-view v-if="isRouterAlive"></router-view>
@@ -113,7 +114,7 @@ export default {
     const selectKey = ref(route.path);
     const collapseState = ref(false);
     const isRouterAlive = ref(true);
-    const tabs = ref([{ title: "首页", id: "/console" }]);
+    const tabs = ref([{ title: "首页", id: "/console", closable: false}]);
 
     watch(selectKey, () => {
       router.push(selectKey.value)
