@@ -4,6 +4,8 @@
     <lay-side :black="isBlack">
       <lay-logo> </lay-logo>
       <lay-menu
+        level="false"
+        inverted="true"
         v-model:selectedKey="selectKey"
         v-model:openKeys="openKeys"
         :tree="isTree"

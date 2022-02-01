@@ -1,3 +1,8 @@
 <template>
-    <div>失败</div>
+    <lay-result status="failure" style="margin-top:100px;">
+        <template #action>
+            <lay-button>再次提交</lay-button>  
+            <lay-button type="primary">返回</lay-button>  
+        </template>
+    </lay-result>
 </template>
