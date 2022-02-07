@@ -25,6 +25,11 @@ export default [
     meta: { title: '错误页面' },
     children: [
       {
+        path: '/error/401',
+        component: () => import('../../views/Error/401.vue'),
+        meta: { title: '401' },
+      },
+      {
         path: '/error/403',
         component: () => import('../../views/Error/403.vue'),
         meta: { title: '403' },

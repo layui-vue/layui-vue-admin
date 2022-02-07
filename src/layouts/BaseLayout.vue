@@ -13,6 +13,7 @@
           <lay-menu-item id="/analysis"> 分析页 </lay-menu-item>
         </lay-sub-menu>
         <lay-sub-menu title="错误页面" id="1">
+          <lay-menu-item id="/error/401"> 401 </lay-menu-item>
           <lay-menu-item id="/error/403"> 403 </lay-menu-item>
           <lay-menu-item id="/error/404"> 404 </lay-menu-item>
           <lay-menu-item id="/error/500"> 500 </lay-menu-item>
