@@ -4,8 +4,6 @@
     <lay-side :black="isBlack">
       <lay-logo> </lay-logo>
       <lay-menu
-        level="false"
-        inverted="true"
         v-model:selectedKey="selectKey"
         v-model:openKeys="openKeys"
         :tree="isTree"
@@ -74,9 +72,9 @@
       <!-- content -->
       <lay-body>
         <lay-tab
-          v-model="route.path"
+          :modelValue="route.path"
           @change="change"
-          allowClose="true"
+          :allowClose="allowClose"
           @close="close"
         >
           <lay-tab-item
@@ -121,9 +119,11 @@ export default {
     watch(selectKey, () => {
       router.push(selectKey.value);
     });
-
+    
     const change = function (id) {
       selectKey.value = id;
+
+      alert(id);
       router.push(id);
     };
 
@@ -154,7 +154,7 @@ export default {
         }
       });
       if (!bool) {
-        tabs.value.push({ id: route.path, title: route.meta.title });
+        tabs.value.push({ id: route.fullPath, title: route.meta.title });
       }
     });
 

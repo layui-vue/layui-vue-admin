@@ -14,12 +14,12 @@
   dependencies:
     vue "^3.2.23"
 
-"@layui/icons-vue@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@layui/icons-vue/-/icons-vue-1.0.3.tgz#bd655ce8c75baa6ab3ad9547116e12f76555a570"
-  integrity sha512-8VZIivait+003D3RuQb8FlYC9qepx1uEqguhTwsgR91bDDrNRgaLmHPUTE3TfaNFIm6T/TYfDfSh+N8ROLzV1g==
+"@layui/icons-vue@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@layui/icons-vue/-/icons-vue-1.0.4.tgz#3a0d1da21e77525980cfbbf5621ab0eb7eeb2cfd"
+  integrity sha512-CxaW/OPkleX6wkvGIOOCdwtCpjZBu8pjo90mVrJFmDhLuDu7Z+TCXo2rFsHJoag7TzKKR+VXbD6+Nc7Ja1g20w==
   dependencies:
-    vue "^3.2.27"
+    vue "^3.2.29"
 
 "@layui/layer-vue@^1.3.3":
   version "1.3.3"
@@ -28,13 +28,13 @@
   dependencies:
     vue "^3.2.29"
 
-"@layui/layui-vue@^0.3.7-alpha.1":
-  version "0.3.7-alpha.1"
-  resolved "https://registry.yarnpkg.com/@layui/layui-vue/-/layui-vue-0.3.7-alpha.1.tgz#748f8243e43572642d444b4ae524981fad74b401"
-  integrity sha512-DIfTZrRL/8geiCxX1ifxS3N0ckbb/PXIIOXTwIEoIyXLZXaHvKl28yUtgqBopDp4DSGToqAGVMEEChuaN5Zozg==
+"@layui/layui-vue@^0.3.7":
+  version "0.3.7"
+  resolved "https://registry.yarnpkg.com/@layui/layui-vue/-/layui-vue-0.3.7.tgz#07f2c5be9a063ee65f82a31e84a8c1a3908a95db"
+  integrity sha512-3yCvkMo1PjKDUzQvWHoPgG7NsNrg73W8WaeCbo2RKPDpRas7tEbwPHy+FGNElWHlF9Zonc3AhFM8JO9xyDNNfw==
   dependencies:
     "@layui/hooks-vue" "^0.1.6"
-    "@layui/icons-vue" "^1.0.3"
+    "@layui/icons-vue" "^1.0.4"
     "@layui/layer-vue" "^1.3.3"
     async-validator "^4.0.7"
     countup.js "^2.0.8"
@@ -57,16 +57,6 @@
     estree-walker "^2.0.2"
     source-map "^0.6.1"
 
-"@vue/compiler-core@3.2.27":
-  version "3.2.27"
-  resolved "https://registry.yarnpkg.com/@vue/compiler-core/-/compiler-core-3.2.27.tgz#01bd5e5071f58f43e4184ba7fa810226799a5383"
-  integrity sha512-JyxAglSM/pb9paG5ZNuKrf5IUpzLzQA3khjWGF9oESELCLQlt6O3YyPMR2A69wIpYWrf5mScZ8YY8TJKOI/1kQ==
-  dependencies:
-    "@babel/parser" "^7.16.4"
-    "@vue/shared" "3.2.27"
-    estree-walker "^2.0.2"
-    source-map "^0.6.1"
-
 "@vue/compiler-core@3.2.29":
   version "3.2.29"
   resolved "https://registry.yarnpkg.com/@vue/compiler-core/-/compiler-core-3.2.29.tgz#b06097ab8ff0493177c68c5ea5b63d379a061097"
@@ -84,14 +74,6 @@
   dependencies:
     "@vue/compiler-core" "3.2.26"
     "@vue/shared" "3.2.26"
-
-"@vue/compiler-dom@3.2.27":
-  version "3.2.27"
-  resolved "https://registry.yarnpkg.com/@vue/compiler-dom/-/compiler-dom-3.2.27.tgz#a12163e3f3f1d5ff1969253eba4b4ea3e67bbd0f"
-  integrity sha512-NyQ7nEbopUBPUMHM4c3FPCbFbnQwptoPjW5Y5qfJ7hfiCNhOuhQsDNqi5JYKBxfpxiFNwjcN9F8t1AsnLrDloQ==
-  dependencies:
-    "@vue/compiler-core" "3.2.27"
-    "@vue/shared" "3.2.27"
 
 "@vue/compiler-dom@3.2.29":
   version "3.2.29"
@@ -112,22 +94,6 @@
     "@vue/compiler-ssr" "3.2.26"
     "@vue/reactivity-transform" "3.2.26"
     "@vue/shared" "3.2.26"
-    estree-walker "^2.0.2"
-    magic-string "^0.25.7"
-    postcss "^8.1.10"
-    source-map "^0.6.1"
-
-"@vue/compiler-sfc@3.2.27":
-  version "3.2.27"
-  resolved "https://registry.yarnpkg.com/@vue/compiler-sfc/-/compiler-sfc-3.2.27.tgz#43bf23fe24feacba334636fa7a332f9d8a532c8c"
-  integrity sha512-WyecUhLN5UAQAr2QlmG2nA56OEnhZJaBnSw0G1tazb9rwDuK0V9tnbIXbQgmQlx+x4sJxgg61yWGcIXfilTl3A==
-  dependencies:
-    "@babel/parser" "^7.16.4"
-    "@vue/compiler-core" "3.2.27"
-    "@vue/compiler-dom" "3.2.27"
-    "@vue/compiler-ssr" "3.2.27"
-    "@vue/reactivity-transform" "3.2.27"
-    "@vue/shared" "3.2.27"
     estree-walker "^2.0.2"
     magic-string "^0.25.7"
     postcss "^8.1.10"
@@ -157,14 +123,6 @@
     "@vue/compiler-dom" "3.2.26"
     "@vue/shared" "3.2.26"
 
-"@vue/compiler-ssr@3.2.27":
-  version "3.2.27"
-  resolved "https://registry.yarnpkg.com/@vue/compiler-ssr/-/compiler-ssr-3.2.27.tgz#49aa3afd1602275aba3c3e331764984111a460bf"
-  integrity sha512-+l09t319iV7HVSrXfBw9OLwMZIPOFTXmHjZ61Bc5ZcwKqOYAR4uTurKpoXAfcSc5qs/q6WdE9jY3nrP0LUEMQQ==
-  dependencies:
-    "@vue/compiler-dom" "3.2.27"
-    "@vue/shared" "3.2.27"
-
 "@vue/compiler-ssr@3.2.29":
   version "3.2.29"
   resolved "https://registry.yarnpkg.com/@vue/compiler-ssr/-/compiler-ssr-3.2.29.tgz#37b15b32dcd2f6b410bb61fca3f37b1a92b7eb1e"
@@ -189,17 +147,6 @@
     estree-walker "^2.0.2"
     magic-string "^0.25.7"
 
-"@vue/reactivity-transform@3.2.27":
-  version "3.2.27"
-  resolved "https://registry.yarnpkg.com/@vue/reactivity-transform/-/reactivity-transform-3.2.27.tgz#610b6df174cdceba6de1376f3218736c3b0e753d"
-  integrity sha512-67//61ObGxGnVrPhjygocb24eYUh+TFMhkm7szm8v5XdKXjkNl7qgIOflwGvUnwuIRJmr9nZ7+PvY0fL+H2upA==
-  dependencies:
-    "@babel/parser" "^7.16.4"
-    "@vue/compiler-core" "3.2.27"
-    "@vue/shared" "3.2.27"
-    estree-walker "^2.0.2"
-    magic-string "^0.25.7"
-
 "@vue/reactivity-transform@3.2.29":
   version "3.2.29"
   resolved "https://registry.yarnpkg.com/@vue/reactivity-transform/-/reactivity-transform-3.2.29.tgz#a08d606e10016b7cf588d1a43dae4db2953f9354"
@@ -218,13 +165,6 @@
   dependencies:
     "@vue/shared" "3.2.26"
 
-"@vue/reactivity@3.2.27":
-  version "3.2.27"
-  resolved "https://registry.yarnpkg.com/@vue/reactivity/-/reactivity-3.2.27.tgz#db7c4eefded938a8974e768b7b8f9ff4fad34a62"
-  integrity sha512-QPfIQEJidRGIu/mPexhcB4csp1LEg2Nr+/QE72MnXs/OYDtFErhC9FxIyymkxp/xvAgL5wsnSOuDD6zWF42vRQ==
-  dependencies:
-    "@vue/shared" "3.2.27"
-
 "@vue/reactivity@3.2.29":
   version "3.2.29"
   resolved "https://registry.yarnpkg.com/@vue/reactivity/-/reactivity-3.2.29.tgz#afdc9c111d4139b14600be17ad80267212af6052"
@@ -239,14 +179,6 @@
   dependencies:
     "@vue/reactivity" "3.2.26"
     "@vue/shared" "3.2.26"
-
-"@vue/runtime-core@3.2.27":
-  version "3.2.27"
-  resolved "https://registry.yarnpkg.com/@vue/runtime-core/-/runtime-core-3.2.27.tgz#1ea8acd30071f44bcf3915b088ff5d993a9d3154"
-  integrity sha512-NJrjuViHJyrT4bwIocbE4XDaDlA1Pj61pQlneZZdFEvgdMLlhzCCiJ4WZnWcohYQeisUAZjEFKK8GjQieDPFbw==
-  dependencies:
-    "@vue/reactivity" "3.2.27"
-    "@vue/shared" "3.2.27"
 
 "@vue/runtime-core@3.2.29":
   version "3.2.29"
@@ -263,15 +195,6 @@
   dependencies:
     "@vue/runtime-core" "3.2.26"
     "@vue/shared" "3.2.26"
-    csstype "^2.6.8"
-
-"@vue/runtime-dom@3.2.27":
-  version "3.2.27"
-  resolved "https://registry.yarnpkg.com/@vue/runtime-dom/-/runtime-dom-3.2.27.tgz#d13f9f5f27815041f5e9f493d77121955e3f7166"
-  integrity sha512-tlnKkvBSkV7MPUp/wRFsYcv67U1rUeZTPfpPzq5Kpmw5NNGkY6J075fFBH2k0MNxDucXS+qfStNrxAyGTUMkSA==
-  dependencies:
-    "@vue/runtime-core" "3.2.27"
-    "@vue/shared" "3.2.27"
     csstype "^2.6.8"
 
 "@vue/runtime-dom@3.2.29":
@@ -291,14 +214,6 @@
     "@vue/compiler-ssr" "3.2.26"
     "@vue/shared" "3.2.26"
 
-"@vue/server-renderer@3.2.27":
-  version "3.2.27"
-  resolved "https://registry.yarnpkg.com/@vue/server-renderer/-/server-renderer-3.2.27.tgz#a0caee0f7571fa741e4efaa72951a1cd70d61551"
-  integrity sha512-dZnzkFCDe6A/GIe/F1LcG6lWpprHVh62DjTv8wubtkHwfJWOmOeHp+KvPDRrswL/L3ghsm+E31xY+pvkgM3pbQ==
-  dependencies:
-    "@vue/compiler-ssr" "3.2.27"
-    "@vue/shared" "3.2.27"
-
 "@vue/server-renderer@3.2.29":
   version "3.2.29"
   resolved "https://registry.yarnpkg.com/@vue/server-renderer/-/server-renderer-3.2.29.tgz#ea6afa361b9c781a868c8da18c761f9b7bc89102"
@@ -311,11 +226,6 @@
   version "3.2.26"
   resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.2.26.tgz#7acd1621783571b9a82eca1f041b4a0a983481d9"
   integrity sha512-vPV6Cq+NIWbH5pZu+V+2QHE9y1qfuTq49uNWw4f7FDEeZaDU2H2cx5jcUZOAKW7qTrUS4k6qZPbMy1x4N96nbA==
-
-"@vue/shared@3.2.27":
-  version "3.2.27"
-  resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.2.27.tgz#d5c6e574ee1afd55043470bf70b15772da4e19a2"
-  integrity sha512-rpAn9k6O08Lvo7ekBIAnkOukX/4EsEQLPrRJBKhIEasMsOI5eX0f6mq1sDUSY7cgAqWw2d7QtP74CWxdXoyKxA==
 
 "@vue/shared@3.2.29":
   version "3.2.29"
@@ -812,17 +722,6 @@ vue@^3.2.23:
     "@vue/runtime-dom" "3.2.26"
     "@vue/server-renderer" "3.2.26"
     "@vue/shared" "3.2.26"
-
-vue@^3.2.27:
-  version "3.2.27"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-3.2.27.tgz#dc898b3cf7393a620ed5e4a91e5fa8c1ed1ba67a"
-  integrity sha512-p1cH8Q6eaPwvANCjFQj497a914cxXKKwOG3Lg9USddTOrn4/zFMKjn9dnovkx+L8VtFaNgbVqW8mLJS/eTA6xw==
-  dependencies:
-    "@vue/compiler-dom" "3.2.27"
-    "@vue/compiler-sfc" "3.2.27"
-    "@vue/runtime-dom" "3.2.27"
-    "@vue/server-renderer" "3.2.27"
-    "@vue/shared" "3.2.27"
 
 vue@^3.2.29:
   version "3.2.29"
