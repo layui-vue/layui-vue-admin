@@ -168,6 +168,7 @@ export default {
       selectKey,
       collapse,
       openKeys,
+      refresh,
       isBlack,
       visible,
       isTree,
