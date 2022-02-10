@@ -1,5 +1,6 @@
 <template>
-  <lay-layout :class="[collapseState ? 'collapse' : '']">
+  <lay-config-provider :themeVariable="themeVariable">
+    <lay-layout :class="[collapseState ? 'collapse' : '']">
     <!-- side -->
     <lay-side :black="isBlack">
       <lay-logo> </lay-logo>
@@ -92,6 +93,7 @@
     </lay-layout>
   </lay-layout>
   <lay-layer title="更多设置" type="drawer" v-model="visible"></lay-layer>
+  </lay-config-provider>
 </template>
 <script>
 import { ref, watch } from "vue";
@@ -159,11 +161,16 @@ export default {
       }
     });
 
+    const themeVariable = {
+      "--global-primary-color":"#2d8cf0",
+      "--global-checked-color":"#2d8cf0"
+    }
     // return instance
     return {
       changeVisible,
       isRouterAlive,
       collapseState,
+      themeVariable,
       allowClose,
       selectKey,
       collapse,

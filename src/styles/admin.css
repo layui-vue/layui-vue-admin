@@ -1,3 +1,7 @@
+.lay-config-provider {
+  height: 100%;
+}
+
 .layui-logo {
   width: 100%;
   font-size: 20px;
@@ -22,9 +26,6 @@
   font-size: 13.5px;
   line-height: 43px;
   border-right: 1px solid whitesmoke;
-}
-.layui-body > .layui-tab > .layui-tab-title > li.layui-this {
-  color: #5fb878;
 }
 .layui-body > .layui-tab > .layui-tab-title > li.layui-this::after {
   border: none;
