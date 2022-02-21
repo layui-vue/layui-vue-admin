@@ -84,10 +84,10 @@
   dependencies:
     vue "^3.2.31"
 
-"@layui/layui-vue@^0.3.8-alpha.7":
-  version "0.3.8-alpha.7"
-  resolved "https://registry.yarnpkg.com/@layui/layui-vue/-/layui-vue-0.3.8-alpha.7.tgz#4fbc9abf6949c42a37dfe35555e28f93dede04af"
-  integrity sha512-ixpqUp+HFU65awEkEaqCDZIy1n1U0/FQuYgbI7goKGlIMCx4El3D4rBwTKF9eizUaKBRcKMbD3zmYUBfN6r2ZA==
+"@layui/layui-vue@^0.3.8":
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/@layui/layui-vue/-/layui-vue-0.3.8.tgz#34d3dc7da01815efea83233da65cdfdcac7b3bf8"
+  integrity sha512-QSHikt5jBtY9xBF4xZP7R0M+AZq/uHpPAD43CnBziRjnjlUuXDCuLVVk3l86HIB7YXmPxCOWrxtrrARYob2mKQ==
   dependencies:
     "@layui/hooks-vue" "^0.1.7"
     "@layui/icons-vue" "^1.0.7"

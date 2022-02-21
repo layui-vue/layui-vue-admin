@@ -1,5 +1,7 @@
 <template>
-  <lay-config-provider :themeVariable="themeVariable">
+  <lay-config-provider
+    :themeVariable="themeVariable"
+  >
     <lay-layout :class="[collapseState ? 'collapse' : '']">
       <!-- side -->
       <lay-side :black="isBlack">
@@ -90,9 +92,20 @@
       </lay-layout>
     </lay-layout>
     <lay-layer title="更多设置" type="drawer" area="360px" v-model="visible">
-      {{ themeVariable }}
       <lay-color-picker
         v-model="themeVariable['--global-primary-color']"
+      ></lay-color-picker>
+            <lay-color-picker
+        v-model="themeVariable['--global-normal-color']"
+      ></lay-color-picker>
+            <lay-color-picker
+        v-model="themeVariable['--global-warm-color']"
+      ></lay-color-picker>
+            <lay-color-picker
+        v-model="themeVariable['--global-danger-color']"
+      ></lay-color-picker>
+            <lay-color-picker
+        v-model="themeVariable['--global-checked-color']"
       ></lay-color-picker>
     </lay-layer>
   </lay-config-provider>
@@ -161,13 +174,12 @@ export default {
       }
     });
 
-    const themeVariable = reactive({
-      "--global-primary-color": "#1e9fff",
+    const themeVariable = ref({
+      "--global-primary-color": "#009688",
       "--global-normal-color": "#1e9fff",
       "--global-warm-color": "#ffb800",
       "--global-danger-color": "#ff5722",
-      "--global-checked-color": "#5fb878",
-      "--global-border-radius": "2px",
+      "--global-checked-color": "#5fb878"
     });
 
     // return instance
