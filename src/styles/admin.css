@@ -59,16 +59,16 @@
 }
 
 .layui-layout.collapse .layui-logo {
-  width: 0px;
+  width: 60px;
 }
 .layui-layout.collapse .layui-side {
-  width: 0px !important;
+  width: 60px !important;
 }
 .layui-layout.collapse .layui-body {
-  left: 0px;
+  left: 60px;
 }
 .layui-layout.collapse .layui-header .layui-layout-left {
-  left: 0px;
+  left: 60px;
 }
 .layui-layout .layui-logo,
 .layui-layout .layui-side,

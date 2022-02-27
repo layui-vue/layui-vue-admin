@@ -6,7 +6,4 @@ import './styles/index.css'
 import App from './App.vue'
 import Router from './router'
 
-createApp(App)
-.use(Layui)
-.use(Router)
-.mount('#app')
+createApp(App).use(Layui).use(Router).mount('#app');
