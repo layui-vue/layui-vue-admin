@@ -3,7 +3,9 @@
     <lay-layout :class="[collapseState ? 'collapse' : '']">
       <!-- side -->
       <lay-side :black="isBlack">
-        <lay-logo> </lay-logo>
+        <lay-logo>
+            <img src="https://portrait.gitee.com/uploads/avatars/namespace/2849/8547475_layui-vue_1645856954.png" />
+        </lay-logo>
         <CScrollbar style="height: calc(100% - 62px)">
           <lay-menu
             v-model:selectedKey="selectKey"
