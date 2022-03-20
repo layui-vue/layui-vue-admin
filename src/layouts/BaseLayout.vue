@@ -6,7 +6,7 @@
         <lay-logo>
             <img src="https://portrait.gitee.com/uploads/avatars/namespace/2849/8547475_layui-vue_1645856954.png" />
         </lay-logo>
-        <CScrollbar style="height: calc(100% - 62px)">
+        <LayScroll scrollColor="transparent" style="height: calc(100% - 62px)">
           <lay-menu
             v-model:selectedKey="selectKey"
             v-model:openKeys="openKeys"
@@ -98,7 +98,7 @@
               </lay-menu-item>
             </lay-sub-menu>
           </lay-menu>
-        </CScrollbar>
+        </LayScroll>
       </lay-side>
       <lay-layout>
         <!-- header -->
@@ -180,13 +180,9 @@
   </lay-config-provider>
 </template>
 <script>
-import { onMounted, reactive, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { CScrollbar } from "c-scrollbar";
 export default {
-  components: {
-    CScrollbar,
-  },
   setup() {
     // router instance
     const router = useRouter();
