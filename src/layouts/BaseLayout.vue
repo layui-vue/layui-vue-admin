@@ -127,8 +127,10 @@
                 <lay-icon type="layui-icon-username"></lay-icon>
               </lay-menu-item>
               <template #content>
-                <lay-dropdown-item>用户信息</lay-dropdown-item>
-                <lay-dropdown-item>注销登录</lay-dropdown-item>
+                <lay-dropdown-menu>
+                  <lay-dropdown-menu-item>用户信息</lay-dropdown-menu-item>
+                  <lay-dropdown-menu-item>注销登录</lay-dropdown-menu-item>
+                </lay-dropdown-menu>
               </template>
             </lay-dropdown>
 
