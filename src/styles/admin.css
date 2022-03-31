@@ -22,17 +22,21 @@
 .layui-body > .layui-tab > .layui-tab-content {
   padding: 0px;
 }
-.layui-body > .layui-tab > .layui-tab-title {
+.layui-body > .layui-tab > .layui-tab-head {
+  width: 100%;
+}
+.layui-body > .layui-tab > .layui-tab-head > .layui-tab-title {
   border: 1px solid whitesmoke;
   background-color: white;
+  border-left: none;
 }
-.layui-body > .layui-tab > .layui-tab-title > li {
+.layui-body > .layui-tab > .layui-tab-head > .layui-tab-title > li {
   color: dimgray;
   font-size: 13.5px;
-  line-height: 43px;
+  line-height: 41px;
   border-right: 1px solid whitesmoke;
 }
-.layui-body > .layui-tab > .layui-tab-title > li.layui-this::after {
+.layui-body > .layui-tab > .layui-tab-head > .layui-tab-title > li.layui-this::after {
   border: none;
 }
 
@@ -55,12 +59,13 @@
 
 .layui-side {
   z-index: 9999;
-  background: #393d49;
-  width: 250px !important;
+  width: 230px !important;
+  background: rgb(34, 36, 37, 98%);
   box-shadow: 2px 0 6px rgb(0 21 41 / 35%);
 }
 .layui-side .layui-nav {
   width: 100%;
+  background-color: transparent;
 }
 
 .layui-layout.collapse .layui-logo {

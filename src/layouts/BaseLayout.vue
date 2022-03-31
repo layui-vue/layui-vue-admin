@@ -1,11 +1,9 @@
 <template>
-  <lay-config-provider :themeVariable="themeVariable">
+  <lay-config-provider :themeVariable="themeVariable" :theme="theme">
     <lay-layout :class="[collapseState ? 'collapse' : '']">
       <!-- side -->
       <lay-side :black="isBlack">
-        <lay-logo>
-            <img src="https://portrait.gitee.com/uploads/avatars/namespace/2849/8547475_layui-vue_1645856954.png" />
-        </lay-logo>
+        <lay-logo></lay-logo>
         <LayScroll scrollColor="transparent" style="height: calc(100% - 62px)">
           <lay-menu
             v-model:selectedKey="selectKey"
@@ -116,6 +114,69 @@
             </lay-menu-item>
           </lay-menu>
           <lay-menu class="layui-layout-right">
+             <li class="layui-nav-item">
+            <a href="javascript:void(0)">
+              <lay-switch
+                class="switch"
+                v-model="isDark"
+                onswitch-color="rgba(255, 255, 255, 0.05)"
+                unswitch-color="rgba(255, 255, 255, 0.05)"
+              >
+                <template #onswitch-icon>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="rgba(60, 60, 60, .7)"
+                    aria-hidden="true"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                    class="vt-switch-appearance-moon"
+                  >
+                    <path
+                      d="M12.1,22c-0.3,0-0.6,0-0.9,0c-5.5-0.5-9.5-5.4-9-10.9c0.4-4.8,4.2-8.6,9-9c0.4,0,0.8,0.2,1,0.5c0.2,0.3,0.2,0.8-0.1,1.1c-2,2.7-1.4,6.4,1.3,8.4c2.1,1.6,5,1.6,7.1,0c0.3-0.2,0.7-0.3,1.1-0.1c0.3,0.2,0.5,0.6,0.5,1c-0.2,2.7-1.5,5.1-3.6,6.8C16.6,21.2,14.4,22,12.1,22zM9.3,4.4c-2.9,1-5,3.6-5.2,6.8c-0.4,4.4,2.8,8.3,7.2,8.7c2.1,0.2,4.2-0.4,5.8-1.8c1.1-0.9,1.9-2.1,2.4-3.4c-2.5,0.9-5.3,0.5-7.5-1.1C9.2,11.4,8.1,7.7,9.3,4.4z"
+                    ></path>
+                  </svg>
+                </template>
+                <template #unswitch-icon>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="rgba(60, 60, 60, .7)"
+                    aria-hidden="true"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                    class="vt-switch-appearance-sun"
+                  >
+                    <path
+                      d="M12,18c-3.3,0-6-2.7-6-6s2.7-6,6-6s6,2.7,6,6S15.3,18,12,18zM12,8c-2.2,0-4,1.8-4,4c0,2.2,1.8,4,4,4c2.2,0,4-1.8,4-4C16,9.8,14.2,8,12,8z"
+                    ></path>
+                    <path
+                      d="M12,4c-0.6,0-1-0.4-1-1V1c0-0.6,0.4-1,1-1s1,0.4,1,1v2C13,3.6,12.6,4,12,4z"
+                    ></path>
+                    <path
+                      d="M12,24c-0.6,0-1-0.4-1-1v-2c0-0.6,0.4-1,1-1s1,0.4,1,1v2C13,23.6,12.6,24,12,24z"
+                    ></path>
+                    <path
+                      d="M5.6,6.6c-0.3,0-0.5-0.1-0.7-0.3L3.5,4.9c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l1.4,1.4c0.4,0.4,0.4,1,0,1.4C6.2,6.5,5.9,6.6,5.6,6.6z"
+                    ></path>
+                    <path
+                      d="M19.8,20.8c-0.3,0-0.5-0.1-0.7-0.3l-1.4-1.4c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l1.4,1.4c0.4,0.4,0.4,1,0,1.4C20.3,20.7,20,20.8,19.8,20.8z"
+                    ></path>
+                    <path
+                      d="M3,13H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h2c0.6,0,1,0.4,1,1S3.6,13,3,13z"
+                    ></path>
+                    <path
+                      d="M23,13h-2c-0.6,0-1-0.4-1-1s0.4-1,1-1h2c0.6,0,1,0.4,1,1S23.6,13,23,13z"
+                    ></path>
+                    <path
+                      d="M4.2,20.8c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l1.4-1.4c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-1.4,1.4C4.7,20.7,4.5,20.8,4.2,20.8z"
+                    ></path>
+                    <path
+                      d="M18.4,6.6c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l1.4-1.4c0.4-0.4,1-0.4,1.4,0s0.4,1,0,1.4l-1.4,1.4C18.9,6.5,18.6,6.6,18.4,6.6z"
+                    ></path>
+                  </svg>
+                </template>
+              </lay-switch>
+            </a>
+          </li>
             <lay-dropdown>
               <lay-menu-item>
                 <lay-icon type="layui-icon-notice"></lay-icon>
@@ -199,6 +260,8 @@ export default {
     const isRouterAlive = ref(true);
     const allowClose = ref(true);
     const visible = ref(false);
+    const theme = ref('light');
+    const isDark = ref(false);
     const tabs = ref([{ title: "首页", id: "/console", closable: false }]);
 
     const changeVisible = function () {
@@ -245,6 +308,14 @@ export default {
       }
     });
 
+    watch(isDark, () => {
+      if(isDark.value) {
+        theme.value = 'dark';
+      } else {
+        theme.value = 'light';
+      }
+    })
+
     const themeVariable = ref({
       "--global-primary-color": "#009688",
       "--global-normal-color": "#1e9fff",
@@ -267,7 +338,9 @@ export default {
       isBlack,
       visible,
       isTree,
+      isDark,
       change,
+      theme,
       close,
       route,
       tabs,
@@ -275,3 +348,18 @@ export default {
   },
 };
 </script>
+
+<style>
+.layui-layout .layui-header .layui-form-switch {
+  border: 1px solid rgba(60, 60, 60, .29);
+  background-color: #f1f1f1!important;
+  margin-top: -8px;
+}
+.layui-layout .layui-header .layui-form-switch svg {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  top: 3px;
+  left: 3px;
+}
+</style>
