@@ -1,18 +1,15 @@
 .lay-config-provider {
   height: 100%;
 }
-
 .layui-logo {
   width: 100%;
   font-size: 20px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
-
 .layui-logo img {
   width: 50px;
   height: 50px;
 }
-
 .layui-body {
   background-color: whitesmoke;
 }
@@ -39,12 +36,11 @@
 .layui-body > .layui-tab > .layui-tab-head > .layui-tab-title > li.layui-this::after {
   border: none;
 }
-
 .layui-header {
   background: white;
 }
 .layui-header .layui-nav {
-  background: white;
+  background: transparent;
 }
 .layui-header .layui-nav.layui-layout-left {
   left: 0 !important ;
@@ -56,7 +52,6 @@
 .layui-header .layui-nav .layui-nav-item > a {
   padding: 0px 24px;
 }
-
 .layui-side {
   z-index: 9999;
   width: 230px !important;
