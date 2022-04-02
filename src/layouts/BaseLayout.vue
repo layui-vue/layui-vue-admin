@@ -4,98 +4,8 @@
       <!-- side -->
       <lay-side>
         <lay-logo></lay-logo>
-        <lay-scroll scrollColor="transparent" style="height: calc(100% - 62px)">
-          <lay-menu
-            v-model:selectedKey="selectKey"
-            v-model:openKeys="openKeys"
-            :collapse="collapseState"
-            :tree="isTree"
-          >
-            <lay-sub-menu id="0">
-              <template #icon>
-                <lay-icon type="layui-icon-home"></lay-icon>
-              </template>
-              <template #title> 工作空间 </template>
-              <lay-menu-item id="/console">
-                <template #icon>
-                  <lay-icon type="layui-icon-home"></lay-icon>
-                </template>
-                <template #title> 工作台 </template>
-              </lay-menu-item>
-              <lay-menu-item id="/analysis">
-                <template #icon>
-                  <lay-icon type="layui-icon-home"></lay-icon>
-                </template>
-                <template #title> 控制台 </template>
-              </lay-menu-item>
-            </lay-sub-menu>
-            <lay-sub-menu id="1">
-              <template #icon>
-                <lay-icon type="layui-icon-home"></lay-icon>
-              </template>
-              <template #title> 错误页面 </template>
-              <lay-menu-item id="/error/401">
-                <template #icon>
-                  <lay-icon type="layui-icon-home"></lay-icon>
-                </template>
-                <template #title> 401 </template>
-              </lay-menu-item>
-              <lay-menu-item id="/error/403">
-                <template #icon>
-                  <lay-icon type="layui-icon-home"></lay-icon>
-                </template>
-                <template #title> 403 </template>
-              </lay-menu-item>
-              <lay-menu-item id="/error/404">
-                <template #icon>
-                  <lay-icon type="layui-icon-home"></lay-icon>
-                </template>
-                <template #title> 404 </template>
-              </lay-menu-item>
-              <lay-menu-item id="/error/500">
-                <template #icon>
-                  <lay-icon type="layui-icon-home"></lay-icon>
-                </template>
-                <template #title> 500 </template>
-              </lay-menu-item>
-            </lay-sub-menu>
-            <lay-sub-menu id="2">
-              <template #icon>
-                <lay-icon type="layui-icon-home"></lay-icon>
-              </template>
-              <template #title> 系统管理 </template>
-              <lay-menu-item id="/system/user">
-                <template #icon>
-                  <lay-icon type="layui-icon-home"></lay-icon>
-                </template>
-                <template #title> 用户管理 </template>
-              </lay-menu-item>
-              <lay-menu-item id="/system/role">
-                <template #icon>
-                  <lay-icon type="layui-icon-home"></lay-icon>
-                </template>
-                <template #title> 角色管理 </template>
-              </lay-menu-item>
-            </lay-sub-menu>
-            <lay-sub-menu id="3">
-              <template #icon>
-                <lay-icon type="layui-icon-home"></lay-icon>
-              </template>
-              <template #title> 结果页面 </template>
-              <lay-menu-item id="/result/success">
-                <template #icon>
-                  <lay-icon type="layui-icon-home"></lay-icon>
-                </template>
-                <template #title> 成功页面 </template>
-              </lay-menu-item>
-              <lay-menu-item id="/result/failure">
-                <template #icon>
-                  <lay-icon type="layui-icon-home"></lay-icon>
-                </template>
-                <template #title> 失败页面 </template>
-              </lay-menu-item>
-            </lay-sub-menu>
-          </lay-menu>
+        <lay-scroll style="height: calc(100% - 62px)">
+          <GlobalMenu :collapse="collapseState"></GlobalMenu>
         </lay-scroll>
       </lay-side>
       <lay-layout>
@@ -172,43 +82,30 @@
 import { ref, watch } from "vue";
 import DarkIcon from "../components/DarkIcon.vue"
 import LightIcon from "../components/LightIcon.vue"
-import { useRoute, useRouter } from "vue-router";
 import { useAppStore } from "../store/app";
 import GlobalSetup from "./Global/GlobalSetup.vue";
 import GlobalContent from "./Global/GlobalContent.vue";
 import GlobalTab from "./Global/GlobalTab.vue";
+import GlobalMenu from "./Global/GlobalMenu.vue";
 
 export default {
   components: {
     GlobalSetup,
     GlobalContent,
     GlobalTab,
+    GlobalMenu,
     DarkIcon,
     LightIcon
   },
   setup() {
 
-    const router = useRouter();
-    const route = useRoute();
     const appStore = useAppStore();
-
-    const isTree = ref(true);
-    const openKeys = ref(["0"]);
-    const selectKey = ref(route.path);
     const collapseState = ref(false);
     const visible = ref(false);
 
     const changeVisible = function () {
       visible.value = !visible.value;
     };
-
-    watch(route, (val) => {
-      selectKey.value = route.path;
-    });
-
-    watch(selectKey, (val) => {
-      router.push(val)
-    })
 
     // 侧边状态
     const collapse = function () {
@@ -227,14 +124,10 @@ export default {
     return {
       changeVisible,
       collapseState,
-      selectKey,
       collapse,
       appStore,
-      openKeys,
       refresh,
-      visible,
-      isTree,
-      route,
+      visible
     };
   },
 };
