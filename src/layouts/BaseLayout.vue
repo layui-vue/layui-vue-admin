@@ -159,21 +159,7 @@
         </lay-header>
         <!-- content -->
         <lay-body>
-          <lay-tab
-            v-if="appStore.tab"
-            :modelValue="route.path"
-            @change="change"
-            :allowClose="allowClose"
-            @close="close"
-          >
-            <template :key="tab" v-for="tab in tabs">
-              <lay-tab-item
-                :id="tab.id"
-                :title="tab.title"
-                :closable="tab.closable"
-              ></lay-tab-item>
-            </template>
-          </lay-tab>
+          <GlobalTab></GlobalTab>
           <GlobalContent></GlobalContent>
         </lay-body>
         <lay-footer></lay-footer>
@@ -190,10 +176,13 @@ import { useRoute, useRouter } from "vue-router";
 import { useAppStore } from "../store/app";
 import GlobalSetup from "./Global/GlobalSetup.vue";
 import GlobalContent from "./Global/GlobalContent.vue";
+import GlobalTab from "./Global/GlobalTab.vue";
+
 export default {
   components: {
     GlobalSetup,
     GlobalContent,
+    GlobalTab,
     DarkIcon,
     LightIcon
   },
@@ -207,22 +196,19 @@ export default {
     const openKeys = ref(["0"]);
     const selectKey = ref(route.path);
     const collapseState = ref(false);
-    const allowClose = ref(true);
     const visible = ref(false);
-    const tabs = ref([{ title: "首页", id: "/console", closable: false }]);
 
     const changeVisible = function () {
       visible.value = !visible.value;
     };
 
-    watch(selectKey, () => {
-      router.push(selectKey.value);
+    watch(route, (val) => {
+      selectKey.value = route.path;
     });
 
-    const change = function (id) {
-      selectKey.value = id;
-      router.push(id);
-    };
+    watch(selectKey, (val) => {
+      router.push(val)
+    })
 
     // 侧边状态
     const collapse = function () {
@@ -237,29 +223,10 @@ export default {
       }, 500);
     };
 
-    // 关闭当前
-    const close = function (path) {
-      tabs.value = tabs.value.filter((ele) => ele.id != path);
-    };
-
-    // 路由监听
-    watch(route, function () {
-      let bool = false;
-      tabs.value.forEach((tab) => {
-        if (tab.id === route.path) {
-          bool = true;
-        }
-      });
-      if (!bool) {
-        tabs.value.push({ id: route.fullPath, title: route.meta.title });
-      }
-    });
-
     // return instance
     return {
       changeVisible,
       collapseState,
-      allowClose,
       selectKey,
       collapse,
       appStore,
@@ -267,10 +234,7 @@ export default {
       refresh,
       visible,
       isTree,
-      change,
-      close,
       route,
-      tabs,
     };
   },
 };
