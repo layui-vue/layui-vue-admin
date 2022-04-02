@@ -92,6 +92,12 @@
   </lay-menu>
 </template>
 
+<script lang="ts">
+export default {
+    name: "GlobalMenu"
+}
+</script>
+
 <script lang="ts" setup>
 import { useRoute, useRouter } from "vue-router";
 import { ref, watch } from "vue";

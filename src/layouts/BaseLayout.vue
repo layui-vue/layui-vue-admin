@@ -79,7 +79,7 @@
   </lay-config-provider>
 </template>
 <script>
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import DarkIcon from "../components/DarkIcon.vue"
 import LightIcon from "../components/LightIcon.vue"
 import { useAppStore } from "../store/app";

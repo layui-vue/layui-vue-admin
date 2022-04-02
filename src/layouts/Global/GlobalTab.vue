@@ -16,6 +16,12 @@
   </lay-tab>
 </template>
 
+<script lang="ts">
+export default {
+    name: "GlobalTab"
+}
+</script>
+
 <script lang="ts" setup>
 import { ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";

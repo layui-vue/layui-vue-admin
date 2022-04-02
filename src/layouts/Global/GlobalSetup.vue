@@ -18,6 +18,12 @@
   </lay-layer>
 </template>
 
+<script lang="ts">
+export default {
+    name: "GlobalSetup"
+}
+</script>
+
 <script lang="ts" setup>
 import { useAppStore } from "../../store/app";
 import { ref, watch } from "vue";
