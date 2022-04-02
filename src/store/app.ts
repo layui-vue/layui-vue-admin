@@ -6,6 +6,7 @@ export const useAppStore = defineStore({
   state: () => {
     return {
       tab: true,
+      routerAlive: true,
       theme: 'light',
       themeVariable: {
         "--global-primary-color": "#009688",
@@ -13,7 +14,7 @@ export const useAppStore = defineStore({
         "--global-warm-color": "#ffb800",
         "--global-danger-color": "#ff5722",
         "--global-checked-color": "#5fb878",
-      }
+      },
     }
   },
   getters: {

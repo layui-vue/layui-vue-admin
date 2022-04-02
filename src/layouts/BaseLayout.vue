@@ -174,7 +174,7 @@
               ></lay-tab-item>
             </template>
           </lay-tab>
-          <router-view v-if="isRouterAlive"></router-view>
+          <GlobalContent></GlobalContent>
         </lay-body>
         <lay-footer></lay-footer>
       </lay-layout>
@@ -189,9 +189,11 @@ import LightIcon from "../components/LightIcon.vue"
 import { useRoute, useRouter } from "vue-router";
 import { useAppStore } from "../store/app";
 import GlobalSetup from "./Global/GlobalSetup.vue";
+import GlobalContent from "./Global/GlobalContent.vue";
 export default {
   components: {
     GlobalSetup,
+    GlobalContent,
     DarkIcon,
     LightIcon
   },
@@ -205,7 +207,6 @@ export default {
     const openKeys = ref(["0"]);
     const selectKey = ref(route.path);
     const collapseState = ref(false);
-    const isRouterAlive = ref(true);
     const allowClose = ref(true);
     const visible = ref(false);
     const tabs = ref([{ title: "首页", id: "/console", closable: false }]);
@@ -230,9 +231,9 @@ export default {
 
     // 路由刷新
     const refresh = function () {
-      isRouterAlive.value = false;
+      appStore.routerAlive = false;
       setTimeout(function () {
-        isRouterAlive.value = true;
+        appStore.routerAlive = true;
       }, 500);
     };
 
@@ -257,7 +258,6 @@ export default {
     // return instance
     return {
       changeVisible,
-      isRouterAlive,
       collapseState,
       allowClose,
       selectKey,

@@ -11,7 +11,7 @@
         ></lay-color-picker>
       </template>
       <!-- 其他 -->
-      <global-setup-item label="选项卡">
+      <global-setup-item label="视图">
           <lay-switch v-model="appStore.tab"></lay-switch>
       </global-setup-item>
     </div>

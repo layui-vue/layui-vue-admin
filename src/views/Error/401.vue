@@ -1,5 +1,5 @@
 <template>
-    <lay-card style="padding-top:200px;padding-bottom:200px;">
+    <lay-card style="padding-top:200px;padding-bottom:200px;margin:10px;">
         <lay-exception status="401" title="401">
             <template #extra>
                 <lay-button>刷新</lay-button>
