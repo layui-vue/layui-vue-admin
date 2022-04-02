@@ -73,10 +73,10 @@
     vue "^3.2.31"
     vue-router "^4.0.12"
 
-"@layui/layui-vue@^0.4.5-alpha.5":
-  version "0.4.5-alpha.5"
-  resolved "https://registry.yarnpkg.com/@layui/layui-vue/-/layui-vue-0.4.5-alpha.5.tgz#9beb1685555834f783f8eebda47054347566f6be"
-  integrity sha512-ramZJ64E++/zFVDh8cRfhUz/0mBw0tNhktNxbR+QDuWOrvbHb/o0LRIwj05uuRO68ZNhq2SqXGP31pSUcidGHA==
+"@layui/layui-vue@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@layui/layui-vue/-/layui-vue-1.0.0.tgz#c70b47d3c40dc6a252f2912faa12821119baad20"
+  integrity sha512-o2Y+BvozCPoTC2iOfkDBdRBITajZZrvlpglURBVKlmc3ZduzLWQwBMKAf/MDItd7PB2Ky2cNeYCpe9WXClG4Tg==
   dependencies:
     "@layui/icons-vue" "^1.0.7"
     "@layui/layer-vue" "^1.3.11"

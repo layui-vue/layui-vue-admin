@@ -1,10 +1,10 @@
 <template>
-  <lay-config-provider :themeVariable="themeVariable" :theme="theme">
+  <lay-config-provider :themeVariable="appStore.themeVariable" :theme="appStore.theme">
     <lay-layout :class="[collapseState ? 'collapse' : '']">
       <!-- side -->
-      <lay-side :black="isBlack">
+      <lay-side>
         <lay-logo></lay-logo>
-        <LayScroll scrollColor="transparent" style="height: calc(100% - 62px)">
+        <lay-scroll scrollColor="transparent" style="height: calc(100% - 62px)">
           <lay-menu
             v-model:selectedKey="selectKey"
             v-model:openKeys="openKeys"
@@ -96,7 +96,7 @@
               </lay-menu-item>
             </lay-sub-menu>
           </lay-menu>
-        </LayScroll>
+        </lay-scroll>
       </lay-side>
       <lay-layout>
         <!-- header -->
@@ -118,7 +118,9 @@
               <a href="javascript:void(0)">
                 <lay-switch
                   class="switch"
-                  v-model="isDark"
+                  v-model="appStore.theme"
+                  onswitch-value = "dark"
+                  unswitch-value = "light"
                   onswitch-color="rgba(255, 255, 255, 0.05)"
                   unswitch-color="rgba(255, 255, 255, 0.05)"
                 >
@@ -225,25 +227,25 @@
     </lay-layout>
     <lay-layer title="更多设置" type="drawer" area="360px" v-model="visible">
       <lay-color-picker
-        v-model="themeVariable['--global-primary-color']"
+        v-model="appStore.themeVariable['--global-primary-color']"
       ></lay-color-picker>
       <lay-color-picker
-        v-model="themeVariable['--global-normal-color']"
+        v-model="appStore.themeVariable['--global-normal-color']"
       ></lay-color-picker>
       <lay-color-picker
-        v-model="themeVariable['--global-warm-color']"
+        v-model="appStore.themeVariable['--global-warm-color']"
       ></lay-color-picker>
       <lay-color-picker
-        v-model="themeVariable['--global-danger-color']"
+        v-model="appStore.themeVariable['--global-danger-color']"
       ></lay-color-picker>
       <lay-color-picker
-        v-model="themeVariable['--global-checked-color']"
+        v-model="appStore.themeVariable['--global-checked-color']"
       ></lay-color-picker>
     </lay-layer>
   </lay-config-provider>
 </template>
 <script>
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useAppStore } from "../store/app";
 export default {
@@ -253,15 +255,12 @@ export default {
     const appStore = useAppStore();
 
     const isTree = ref(true);
-    const isBlack = ref(true);
     const openKeys = ref(["0"]);
     const selectKey = ref(route.path);
     const collapseState = ref(false);
     const isRouterAlive = ref(true);
     const allowClose = ref(true);
     const visible = ref(false);
-    const theme = ref("light");
-    const isDark = ref(false);
     const tabs = ref([{ title: "首页", id: "/console", closable: false }]);
 
     const changeVisible = function () {
@@ -308,40 +307,20 @@ export default {
       }
     });
 
-    watch(isDark, () => {
-      if (isDark.value) {
-        theme.value = "dark";
-      } else {
-        theme.value = "light";
-      }
-    });
-
-    const themeVariable = ref({
-      "--global-primary-color": "#009688",
-      "--global-normal-color": "#1e9fff",
-      "--global-warm-color": "#ffb800",
-      "--global-danger-color": "#ff5722",
-      "--global-checked-color": "#5fb878",
-    });
-
     // return instance
     return {
       changeVisible,
       isRouterAlive,
       collapseState,
-      themeVariable,
       allowClose,
       selectKey,
       collapse,
       appStore,
       openKeys,
       refresh,
-      isBlack,
       visible,
       isTree,
-      isDark,
       change,
-      theme,
       close,
       route,
       tabs,
