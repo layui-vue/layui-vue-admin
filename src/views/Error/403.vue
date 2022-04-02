@@ -1,5 +1,5 @@
 <template>
-    <lay-card style="padding-top:200px;padding-bottom:200px;">
+    <lay-card class="error-page">
         <lay-exception status="403" title="403">
             <template #extra>
                 <lay-button>刷新</lay-button>
@@ -8,3 +8,11 @@
         </lay-exception>
     </lay-card>
 </template>
+
+<style>
+.error-page {
+  padding-top: 200px;
+  padding-bottom: 200px;
+  margin: 10px;
+}
+</style>
