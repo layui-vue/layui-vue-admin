@@ -7,6 +7,7 @@ export const useAppStore = defineStore({
     return {
       tab: true,
       level: true,
+      inverted: true,
       routerAlive: true,
       theme: 'light',
       themeVariable: {

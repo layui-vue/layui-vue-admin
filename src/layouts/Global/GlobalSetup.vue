@@ -17,6 +17,9 @@
       <global-setup-item label="菜单层级">
         <lay-switch v-model="appStore.level"></lay-switch>
       </global-setup-item>
+      <global-setup-item label="菜单反选">
+        <lay-switch v-model="appStore.inverted"></lay-switch>
+      </global-setup-item>
     </div>
   </lay-layer>
 </template>

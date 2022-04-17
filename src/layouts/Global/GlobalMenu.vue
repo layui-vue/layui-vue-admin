@@ -5,6 +5,7 @@
     :collapse="collapse"
     :tree="isTree"
     :level="appStore.level"
+    :inverted="appStore.inverted"
   >
     <lay-sub-menu id="0">
       <template #icon>
