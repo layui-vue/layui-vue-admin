@@ -11,8 +11,11 @@
         ></lay-color-picker>
       </template>
       <!-- 其他 -->
-      <global-setup-item label="视图">
-          <lay-switch v-model="appStore.tab"></lay-switch>
+      <global-setup-item label="多选项卡">
+        <lay-switch v-model="appStore.tab"></lay-switch>
+      </global-setup-item>
+      <global-setup-item label="菜单层级">
+        <lay-switch v-model="appStore.level"></lay-switch>
       </global-setup-item>
     </div>
   </lay-layer>
@@ -20,14 +23,14 @@
 
 <script lang="ts">
 export default {
-    name: "GlobalSetup"
-}
+  name: "GlobalSetup",
+};
 </script>
 
 <script lang="ts" setup>
 import { useAppStore } from "../../store/app";
 import { ref, watch } from "vue";
-import globalSetupItem from "./GlobalSetupItem.vue"
+import globalSetupItem from "./GlobalSetupItem.vue";
 
 const appStore = useAppStore();
 

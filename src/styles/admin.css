@@ -30,7 +30,7 @@
 .layui-body > .layui-tab > .layui-tab-head > .layui-tab-title > li {
   color: dimgray;
   font-size: 13.5px;
-  line-height: 41px;
+  line-height: 40px;
   border-right: 1px solid whitesmoke;
 }
 .layui-body > .layui-tab > .layui-tab-head > .layui-tab-title > li.layui-this::after {

@@ -4,6 +4,7 @@
     v-model:openKeys="openKeys"
     :collapse="collapse"
     :tree="isTree"
+    :level="appStore.level"
   >
     <lay-sub-menu id="0">
       <template #icon>
@@ -94,13 +95,16 @@
 
 <script lang="ts">
 export default {
-    name: "GlobalMenu"
-}
+  name: "GlobalMenu",
+};
 </script>
 
 <script lang="ts" setup>
 import { useRoute, useRouter } from "vue-router";
 import { ref, watch } from "vue";
+import { useAppStore } from "../../store/app";
+
+const appStore = useAppStore();
 
 interface MenuProps {
   collapse: boolean;
