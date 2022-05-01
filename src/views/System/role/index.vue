@@ -3,6 +3,7 @@
     <lay-row space="10">
       <lay-col span="24">
         <lay-card>
+          {{ selectedKeys }}
           <lay-table
             :columns="columns"
             id="id"

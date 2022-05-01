@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 export default {
   setup() {
@@ -80,6 +80,10 @@ export default {
     const rowDoubleClick = function (data) {
       console.log(JSON.stringify(data));
     };
+
+    watch(selectedKeys, () => {
+      console.log("打印")
+    })
 
     return {
       columns,
