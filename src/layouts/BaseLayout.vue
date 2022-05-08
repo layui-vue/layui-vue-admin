@@ -2,7 +2,7 @@
   <lay-config-provider :themeVariable="appStore.themeVariable" :theme="appStore.theme">
     <lay-layout :class="[collapseState ? 'collapse' : '']">
       <!-- side -->
-      <lay-side>
+      <lay-side :width="sideWidth">
         <lay-logo></lay-logo>
         <lay-scroll style="height: calc(100% - 62px)">
           <GlobalMenu :collapse="collapseState"></GlobalMenu>
@@ -102,6 +102,7 @@ export default {
     const appStore = useAppStore();
     const collapseState = ref(false);
     const visible = ref(false);
+    const sideWidth = ref("230px");
 
     const changeVisible = function () {
       visible.value = !visible.value;
@@ -110,6 +111,7 @@ export default {
     // 侧边状态
     const collapse = function () {
       collapseState.value = !collapseState.value;
+      sideWidth.value = collapseState.value ? "60px": "230px";
     };
 
     // 路由刷新
@@ -122,6 +124,7 @@ export default {
 
     // return instance
     return {
+      sideWidth, 
       changeVisible,
       collapseState,
       collapse,
