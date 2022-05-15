@@ -6,12 +6,9 @@ import { LayuiVueResolver } from "unplugin-layui-vue-resolver";
 
 export default defineConfig({
   plugins: [
-    // 按需插件
     AutoImport({
       resolvers: [
-        LayuiVueResolver({
-          resolveIcons: true,
-        }),
+        LayuiVueResolver(),
       ],
     }),
     Components({

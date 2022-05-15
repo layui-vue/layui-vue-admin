@@ -23,8 +23,8 @@
               {{ data.password }}
             </template>
             <template v-slot:operator="{ }">
-              <lay-button>修改</lay-button>
-              <lay-button type="primary">删除</lay-button>
+              <lay-button size="xs">修改</lay-button>
+              <lay-button size="xs" type="primary">删除</lay-button>
             </template>
           </lay-table>
         </lay-card>
