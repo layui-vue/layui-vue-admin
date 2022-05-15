@@ -7,7 +7,6 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     DarkIcon: typeof import('./src/components/DarkIcon.vue')['default']
     LayBody: typeof import('@layui/layui-vue')['LayBody']
-    LayButton: typeof import('@layui/layui-vue')['LayButton']
     LayCard: typeof import('@layui/layui-vue')['LayCard']
     LayCol: typeof import('@layui/layui-vue')['LayCol']
     LayColorPicker: typeof import('@layui/layui-vue')['LayColorPicker']
@@ -16,7 +15,6 @@ declare module '@vue/runtime-core' {
     LayDropdown: typeof import('@layui/layui-vue')['LayDropdown']
     LayDropdownMenu: typeof import('@layui/layui-vue')['LayDropdownMenu']
     LayDropdownMenuItem: typeof import('@layui/layui-vue')['LayDropdownMenuItem']
-    LayException: typeof import('@layui/layui-vue')['LayException']
     LayFooter: typeof import('@layui/layui-vue')['LayFooter']
     LayHeader: typeof import('@layui/layui-vue')['LayHeader']
     LayIcon: typeof import('@layui/icons-vue')['LayIcon']
