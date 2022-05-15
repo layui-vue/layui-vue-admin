@@ -9,12 +9,16 @@ export default defineConfig({
     // 按需插件
     AutoImport({
       resolvers: [
-        LayuiVueResolver(),
+        LayuiVueResolver({
+          resolveIcons: true,
+        }),
       ],
     }),
     Components({
       resolvers: [
-        LayuiVueResolver(),
+        LayuiVueResolver({
+          resolveIcons: true,
+        }),
       ],
     }),
     vue(),

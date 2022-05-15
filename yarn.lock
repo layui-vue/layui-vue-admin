@@ -110,10 +110,10 @@
   resolved "https://registry.yarnpkg.com/@layui/layer-vue/-/layer-vue-1.3.13.tgz#15f7161b1cbe90ac37a45c90a2b62220ec6ebe57"
   integrity sha512-km1YFZzm97DFduix0qhxPM+HDrxgiSnR4xo10dxOjvXHKfezAhp9CHtRcmyMxYq4ZqMrPVA8iM18PzmLe3VRxw==
 
-"@layui/layui-vue@^1.1.0-alpha.1":
-  version "1.1.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/@layui/layui-vue/-/layui-vue-1.1.0-alpha.1.tgz#5263931f1fdf5585f0e9f96c6f63f9fa8e6ed2fa"
-  integrity sha512-IekYA28VK0Zy1Rx6WUxq7zxQuadP8Tk2eZN3/I8TydJXz2SxUmm4uwIU3J21q/BS9tWRAMkSAG/Snrh8k0J/mA==
+"@layui/layui-vue@^1.1.0-dev.1":
+  version "1.1.0-dev.1"
+  resolved "https://registry.yarnpkg.com/@layui/layui-vue/-/layui-vue-1.1.0-dev.1.tgz#a4315e7420806ebbde96b5ae88cae2a19991f75a"
+  integrity sha512-rSxg3D9J/kPoZZY31NCflbc33iEfyRlBG0pLL/iN86XjTFVvmvdKYjYi/0hBL/YxoHPMx3dB2xhX0rSpF2QSDg==
   dependencies:
     "@layui/icons-vue" "^1.0.8"
     "@layui/layer-vue" "^1.3.13"
@@ -1272,10 +1272,10 @@ unplugin-auto-import@^0.7.1:
     resolve "^1.22.0"
     unplugin "^0.6.1"
 
-unplugin-layui-vue-resolver@^0.0.11:
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/unplugin-layui-vue-resolver/-/unplugin-layui-vue-resolver-0.0.11.tgz#ace6b00adbfb5c2b2cbeed6719614ffa003357cb"
-  integrity sha512-lOJal3I1+8DY3uoxeU/OQ9u6yodKruYYs4+4ZaoapND0sFuHHmlpznniZoLPkqLY9cTLmx26NKDMgBvchRI7Nw==
+unplugin-layui-vue-resolver@^0.0.12:
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/unplugin-layui-vue-resolver/-/unplugin-layui-vue-resolver-0.0.12.tgz#bad5f31b38b47b235f23aa1fde5f9791f66669a2"
+  integrity sha512-CTY+ARwAgxVdhcaX7LQ2oPB+2Ci/W413bkxvhKXWv0a5tDDOma56JNMPxQNQti27gPOcCU9+8syNOrtuLB34UQ==
 
 unplugin-vue-components@^0.19.5:
   version "0.19.5"
