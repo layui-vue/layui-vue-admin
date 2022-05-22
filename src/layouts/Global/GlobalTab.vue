@@ -2,8 +2,8 @@
   <lay-tab
     v-if="appStore.tab"
     :modelValue="route.path"
-    @change="change"
     :allowClose="allowClose"
+    @change="change"
     @close="close"
   >
     <template :key="tab" v-for="tab in tabs">

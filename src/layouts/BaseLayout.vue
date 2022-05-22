@@ -5,7 +5,7 @@
       <lay-side :width="sideWidth">
         <lay-logo></lay-logo>
         <lay-scroll style="height: calc(100% - 62px)">
-          <GlobalMenu :collapse="collapseState"></GlobalMenu>
+          <global-menu :collapse="collapseState"></global-menu>
         </lay-scroll>
       </lay-side>
       <lay-layout>
@@ -69,16 +69,17 @@
         </lay-header>
         <!-- content -->
         <lay-body>
-          <GlobalTab></GlobalTab>
-          <GlobalContent></GlobalContent>
+          <global-tab></global-tab>
+          <global-content></global-content>
         </lay-body>
         <lay-footer></lay-footer>
       </lay-layout>
     </lay-layout>
-    <GlobalSetup v-model="visible"></GlobalSetup>
+    <global-setup v-model="visible"></global-setup>
   </lay-config-provider>
 </template>
-<script>
+
+<script lang="ts">
 import { ref } from "vue";
 import DarkIcon from "../components/DarkIcon.vue"
 import LightIcon from "../components/LightIcon.vue"
