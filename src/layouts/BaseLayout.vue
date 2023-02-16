@@ -258,7 +258,7 @@ export default {
       menus,
       mainMenus,
       mainSelectedKey,
-      changeMainSelectedKey,
+      changeMainSelectedKey
     };
   },
 };

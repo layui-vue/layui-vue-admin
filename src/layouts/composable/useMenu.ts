@@ -56,9 +56,9 @@ export function useMenu() {
     { immediate: true }
   );
 
-  watch(selectedKey, () => {
-    router.push(selectedKey.value);
-  });
+  const to = (id: string) => {
+    router.push(id);
+  };
 
   function changeSelectedKey(key: string) {
     var node = getNode(userStore.menus, key);
@@ -78,7 +78,7 @@ export function useMenu() {
       return;
     }
 
-    selectedKey.value = key;
+    to(key);
   }
 
   function changeOpenKeys(keys: string[]) {

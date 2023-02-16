@@ -8,6 +8,7 @@
             <lay-card style="padding:40px;">
                 <lay-row>
                     <lay-col :md="10" :md-offset="7">
+                        参数: {{ route.query.id }}
                         <lay-form :model="model">
                             <lay-form-item label="账户" prop="username">
                                 <lay-input v-model="model.username"></lay-input>
@@ -52,11 +53,15 @@
 </template>
 
 <script lang="ts">
-import { ref, watch, reactive } from "vue";
+import { reactive } from "vue";
 import { layer } from "@layui/layer-vue";
+import { useRouter, useRoute } from "vue-router";
 
 export default {
     setup() {
+
+        const route = useRoute();
+        const router = useRouter();
 
         const model = reactive({
             username: "admin",
@@ -72,7 +77,8 @@ export default {
 
         return {
             model,
-            submitClick
+            submitClick,
+            route
         };
     },
 };

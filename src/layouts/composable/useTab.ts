@@ -67,7 +67,7 @@ export function useTab() {
       }
     });
     if (!bool) {
-      tabs.value.push({ id: route.fullPath, title: route.meta.title, name: route?.name });
+      tabs.value.push({ id: route.path, title: route.meta.title, name: route?.name });
     }
     appStore.$patch((state)=> {
       state.keepAliveList = tabs.value.map((item: any) => item?.name).filter((item: any)=> item)

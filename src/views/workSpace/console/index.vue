@@ -24,7 +24,7 @@
               </router-link>
             </lay-col>
             <lay-col :md="6">
-              <a lay-href="home/homepage1" class="shortcut">
+              <a lay-href="home/homepage1" @click="changePage" class="shortcut">
                 <i class="layui-icon layui-icon-chat"></i>
                 <cite>主页四</cite>
               </a>
@@ -183,6 +183,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 
 import * as echarts from 'echarts';
 
@@ -191,6 +192,11 @@ export default defineComponent({
 
     const mainRef = ref()
     const currentIndex = ref("1")
+    const router = useRouter();
+
+    const changePage = () => {
+      router.push({path:"/form/base",query:{id:"1111"}});
+    }
 
     onMounted(() => {
       var chartDom = mainRef.value;
@@ -450,6 +456,7 @@ export default defineComponent({
       currentIndex,
       columns21,
       dataSource21,
+      changePage,
     };
   },
 });
