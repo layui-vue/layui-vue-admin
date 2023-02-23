@@ -169,11 +169,11 @@
 import { computed, onMounted, ref } from "vue";
 import { useAppStore } from "../store/app";
 import { useUserStore } from "../store/user";
-import GlobalSetup from "./Global/GlobalSetup.vue";
-import GlobalContent from "./Global/GlobalContent.vue";
-import GlobalBreadcrumb from "./Global/GlobalBreadcrumb.vue";
-import GlobalTab from "./Global/GlobalTab.vue";
-import GlobalMenu from "./Global/GlobalMenu.vue";
+import GlobalSetup from "./global/GlobalSetup.vue";
+import GlobalContent from "./global/GlobalContent.vue";
+import GlobalBreadcrumb from "./global/GlobalBreadcrumb.vue";
+import GlobalTab from "./global/GlobalTab.vue";
+import GlobalMenu from "./global/GlobalMenu.vue";
 import GlobalMainMenu from "./global/GlobalMainMenu.vue";
 import { useRouter } from "vue-router";
 import { useMenu } from "./composable/useMenu";
