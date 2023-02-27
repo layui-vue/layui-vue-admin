@@ -33,7 +33,7 @@
   </lay-container>
 </template>
 
-<script>
+<script lang="ts">
 import { ref, watch } from "vue";
 
 export default {
@@ -73,11 +73,11 @@ export default {
       { id: "2", username: "woow", password: "woow", age: "20" },
     ];
 
-    const rowClick = function (data) {
+    const rowClick = function (data: any) {
       console.log(JSON.stringify(data));
     };
 
-    const rowDoubleClick = function (data) {
+    const rowDoubleClick = function (data: any) {
       console.log(JSON.stringify(data));
     };
 
