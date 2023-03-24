@@ -244,7 +244,7 @@
                             </lay-button>
                         </template>
                     </lay-table>
-                    <lay-button  border="green" border-style="dashed"  fluid="true" @click="addHandler" style="margin-top: 10px;">新增</lay-button>
+                    <lay-button  border="green" border-style="dashed"  :fluid="true" @click="addHandler" style="margin-top: 10px;">新增</lay-button>
                 </lay-card>
             </lay-container>
         </div>

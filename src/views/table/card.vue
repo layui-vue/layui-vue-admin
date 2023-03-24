@@ -1,5 +1,5 @@
 <template>
-    <lay-container fluid="true" style="padding: 10px">
+    <lay-container :fluid="true" style="padding: 10px">
         <lay-row :space="10">
             <lay-col :md="24">
                 <lay-card>
@@ -23,7 +23,7 @@
             <lay-col :md="24">
                 <lay-card>
                     <lay-row :space="10">
-                        <lay-col :md="6" v-for="item in dataSource" :key="item">
+                        <lay-col :md="6" v-for="(item, index) in dataSource" :key="index">
                             <lay-card class="card-list-item">
                                 <img src="https://gw.alipayobjects.com/zos/rmsportal/iXjVmWVHbCJAyqvDxdtx.png" />
                                 <template #footer>
@@ -46,8 +46,7 @@
 </template>
 
 <script lang="ts">
-import { ref, watch } from "vue";
-import { layer } from "@layui/layer-vue";
+import { ref } from "vue";
 
 export default {
     setup() {

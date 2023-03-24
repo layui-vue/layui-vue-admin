@@ -16,10 +16,10 @@
                 <lay-input placeholder="密码" password type="password" v-model="loginForm.password"></lay-input>
               </lay-form-item>
               <lay-form-item :label-width="0">
-                <lay-checkbox name="like" v-model="remember" skin="primary" label="1">记住密码</lay-checkbox>
+                <lay-checkbox value="" name="like" v-model="remember" skin="primary" label="1">记住密码</lay-checkbox>
               </lay-form-item>
               <lay-form-item :label-width="0">
-                <lay-button type="primary" fluid="true" @click="loginSubmit">登录</lay-button>
+                <lay-button type="primary" :fluid="true" @click="loginSubmit">登录</lay-button>
               </lay-form-item>
             </lay-tab-item>
             <lay-tab-item title="二维码" id="2">
