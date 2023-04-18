@@ -1,10 +1,22 @@
 <template>
-  <lay-layer :title="false" :closeBtn="false" type="drawer" area="300px" v-model="visible">
-    <div class="global-setup">    
+  <lay-layer
+    :title="false"
+    :closeBtn="false"
+    type="drawer"
+    area="300px"
+    v-model="visible"
+  >
+    <div class="global-setup">
       <div class="global-setup-title">Overall style</div>
       <global-setup-theme v-model="appStore.sideTheme"></global-setup-theme>
-      <global-setup-theme v-model="appStore.subfieldPosition" :options="groupOptions" :disabled="!appStore.subfield"></global-setup-theme>
-      <global-color v-model="appStore.themeVariable['--global-primary-color']"></global-color>
+      <global-setup-theme
+        v-model="appStore.subfieldPosition"
+        :options="groupOptions"
+        :disabled="!appStore.subfield"
+      ></global-setup-theme>
+      <global-color
+        v-model="appStore.themeVariable['--global-primary-color']"
+      ></global-color>
       <lay-line></lay-line>
       <global-setup-item label="多选项卡">
         <lay-switch v-model="appStore.tab" size="xs"></lay-switch>
@@ -22,7 +34,12 @@
         <lay-switch v-model="appStore.accordion" size="xs"></lay-switch>
       </global-setup-item>
       <global-setup-item label="夜间模式">
-        <lay-switch v-model="appStore.theme" onswitch-value="dark" unswitch-value="light" size="xs"></lay-switch>
+        <lay-switch
+          v-model="appStore.theme"
+          onswitch-value="dark"
+          unswitch-value="light"
+          size="xs"
+        ></lay-switch>
       </global-setup-item>
       <global-setup-item label="侧边标题">
         <lay-switch v-model="appStore.logo" size="xs"></lay-switch>
@@ -36,8 +53,10 @@
       <global-setup-item label="菜单分栏">
         <lay-switch v-model="appStore.subfield" size="xs"></lay-switch>
       </global-setup-item>
-      <div style="padding:15px">
-        <lay-button border="green" border-style="dashed" :fluid="true">重置配置</lay-button>
+      <div style="padding: 15px">
+        <lay-button border="green" border-style="dashed" :fluid="true"
+          >重置配置</lay-button
+        >
       </div>
     </div>
   </lay-layer>
@@ -68,15 +87,35 @@ const props = withDefaults(defineProps<SetupProps>(), {
 });
 
 const groupOptions = ref([
-    {logo:'#28333e',head:'white',side:'#28333e',body:'#f4f5f7', value: 'side'},
-    {logo:'#28333e',head:'#28333e',side:'white',body:'#f4f5f7', value: 'head'},
-])
+  {
+    logo: "#28333e",
+    head: "white",
+    side: "#28333e",
+    body: "#f4f5f7",
+    value: "side",
+  },
+  {
+    logo: "#28333e",
+    head: "#28333e",
+    side: "white",
+    body: "#f4f5f7",
+    value: "head",
+  },
+]);
 
 const visible = ref(props.modelValue);
 
 watch(visible, (val) => {
   emits("update:modelValue", val);
 });
+
+watch(
+  appStore.themeVariable,
+  () => {
+    appStore.themeVariable["--global-checked-color"] = appStore.themeVariable["--global-primary-color"];
+  },
+  { immediate: true, deep: true }
+);
 
 watch(
   () => props.modelValue,

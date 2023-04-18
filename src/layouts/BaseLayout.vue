@@ -153,9 +153,7 @@
           </lay-menu>
         </lay-header>
         <lay-body>
-          <!-- 多选项卡 -->
           <global-tab></global-tab>
-          <!-- 内容区域 -->
           <global-content></global-content>
         </lay-body>
         <lay-footer></lay-footer>
@@ -188,6 +186,7 @@ export default {
     GlobalMainMenu,
   },
   setup() {
+
     const appStore = useAppStore();
     const userInfoStore = useUserStore();
     const fullscreenRef = ref();
@@ -200,12 +199,12 @@ export default {
     const {
       selectedKey,
       openKeys,
-      changeOpenKeys,
-      changeSelectedKey,
       menus,
       mainMenus,
       mainSelectedKey,
       changeMainSelectedKey,
+      changeSelectedKey,
+      changeOpenKeys,
     } = useMenu();
 
     onMounted(() => {
@@ -216,17 +215,17 @@ export default {
       userInfoStore.loadPermissions();
     });
 
-    const changeVisible = function () {
+    const changeVisible = () => {
       visible.value = !visible.value;
     };
 
     const currentIndex = ref("1");
 
-    const collapse = function () {
+    const collapse = () => {
       appStore.collapse = !appStore.collapse;
     };
 
-    const refresh = function () {
+    const refresh = () => {
       appStore.routerAlive = false;
       setTimeout(function () {
         appStore.routerAlive = true;
@@ -242,23 +241,23 @@ export default {
 
     return {
       sideWidth,
-      changeVisible,
+      mainSelectedKey,
       fullscreenRef,
-      collapse,
       appStore,
-      refresh,
       visible,
-      logOut,
+      menus,
+      mainMenus,
       userInfoStore,
       currentIndex,
       selectedKey,
       openKeys,
+      collapse,
       changeOpenKeys,
       changeSelectedKey,
-      menus,
-      mainMenus,
-      mainSelectedKey,
-      changeMainSelectedKey
+      changeMainSelectedKey,
+      changeVisible,
+      refresh,
+      logOut
     };
   },
 };
