@@ -4,7 +4,7 @@ specifiers:
   '@layui/layui-vue': 2.1.4
   '@types/node': ^18.7.8
   '@types/nprogress': ^0.2.0
-  '@vitejs/plugin-vue': ^4.0.0
+  '@vitejs/plugin-vue': ^4.2.0
   '@vue/compiler-sfc': ^3.3.4
   axios: ^1.3.4
   echarts: ^5.4.1
@@ -37,7 +37,7 @@ dependencies:
 devDependencies:
   '@types/node': 18.7.8
   '@types/nprogress': 0.2.0
-  '@vitejs/plugin-vue': 4.0.0_vite@4.3.9+vue@3.3.4
+  '@vitejs/plugin-vue': 4.2.3_vite@4.3.9+vue@3.3.4
   '@vue/compiler-sfc': 3.3.4
   less: 4.1.3
   typescript: 4.7.4
@@ -416,8 +416,8 @@ packages:
     resolution: {integrity: sha512-XlcwzSYQ/SRZpHdwIyMDS4FOGX5kP4U/2g2mykyn/iPQTK4xTiQAyBu6UnnDnn7d5P8s7Atzh1C7H0ETNOypJg==}
     dev: false
 
-  /@vitejs/plugin-vue/4.0.0_vite@4.3.9+vue@3.3.4:
-    resolution: {integrity: sha512-e0X4jErIxAB5oLtDqbHvHpJe/uWNkdpYV83AOG2xo2tEVSzCzewgJMtREZM30wXnM5ls90hxiOtAuVU6H5JgbA==}
+  /@vitejs/plugin-vue/4.2.3_vite@4.3.9+vue@3.3.4:
+    resolution: {integrity: sha512-R6JDUfiZbJA9cMiguQ7jxALsgiprjBeHL5ikpXfJCH62pPHtI+JdJ5xWj6Ev73yXSlYl86+blXn1kZHQ7uElxw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^4.0.0
