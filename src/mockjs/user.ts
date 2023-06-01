@@ -169,27 +169,6 @@ const menus = [
         type: "blank"
       }
     ]
-  },{
-    id: "/component",
-    icon: "layui-icon-home",
-    title: "常用组件",
-    children: [
-      {
-        id: "/component/qrcode",
-        icon: "layui-icon-home",
-        title: "二维码"
-      },
-      {
-        id: "/component/barcode",
-        icon: "layui-icon-home",
-        title: "条形码"
-      },
-      {
-        id: "/component/treeSelect",
-        icon: "layui-icon-home",
-        title: "下拉树"
-      }
-    ]
   }
 ]
 
