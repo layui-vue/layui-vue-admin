@@ -11,6 +11,7 @@ export const useAppStore = defineStore({
       routerAlive: true,
       collapse: false, 
       subfield: false,
+      locale: "zh_CN",
       subfieldPosition: "side",
       theme: 'light',
       breadcrumb: true,
@@ -30,6 +31,6 @@ export const useAppStore = defineStore({
   },
   persist: {
     storage: localStorage,
-    paths: ['tab', 'theme', 'logo', 'level', 'inverted', 'breadcrumb', 'sideTheme', 'greyMode', 'accordion' ,'keepAliveList', 'themeVariable','subfield'],
+    paths: ['tab', 'locale', 'theme', 'logo', 'level', 'inverted', 'breadcrumb', 'sideTheme', 'greyMode', 'accordion' ,'keepAliveList', 'themeVariable','subfield'],
   }
 })

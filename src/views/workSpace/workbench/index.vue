@@ -177,9 +177,12 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from "vue";
 import * as echarts from 'echarts';
+import { useI18n } from "@layui/layui-vue";
 
 export default defineComponent({
   setup() {
+
+    const { t } = useI18n();
 
     const mainRef = ref()
     onMounted(() => {
@@ -218,6 +221,7 @@ export default defineComponent({
     })
     return {
       mainRef,
+      t
     };
   },
 });

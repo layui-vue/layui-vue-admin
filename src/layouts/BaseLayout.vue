@@ -2,6 +2,8 @@
   <lay-config-provider
     :themeVariable="appStore.themeVariable"
     :theme="appStore.theme"
+    :locales="locales"
+    :locale="appStore.locale"
   >
     <lay-layout
       :class="[
@@ -126,7 +128,19 @@
               </lay-dropdown>
             </lay-menu-item>
             <lay-menu-item>
-              <lay-icon type="layui-icon-website"></lay-icon>
+              <lay-dropdown updateAtScroll placement="bottom">
+                <lay-icon type="layui-icon-website"></lay-icon>
+                <template #content>
+                  <lay-dropdown-menu>
+                    <lay-dropdown-menu-item @click="() => appStore.locale = 'zh_CN'">
+                      <template #default>中文</template>
+                    </lay-dropdown-menu-item>
+                    <lay-dropdown-menu-item @click="() => appStore.locale = 'en_US'">
+                      <template #default>英文</template>
+                    </lay-dropdown-menu-item>
+                  </lay-dropdown-menu>
+                </template>
+              </lay-dropdown>
             </lay-menu-item>
             <lay-menu-item>
               <lay-dropdown updateAtScroll placement="bottom">
@@ -175,6 +189,8 @@ import GlobalMenu from "./global/GlobalMenu.vue";
 import GlobalMainMenu from "./global/GlobalMainMenu.vue";
 import { useRouter } from "vue-router";
 import { useMenu } from "./composable/useMenu";
+import zh_CN from "../lang/zh_CN";
+import en_US from "../lang/en_US";
 
 export default {
   components: {
@@ -239,6 +255,11 @@ export default {
       router.push("/login");
     };
 
+    const locales = [
+      { name: "zh_CN", locale: zh_CN, merge: true },
+      { name: "en_US", locale: en_US, merge: true },
+    ]
+
     return {
       sideWidth,
       mainSelectedKey,
@@ -257,7 +278,8 @@ export default {
       changeMainSelectedKey,
       changeVisible,
       refresh,
-      logOut
+      logOut,
+      locales,
     };
   },
 };
