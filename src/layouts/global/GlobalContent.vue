@@ -10,14 +10,14 @@
 
 <script lang="ts">
 export default {
-  name: "GlobalContent",
-};
+  name: 'GlobalContent'
+}
 </script>
 
 <script lang="ts" setup>
-import { useAppStore } from "../../store/app";
+import { useAppStore } from '../../store/app'
 
-const appStore = useAppStore();
+const appStore = useAppStore()
 </script>
 
 <style scoped>
