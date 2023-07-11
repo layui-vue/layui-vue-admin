@@ -167,8 +167,8 @@ export default defineComponent({
       vercode: 'DqJFN'
     })
     onMounted(() => {
-      toRefreshImg()
-      toRefreshQrcode()
+      // toRefreshImg()
+      // toRefreshQrcode()
     })
 
     const loginSubmit = async () => {
