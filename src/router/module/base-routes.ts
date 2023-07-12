@@ -35,7 +35,7 @@ export default [
         meta: { title: '分析页', requireAuth: true },
       }
     ]
-  },{
+  }, {
     path: '/error',
     component: BaseLayout,
     meta: { title: '错误页面' },
@@ -61,7 +61,7 @@ export default [
         meta: { title: '500' },
       }
     ]
-  },{
+  }, {
     path: '/system',
     component: BaseLayout,
     meta: { title: '系统管理' },
@@ -77,7 +77,7 @@ export default [
         meta: { title: '角色管理', requireAuth: true },
       }
     ]
-  },{
+  }, {
     path: '/result',
     component: BaseLayout,
     meta: { title: '错误页面' },
@@ -93,7 +93,7 @@ export default [
         meta: { title: '失败页面', requireAuth: true },
       },
     ]
-  },{
+  }, {
     path: '/list',
     component: BaseLayout,
     meta: { title: '列表页面' },
@@ -109,7 +109,7 @@ export default [
         meta: { title: '卡片列表', requireAuth: true },
       }
     ]
-  },{
+  }, {
     path: '/form',
     component: BaseLayout,
     meta: { title: '表单页面' },
@@ -131,7 +131,7 @@ export default [
         meta: { title: '复杂表单', requireAuth: true },
       },
     ]
-  },{
+  }, {
     path: '/directive',
     component: BaseLayout,
     meta: { title: '内置指令' },
@@ -142,7 +142,7 @@ export default [
         meta: { title: '权限指令', requireAuth: true },
       },
     ]
-  },{
+  }, {
     path: '/component',
     component: BaseLayout,
     meta: { title: '常用组件' },
@@ -163,5 +163,23 @@ export default [
         meta: { title: '下拉树', requireAuth: true },
       },
     ]
-  }
+  }, {
+    path: '/enrollee',
+    component: BaseLayout,
+    meta: { title: '个人中心' },
+    children: [
+      {
+        path: '/enrollee/profile',
+        component: () => import('../../views/enrollee/profile/index.vue'),
+        meta: { title: '我的资料', requireAuth: true },
+      },
+      {
+        path: '/enrollee/message',
+        component: () => import('../../views/enrollee/message/index.vue'),
+        meta: { title: '我的消息', requireAuth: true },
+      },
+
+    ]
+  },
+
 ]
