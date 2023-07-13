@@ -33,6 +33,11 @@ export default [
         path: '/workspace/analysis',
         component: () => import('../../views/workSpace/analysis/index.vue'),
         meta: { title: '分析页', requireAuth: true },
+      },
+      {
+        path: '/workspace/monitor',
+        component: () => import('../../views/workSpace/monitor/index.vue'),
+        meta: { title: '监控页', requireAuth: true },
       }
     ]
   }, {
