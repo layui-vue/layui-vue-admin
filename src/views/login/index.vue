@@ -13,10 +13,10 @@
         <div class="login-container">
           <div class="login-side">
             <div class="login-bg-title">
-              <h1>Pear Admin Next</h1>
+              <h1>layui vue admin</h1>
 
               <h3 style="margin: 20px auto">
-                基于layui-vue(类UI)的后台解决方案
+                开 箱 即 用 的 layui vue 企 业 级 前 端 模 板
               </h3>
             </div>
           </div>
@@ -56,11 +56,6 @@
                     </div>
 
                     <div class="login-captach" @click="toRefreshImg">
-                      <!-- <img
-                        style="width: 100%"
-                        :src="verificationImgUrl"
-                        alt="获取验证码"
-                      /> -->
                       <img
                         style="width: 100%"
                         src="../../assets/login/login-yzm.jpg"
@@ -89,12 +84,6 @@
               </lay-tab-item>
               <lay-tab-item title="二维码" id="2">
                 <div style="width: 200px; height: 250px; margin: 0 auto">
-                  <!-- <lay-qrcode
-                    :text="loginQrcodeText"
-                    :width="200"
-                    color="#000"
-                    style="margin: 10px 0 20px"
-                  ></lay-qrcode> -->
                   <lay-qrcode
                     text="http://www.layui-vue.com"
                     :width="200"
@@ -203,6 +192,7 @@ export default defineComponent({
     }
 
     return {
+      toRefreshQrcode,
       toRefreshImg,
       loginSubmit,
       loginForm,
