@@ -42,6 +42,157 @@
         </lay-card>
       </lay-col>
     </lay-row>
+    <lay-row :space="10">
+      <lay-col :md="12" :sm="12" :xs="18">
+        <lay-card>
+          <template #title>用户评价</template>
+          <lay-row
+            style="height: 50px; text-align: left; margin: 20px 0 10px 0px"
+          >
+            <span style="font-size: 50px; color: #000000e0">4.5</span>
+            &nbsp;&nbsp;
+            <lay-icon class="score layui-icon-rate-solid"></lay-icon>
+            <lay-icon class="score layui-icon-rate-solid"></lay-icon>
+            <lay-icon class="score layui-icon-rate-solid"></lay-icon>
+            <lay-icon class="score layui-icon-rate-solid"></lay-icon>
+            <lay-icon class="score layui-icon-rate-half"></lay-icon>
+            &nbsp;&nbsp;
+            <span style="font-size: 16px; color: #f7ba2a">很棒</span>
+          </lay-row>
+          <lay-row>
+            <span style="font-size: 28px; color: #999999">-0%</span>
+            &nbsp;&nbsp;
+            <span style="font-size: 12px; color: #0006">没有评价波动哦</span>
+          </lay-row>
+          <lay-row class="score-itemRow">
+            <lay-col :md="18" :sm="18" :xs="24">
+              <lay-progress percent="61"></lay-progress>
+            </lay-col>
+            <lay-col :md="6" :sm="6" :xs="12">
+              <lay-icon class="layui-icon-rate-solid"></lay-icon> 5 : 308 人
+            </lay-col>
+          </lay-row>
+          <lay-row class="score-itemRow">
+            <lay-col :md="18" :sm="18" :xs="24">
+              <lay-progress percent="22" theme="blue"></lay-progress>
+            </lay-col>
+            <lay-col :md="6" :sm="6" :xs="12">
+              <lay-icon class="layui-icon-rate-solid"></lay-icon> 4 : 114 人
+            </lay-col>
+          </lay-row>
+          <lay-row class="score-itemRow">
+            <lay-col :md="18" :sm="18" :xs="24">
+              <lay-progress percent="8" theme="orange"></lay-progress>
+            </lay-col>
+            <lay-col :md="6" :sm="6" :xs="12">
+              <lay-icon class="layui-icon-rate-solid"></lay-icon> 3 : 42 人
+            </lay-col>
+          </lay-row>
+          <lay-row class="score-itemRow">
+            <lay-col :md="18" :sm="18" :xs="24">
+              <lay-progress percent="7" theme="red"></lay-progress>
+            </lay-col>
+            <lay-col :md="6" :sm="6" :xs="12">
+              <lay-icon class="layui-icon-rate-solid"></lay-icon> 2 : 33 人
+            </lay-col>
+          </lay-row>
+          <lay-row class="score-itemRow">
+            <lay-col :md="18" :sm="18" :xs="24">
+              <lay-progress percent="2" theme="cyan"></lay-progress>
+            </lay-col>
+            <lay-col :md="6" :sm="6" :xs="12">
+              <lay-icon class="layui-icon-rate-solid"></lay-icon> 1 : 8 人
+            </lay-col>
+          </lay-row>
+        </lay-card>
+      </lay-col>
+      <lay-col :md="6" :sm="6" :xs="6">
+        <lay-card style="height: 300px">
+          <template #title>用户满意度</template>
+          <div class="user-satisfaction">
+            <div style="margin-top: 15px">856</div>
+            <div>
+              <lay-icon
+                type="layui-icon-face-smile"
+                size="50px"
+                color="#5FB878"
+              ></lay-icon>
+              <div style="font-size:8px;color#ddd;margin-top:12px">
+                正面评价
+              </div>
+            </div>
+            <div style="color: #52c41a; margin-top: 15px">82%</div>
+          </div>
+          <lay-line></lay-line>
+          <div class="user-satisfaction">
+            <div style="margin-top: 15px">856</div>
+            <div>
+              <lay-icon
+                type="layui-icon-face-cry"
+                size="50px"
+                color="#f7454e"
+              ></lay-icon>
+              <div style="font-size:8px;color#ddd;margin-top:12px">
+                负面评论
+              </div>
+            </div>
+            <div style="color: #f7454e; margin-top: 15px">7%</div>
+          </div>
+        </lay-card>
+      </lay-col>
+      <lay-col :md="6" :sm="6" :xs="6">
+        <lay-card style="height: 300px">
+          <template #title>用户活跃度</template>
+          <lay-row>
+            <lay-col :md="18" :sm="18" :xs="18">
+              <div style="stack-progress">
+                <div class="green-progress">
+                  <lay-progress
+                    percent="70"
+                    circle
+                    :circleSize="170"
+                    :circleWidth="11"
+                    style="margin-right: 10px"
+                  ></lay-progress>
+                </div>
+                <div class="blue-progress">
+                  <lay-progress
+                    percent="60"
+                    circle
+                    :circleSize="120"
+                    :circleWidth="10"
+                    theme="blue"
+                    style="margin-right: 10px"
+                  ></lay-progress>
+                </div>
+                <div class="red-progress">
+                  <lay-progress
+                    percent="35"
+                    circle
+                    :circleSize="70"
+                    :circleWidth="8"
+                    theme="red"
+                    style="margin-right: 10px"
+                  ></lay-progress>
+                </div>
+              </div>
+              &nbsp;
+            </lay-col>
+            <lay-col :md="6" :sm="6" :xs="6">
+              <div class="desc">
+                <div>
+                  <lay-badge theme="green" type="dot"></lay-badge> 活跃率:70%
+                </div>
+                <div>
+                  <lay-badge theme="blue" type="dot"></lay-badge> 留存率:60%
+                </div>
+                <div><lay-badge type="dot"></lay-badge> 跳出率:35%</div>
+              </div>
+            </lay-col>
+          </lay-row>
+        </lay-card>
+      </lay-col>
+    </lay-row>
   </lay-container>
 </template>
 <script lang="ts">
@@ -49,10 +200,16 @@ import { defineComponent, ref, onMounted, reactive } from 'vue'
 
 import * as echarts from 'echarts'
 import china from './moudel/china.json'
+import shandong from './moudel/province/shandong.json'
+import jinan from './moudel/citys/370100.json'
+import minx from './moudel/minx.ts'
 
 export default defineComponent({
   name: 'Analysis',
+  mixins: [minx],
   setup() {
+    const province = minx.province
+    const provincesText = minx.provincesText
     const userDistributionRef = ref()
     const browserDistributionRef = ref()
     const timeInfo = reactive({
@@ -61,6 +218,7 @@ export default defineComponent({
       nowDate: '',
       nowTime: ''
     })
+    const showText = ref(true)
     const countNum = reactive({
       startVal: 0,
       endVal: 360,
@@ -188,21 +346,20 @@ export default defineComponent({
         trigger: 'item'
       },
       legend: {
-        bottom: '0%',
+        bottom: '8%',
         left: 'left'
       },
       series: [
         {
           name: 'Access From',
           type: 'pie',
-          radius: ['38%', '60%'],
-          center: ['45%', '42%'],
+          radius: ['38%', '65%'],
+          center: ['50%', '35%'],
           avoidLabelOverlap: false,
           label: {
             show: false,
             position: 'center'
           },
-          top: -20,
           labelLine: {
             show: false
           },
@@ -217,7 +374,6 @@ export default defineComponent({
         }
       ]
     }
-
     onMounted(() => {
       var userDistributionDom = userDistributionRef.value
       // var resizeMyChartContainer = function () {
@@ -227,8 +383,18 @@ export default defineComponent({
       // resizeMyChartContainer()
       echarts.registerMap('china', china)
       var userDistributionDomChart = echarts.init(userDistributionDom)
+      userDistributionDomChart.on('dblclick', function (param) {
+        console.log(param, '1111111')
+        let index = provincesText.indexOf(param.name)
+        if (index != -1) {
+          ///todo   如何动态的获取moudel/province/下的 province[index].json文件 ?
+          // echarts.registerMap(param.name, province[index])
+          // 更新echarts 视图
+        }
+      })
       userDistributionOption &&
         userDistributionDomChart.setOption(userDistributionOption)
+      //todo 根据浏览器窗口动态改变图表大小
       // window.onresize = function () {
       //   resizeMyChartContainer()
       //   userDistributionDom.resize()
@@ -253,7 +419,8 @@ export default defineComponent({
       userDistributionRef,
       browserDistributionRef,
       timeInfo,
-      countNum
+      countNum,
+      showText
     }
   }
 })
@@ -267,5 +434,61 @@ export default defineComponent({
 #browserDistribution {
   width: 100%;
   height: 240px;
+}
+.score {
+  font-size: 20px;
+  color: #f7ba2a;
+}
+.score-itemRow {
+  height: 16px;
+  margin-top: 10px;
+  line-height: 16px;
+  color: #999999;
+  vertical-align: middle;
+  .layui-icon {
+    font-size: 13px;
+  }
+  .layui-progress {
+    margin-top: 6px;
+    margin-right: 15px;
+  }
+}
+.user-satisfaction {
+  display: flex;
+  font-size: 30px;
+  color: #1f1f1f;
+  text-align: center;
+  > div {
+    flex: 1;
+    padding: 20px;
+  }
+}
+.user-satisfaction:last-child {
+  margin-top: 15px;
+}
+.stack-progress {
+  width: 100%;
+  height: 400px;
+  position: relative;
+}
+.green-progress {
+  position: absolute;
+  top: 20px;
+  left: calc(50% - 100px);
+}
+.blue-progress {
+  position: absolute;
+  top: 44px;
+  left: calc(50% - 75px);
+}
+.red-progress {
+  position: absolute;
+  top: 70px;
+  left: calc(50% - 50px);
+}
+.desc {
+  margin-top: 60px;
+  font-size: 8px;
+  color: #1f1f1fd5;
 }
 </style>
