@@ -1,5 +1,5 @@
 {
-  "name": "pear-admin-next",
+  "name": "layui-vue-admin",
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
