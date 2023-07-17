@@ -147,7 +147,7 @@ const menus = [
     ]
   }, {
     id: "/directive",
-    icon: "layui-icon-set",
+    icon: "layui-icon-test",
     title: "内置指令",
     children: [
       {
@@ -190,9 +190,31 @@ const menus = [
         icon: "layui-icon-email",
         title: '我的消息',
       },
-
     ]
   },
+  {
+    id: '/system',
+    icon: "layui-icon-set",
+    title: '系统管理',
+    children: [
+      {
+        id: '/system/user',
+        icon: "layui-icon-username",
+        title: '用户管理',
+      },
+      {
+        id: '/system/role',
+        icon: "layui-icon-email",
+        title: '角色管理',
+      },
+      {
+        id: '/system/organization',
+        icon: "layui-icon-cols",
+        title: '机构管理',
+      },
+    ]
+  },
+
 ]
 
 const getInfo = (req: any, res: any) => {

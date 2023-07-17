@@ -81,6 +81,12 @@ export default [
         component: () => import('../../views/system/role/index.vue'),
         meta: { title: '角色管理', requireAuth: true },
       }
+      ,
+      {
+        path: '/system/organization',
+        component: () => import('../../views/system/organization/index.vue'),
+        meta: { title: '机构管理', requireAuth: true },
+      }
     ]
   }, {
     path: '/result',
@@ -186,5 +192,6 @@ export default [
 
     ]
   },
+
 
 ]

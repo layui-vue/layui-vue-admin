@@ -1,0 +1,580 @@
+<template>
+  <lay-container fluid="true" class="organization-box">
+    <div style="display: flex">
+      <div :style="{ width: isFold ? `0px` : `300px` }" class="left-tree">
+        <!-- tree -->
+        <div v-show="!isFold">
+          <lay-button type="normal" size="sm">
+            <lay-icon type="layui-icon-addition" @click="toAdd"></lay-icon>新建
+          </lay-button>
+          <lay-button type="warm" size="sm">
+            <lay-icon type="layui-icon-edit" @click="toEdit"></lay-icon>修改
+          </lay-button>
+          <lay-button type="danger" size="sm">
+            <lay-icon type="layui-icon-delete" @click="toDelete"></lay-icon>删除
+          </lay-button>
+        </div>
+
+        <lay-tree
+          v-show="!isFold"
+          style="margin-top: 10px"
+          :data="data"
+          v-model:selectedKey="selectedKey"
+          :showLine="showLine"
+          expandKeys="[1,3,4]"
+          @node-click="handleClick"
+        >
+        </lay-tree>
+        <div class="isFold" @click="isFold = !isFold">
+          &nbsp;<lay-icon v-if="!isFold" class="layui-icon-left"></lay-icon>
+          <lay-icon v-else class="layui-icon-right"></lay-icon>
+        </div>
+      </div>
+      <div style="flex: 1; padding: 10px; over-flow: auto">
+        <!-- table -->
+        <div>
+          用户账号
+          <lay-input
+            class="search-input"
+            :allow-clear="true"
+            v-model="searchQuery.userAccount"
+            placeholder="请输入"
+          ></lay-input>
+          用户名
+          <lay-input
+            class="search-input"
+            :allow-clear="true"
+            v-model="searchQuery.userName"
+            placeholder="请输入"
+          ></lay-input>
+          性别
+          <lay-select
+            class="search-input"
+            v-model="searchQuery.sex"
+            :allow-clear="true"
+            placeholder="请选择"
+          >
+            <lay-select-option value="man" label="男"></lay-select-option>
+            <lay-select-option value="woman" label="女"></lay-select-option>
+          </lay-select>
+          <lay-button type="normal" size="sm"> 查询 </lay-button>
+          <lay-button size="sm" @click="toReset"> 重置 </lay-button>
+        </div>
+        <lay-table
+          class="table-style"
+          :page="page"
+          :columns="columns"
+          :loading="loading"
+          :default-toolbar="true"
+          :data-source="dataSource"
+          v-model:selected-keys="selectedKeys"
+          @change="change"
+          @sortChange="sortChange"
+        >
+          <template #status="{ row }">
+            <lay-switch
+              :model-value="row.status"
+              @change="changeStatus($event, row)"
+            ></lay-switch>
+          </template>
+          <template v-slot:toolbar>
+            <lay-button
+              size="sm"
+              type="primary"
+              @click="changeVisible11('新增')"
+              >新增</lay-button
+            >
+            <lay-button size="sm" @click="toRemove">删除</lay-button>
+          </template>
+          <template v-slot:operator="{ row }">
+            <lay-button
+              size="xs"
+              type="primary"
+              @click="changeVisible11('编辑', row)"
+              >编辑</lay-button
+            >
+            <lay-popconfirm
+              content="确定要删除此用户吗?"
+              @confirm="confirm"
+              @cancel="cancel"
+            >
+              <lay-button size="xs">删除</lay-button>
+            </lay-popconfirm>
+          </template>
+        </lay-table>
+      </div>
+    </div>
+    <lay-layer v-model="visible11" :title="title" :area="['500px', '450px']">
+      <div style="padding: 20px">
+        <lay-form :model="model11" ref="layFormRef11" required>
+          <lay-form-item label="姓名" prop="name">
+            <lay-input v-model="model11.name"></lay-input>
+          </lay-form-item>
+          <lay-form-item label="年龄" prop="age">
+            <lay-input v-model="model11.age"></lay-input>
+          </lay-form-item>
+          <lay-form-item label="性别" prop="sex">
+            <lay-select v-model="model11.sex" style="width: 100%">
+              <lay-select-option value="男" label="男"></lay-select-option>
+              <lay-select-option value="女" label="女"></lay-select-option>
+            </lay-select>
+          </lay-form-item>
+          <lay-form-item label="城市" prop="city">
+            <lay-input v-model="model11.city"></lay-input>
+          </lay-form-item>
+          <lay-form-item label="email" prop="email">
+            <lay-input v-model="model11.email"></lay-input>
+          </lay-form-item>
+          <lay-form-item label="描述" prop="remark">
+            <lay-textarea
+              placeholder="请输入描述"
+              v-model="model11.remark"
+            ></lay-textarea>
+          </lay-form-item>
+        </lay-form>
+        <div style="width: 100%; text-align: center">
+          <lay-button size="sm" type="primary" @click="toSubmit"
+            >保存</lay-button
+          >
+          <lay-button size="sm" @click="toCancel">取消</lay-button>
+        </div>
+      </div>
+    </lay-layer>
+
+    <lay-layer v-model="visible22" :title="title22" :area="['500px', '450px']">
+      <div style="padding: 20px">
+        <lay-form :model="model22" ref="layFormRef11" required>
+          <lay-form-item label="上级机构" prop="organization">
+            <lay-select v-model="model22.organization" style="width: 100%">
+              <lay-select-option value="1" label="研发部"></lay-select-option>
+              <lay-select-option value="2" label="测试部"></lay-select-option>
+              <lay-select-option value="3" label="设计部"></lay-select-option>
+              <lay-select-option value="4" label="市场部"></lay-select-option>
+              <lay-select-option value="5" label="运维部"></lay-select-option>
+            </lay-select>
+          </lay-form-item>
+          <lay-form-item label="机构类型" prop="sex">
+            <lay-select v-model="model22.sex" style="width: 100%">
+              <lay-select-option value="男" label="男"></lay-select-option>
+              <lay-select-option value="女" label="女"></lay-select-option>
+            </lay-select>
+          </lay-form-item>
+
+          <lay-form-item label="年龄" prop="age">
+            <lay-input v-model="model22.age"></lay-input>
+          </lay-form-item>
+
+          <lay-form-item label="城市" prop="city">
+            <lay-input v-model="model22.city"></lay-input>
+          </lay-form-item>
+          <lay-form-item label="email" prop="email">
+            <lay-input v-model="model22.email"></lay-input>
+          </lay-form-item>
+          <lay-form-item label="描述" prop="remark">
+            <lay-textarea
+              placeholder="请输入描述"
+              v-model="model22.remark"
+            ></lay-textarea>
+          </lay-form-item>
+        </lay-form>
+        <div style="width: 100%; text-align: center">
+          <lay-button size="sm" type="primary" @click="toSubmit"
+            >保存</lay-button
+          >
+          <lay-button size="sm" @click="toCancel">取消</lay-button>
+        </div>
+      </div>
+    </lay-layer>
+  </lay-container>
+</template>
+<script setup lang="ts">
+import { ref, reactive } from 'vue'
+import { layer } from '@layui/layui-vue'
+const data = ref([
+  {
+    title: 'xxxx公司',
+    id: 1,
+    checked: true,
+    children: [
+      {
+        title: '研发部',
+        id: 3,
+        children: [
+          {
+            title: '研发一部',
+            id: 23
+          },
+          {
+            title: '研发二部',
+            id: 7
+          },
+          {
+            title: '研发三部',
+            id: 8
+          }
+        ]
+      },
+      {
+        title: '测试部',
+        id: 4,
+        children: [
+          {
+            title: '测试一部',
+            id: 9,
+            disabled: true
+          },
+          {
+            title: '测试二部',
+            id: 10
+          }
+        ]
+      },
+      {
+        title: '设计部',
+        id: 20
+      },
+      {
+        title: '市场部',
+        id: 21
+      },
+      {
+        title: '运维部',
+        id: 22
+      }
+    ]
+  }
+])
+const showLine = ref(false)
+const isFold = ref(false)
+const searchQuery = ref({
+  userAccount: '',
+  userName: '',
+  sex: ''
+})
+function toReset() {
+  searchQuery.value = {
+    userAccount: '',
+    userName: '',
+    sex: ''
+  }
+}
+function handleClick(node: any) {
+  console.log('Click Node:' + JSON.stringify(node))
+}
+function toAdd() {}
+function toEdit() {}
+function toDelete() {}
+
+const loading = ref(false)
+const selectedKeys = ref([])
+const page = reactive({ current: 1, limit: 10, total: 100 })
+const columns = ref([
+  { title: '选项', width: '55px', type: 'checkbox', fixed: 'left' },
+  { title: '编号', width: '80px', key: 'id', fixed: 'left', sort: 'desc' },
+  { title: '姓名', width: '80px', key: 'name', sort: 'desc' },
+  { title: '状态', width: '80px', key: 'status', customSlot: 'status' },
+  { title: '邮箱', width: '120px', key: 'email' },
+  { title: '性别', width: '80px', key: 'sex' },
+  { title: '年龄', width: '80px', key: 'age' },
+  { title: '城市', width: '120px', key: 'city' },
+  { title: '签名', width: '260px', key: 'remark' },
+  { title: '隐藏', width: '260px', key: 'hide', hide: true },
+  { title: '时间', width: '120px', key: 'joinTime' },
+  {
+    title: '操作',
+    width: '150px',
+    customSlot: 'operator',
+    key: 'operator',
+    fixed: 'right'
+  }
+])
+const change = (page: any) => {
+  loading.value = true
+  setTimeout(() => {
+    dataSource.value = loadDataSource(page.current, page.limit)
+    loading.value = false
+  }, 1000)
+}
+const sortChange = (key: any, sort: number) => {
+  layer.msg(`字段${key} - 排序${sort}, 你可以利用 sort-change 实现服务端排序`)
+}
+const dataSource = ref([
+  {
+    id: '1',
+    name: '张三1',
+    email: 'test@qq.com',
+    sex: '男',
+    city: '浙江杭州',
+    age: '18',
+    remark: '花开堪折直须折,莫待无花空折枝.',
+    joinTime: '2022-02-09',
+    status: true
+  },
+  {
+    id: '2',
+    name: '张三2',
+    email: 'test@qq.com',
+    sex: '男',
+    city: '浙江杭州',
+    age: '20',
+    remark: '花开堪折直须折,莫待无花空折枝.',
+    joinTime: '2022-02-09',
+    status: true
+  },
+  {
+    id: '3',
+    name: '张三3',
+    email: 'test@qq.com',
+    sex: '男',
+    city: '浙江杭州',
+    age: '20',
+    remark: '花开堪折直须折,莫待无花空折枝.',
+    joinTime: '2022-02-09',
+    status: true
+  },
+  {
+    id: '4',
+    name: '张三4',
+    email: 'test@qq.com',
+    sex: '男',
+    city: '浙江杭州',
+    age: '20',
+    remark: '花开堪折直须折,莫待无花空折枝.',
+    joinTime: '2022-02-09',
+    status: true
+  },
+  {
+    id: '5',
+    name: '张三5',
+    email: 'test@qq.com',
+    sex: '男',
+    city: '浙江杭州',
+    age: '20',
+    remark: '花开堪折直须折,莫待无花空折枝.',
+    joinTime: '2022-02-09',
+    status: true
+  },
+  {
+    id: '6',
+    name: '张三6',
+    email: 'test@qq.com',
+    sex: '男',
+    city: '浙江杭州',
+    age: '20',
+    remark: '花开堪折直须折,莫待无花空折枝.',
+    joinTime: '2022-02-09',
+    status: true
+  },
+  {
+    id: '7',
+    name: '张三7',
+    email: 'test@qq.com',
+    sex: '男',
+    city: '浙江杭州',
+    age: '18',
+    remark: '花开堪折直须折,莫待无花空折枝.',
+    joinTime: '2022-02-09',
+    status: true
+  },
+  {
+    id: '8',
+    name: '张三8',
+    email: 'test@qq.com',
+    sex: '男',
+    city: '浙江杭州',
+    age: '20',
+    remark: '花开堪折直须折,莫待无花空折枝.',
+    joinTime: '2022-02-09',
+    status: true
+  },
+  {
+    id: '9',
+    name: '张三9',
+    email: 'test@qq.com',
+    sex: '男',
+    city: '浙江杭州',
+    age: '20',
+    remark: '花开堪折直须折,莫待无花空折枝.',
+    joinTime: '2022-02-09',
+    status: true
+  },
+  {
+    id: '10',
+    name: '张三10',
+    email: 'test@qq.com',
+    sex: '男',
+    city: '浙江杭州',
+    age: '20',
+    remark: '花开堪折直须折,莫待无花空折枝.',
+    joinTime: '2022-02-09',
+    status: true
+  }
+])
+const changeStatus = (isChecked: boolean, row: any) => {
+  dataSource.value.forEach((item) => {
+    if (item.id === row.id) {
+      layer.msg('Success', { icon: 1 }, () => {
+        item.status = isChecked
+      })
+    }
+  })
+}
+const remove = () => {
+  layer.msg(selectedKeys.value, { area: '50%' })
+}
+const loadDataSource = (page: number, pageSize: number) => {
+  var response = []
+  var startIndex = (page - 1) * pageSize + 1
+  var endIndex = page * pageSize
+  for (var i = startIndex; i <= endIndex; i++) {
+    response.push({
+      id: `${i}`,
+      age: '18',
+      sex: '男',
+      name: `张三${i}`,
+      email: 'test@qq.com',
+      remark: '花开堪折直须折,莫待无花空折枝.',
+      joinTime: '2022-02-09',
+      city: '浙江杭州',
+      status: true
+    })
+  }
+  return response
+}
+
+const model11 = ref({})
+const layFormRef11 = ref()
+const visible11 = ref(false)
+const title = ref('新增')
+const changeVisible11 = (text: any, row: any) => {
+  title.value = text
+  if (row) {
+    let info = JSON.parse(JSON.stringify(row))
+    model11.value = info
+  }
+  visible11.value = !visible11.value
+}
+const submit11 = function () {
+  layFormRef11.value.validate((isValidate: any, model: any, errors: any) => {
+    layer.open({
+      type: 1,
+      title: '表单提交结果',
+      content: `<div style="padding: 10px"><p>是否通过 : ${isValidate}</p> <p>表单数据 : ${JSON.stringify(
+        model
+      )} </p> <p>错误信息 : ${JSON.stringify(errors)}</p></div>`,
+      shade: false,
+      isHtmlFragment: true,
+      btn: [
+        {
+          text: '确认',
+          callback(index) {
+            layer.close(index)
+          }
+        }
+      ],
+      area: '500px'
+    })
+  })
+}
+// 清除校验
+const clearValidate11 = function () {
+  layFormRef11.value.clearValidate()
+}
+// 重置表单
+const reset11 = function () {
+  layFormRef11.value.reset()
+}
+function toRemove() {
+  console.log(selectedKeys.value.length, 'toRemove')
+  if (selectedKeys.value.length == 0) {
+    layer.msg('您未选择数据，请先选择要删除的数据', { icon: 3, time: 2000 })
+    return
+  }
+  layer.confirm('您将删除所有选中的数据？', {
+    title: '提示',
+    btn: [
+      {
+        text: '确定',
+        callback: (id: any) => {
+          layer.msg('您已成功删除')
+          layer.close(id)
+        }
+      },
+      {
+        text: '取消',
+        callback: (id: any) => {
+          layer.msg('您已取消操作')
+          layer.close(id)
+        }
+      }
+    ]
+  })
+}
+function toSubmit() {
+  layer.msg('保存成功！', { icon: 1, time: 1000 })
+  visible11.value = false
+  visible22.value = false
+}
+function toCancel() {
+  visible11.value = false
+  visible22.value = false
+}
+function confirm() {
+  layer.msg('您已成功删除')
+}
+function cancel() {
+  layer.msg('您已取消操作')
+}
+
+const model22 = ref({})
+const layFormRef22 = ref()
+const visible22 = ref(false)
+const title22 = ref('新增')
+</script>
+
+<style scoped>
+.organization-box {
+  width: calc(100vw - 240px);
+  height: calc(100vh - 110px);
+  margin-top: 10px;
+  box-sizing: border-box;
+  background-color: #fff;
+  overflow: hidden;
+}
+.left-tree {
+  display: inline-block;
+  padding: 20px 15px 0 5px;
+  height: 1200px;
+  border-right: 1px solid #e6e6e6;
+  box-sizing: border-box;
+  position: relative;
+}
+/* todo layui-tree-entry 设置无效 */
+.layui-tree-entry {
+  position: relative;
+  padding: 10px 0;
+  height: 20px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+.isFold {
+  position: absolute;
+  top: 36%;
+  right: -10px;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  border-radius: 13px;
+  background-color: #fff;
+  border: 1px solid #e6e6e6;
+  cursor: pointer;
+}
+.search-input {
+  display: inline-block;
+  width: 150px;
+  margin-right: 10px;
+}
+.table-style {
+  margin-top: 10px;
+}
+</style>
