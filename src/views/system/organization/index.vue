@@ -4,14 +4,14 @@
       <div :style="{ width: isFold ? `0px` : `300px` }" class="left-tree">
         <!-- tree -->
         <div v-show="!isFold">
-          <lay-button type="normal" size="sm">
-            <lay-icon type="layui-icon-addition" @click="toAdd"></lay-icon>新建
+          <lay-button type="normal" size="sm" @click="toAdd">
+            <lay-icon type="layui-icon-addition"></lay-icon>新建
           </lay-button>
-          <lay-button type="warm" size="sm">
-            <lay-icon type="layui-icon-edit" @click="toEdit"></lay-icon>修改
+          <lay-button type="warm" size="sm" @click="toEdit">
+            <lay-icon type="layui-icon-edit"></lay-icon>修改
           </lay-button>
-          <lay-button type="danger" size="sm">
-            <lay-icon type="layui-icon-delete" @click="toDelete"></lay-icon>删除
+          <lay-button type="danger" size="sm" @click="toDelete">
+            <lay-icon type="layui-icon-delete"></lay-icon>删除
           </lay-button>
         </div>
 
@@ -24,6 +24,11 @@
           expandKeys="[1,3,4]"
           @node-click="handleClick"
         >
+          <template #title="{ data }">
+            <span :class="selectedKey == data.id ? isChecked : ''">
+              {{ data.title }} {{ data.id }}
+            </span>
+          </template>
         </lay-tree>
         <div class="isFold" @click="isFold = !isFold">
           &nbsp;<lay-icon v-if="!isFold" class="layui-icon-left"></lay-icon>
@@ -57,7 +62,9 @@
             <lay-select-option value="man" label="男"></lay-select-option>
             <lay-select-option value="woman" label="女"></lay-select-option>
           </lay-select>
-          <lay-button type="normal" size="sm"> 查询 </lay-button>
+          <lay-button type="normal" size="sm" @click="toSearch">
+            查询
+          </lay-button>
           <lay-button size="sm" @click="toReset"> 重置 </lay-button>
         </div>
         <lay-table
@@ -104,7 +111,7 @@
         </lay-table>
       </div>
     </div>
-    <lay-layer v-model="visible11" :title="title" :area="['500px', '450px']">
+    <lay-layer v-model="visible11" :title="title" :area="['600px', '450px']">
       <div style="padding: 20px">
         <lay-form :model="model11" ref="layFormRef11" required>
           <lay-form-item label="姓名" prop="name">
@@ -141,41 +148,61 @@
       </div>
     </lay-layer>
 
-    <lay-layer v-model="visible22" :title="title22" :area="['500px', '450px']">
+    <lay-layer v-model="visible22" :title="title22" :area="['700px', '400px']">
       <div style="padding: 20px">
         <lay-form :model="model22" ref="layFormRef11" required>
-          <lay-form-item label="上级机构" prop="organization">
-            <lay-select v-model="model22.organization" style="width: 100%">
-              <lay-select-option value="1" label="研发部"></lay-select-option>
-              <lay-select-option value="2" label="测试部"></lay-select-option>
-              <lay-select-option value="3" label="设计部"></lay-select-option>
-              <lay-select-option value="4" label="市场部"></lay-select-option>
-              <lay-select-option value="5" label="运维部"></lay-select-option>
-            </lay-select>
-          </lay-form-item>
-          <lay-form-item label="机构类型" prop="sex">
-            <lay-select v-model="model22.sex" style="width: 100%">
-              <lay-select-option value="男" label="男"></lay-select-option>
-              <lay-select-option value="女" label="女"></lay-select-option>
-            </lay-select>
-          </lay-form-item>
-
-          <lay-form-item label="年龄" prop="age">
-            <lay-input v-model="model22.age"></lay-input>
-          </lay-form-item>
-
-          <lay-form-item label="城市" prop="city">
-            <lay-input v-model="model22.city"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="email" prop="email">
-            <lay-input v-model="model22.email"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="描述" prop="remark">
-            <lay-textarea
-              placeholder="请输入描述"
-              v-model="model22.remark"
-            ></lay-textarea>
-          </lay-form-item>
+          <lay-row>
+            <lay-col md="12">
+              <lay-form-item label="上级机构" prop="organization">
+                <lay-select v-model="model22.organization" style="width: 100%">
+                  <lay-select-option value="1" label="研发部">
+                  </lay-select-option>
+                  <lay-select-option value="2" label="测试部">
+                  </lay-select-option>
+                  <lay-select-option value="3" label="设计部">
+                  </lay-select-option>
+                  <lay-select-option value="4" label="市场部">
+                  </lay-select-option>
+                  <lay-select-option value="5" label="运维部">
+                  </lay-select-option>
+                </lay-select>
+              </lay-form-item>
+              <lay-form-item label="机构名称" prop="name">
+                <lay-input v-model="model22.name"></lay-input>
+              </lay-form-item>
+              <lay-form-item label="机构全称" prop="fullName">
+                <lay-input v-model="model22.fullName"></lay-input>
+              </lay-form-item>
+              <lay-form-item label="机构代码" prop="code">
+                <lay-input v-model="model22.code"></lay-input>
+              </lay-form-item>
+            </lay-col>
+            <lay-col md="12">
+              <lay-form-item label="机构类型" prop="type">
+                <lay-select v-model="model22.type" style="width: 100%">
+                  <lay-select-option value="1" label="公司"></lay-select-option>
+                  <lay-select-option value="2" label="子公司">
+                  </lay-select-option>
+                  <lay-select-option value="3" label="部门"></lay-select-option>
+                  <lay-select-option value="4" label="小组"></lay-select-option>
+                </lay-select>
+              </lay-form-item>
+              <lay-form-item label="排序号" prop="sort">
+                <lay-input-number
+                  style="width: 100%"
+                  v-model="model22.sort"
+                  position="right"
+                ></lay-input-number>
+              </lay-form-item>
+              <lay-form-item label="备注" prop="remark">
+                <lay-textarea
+                  placeholder="请输入备注"
+                  v-model="model22.remark"
+                  rows="4"
+                ></lay-textarea>
+              </lay-form-item>
+            </lay-col>
+          </lay-row>
         </lay-form>
         <div style="width: 100%; text-align: center">
           <lay-button size="sm" type="primary" @click="toSubmit"
@@ -190,6 +217,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { layer } from '@layui/layui-vue'
+import func from '../../../../vue-temp/vue-editor-bridge'
 const data = ref([
   {
     title: 'xxxx公司',
@@ -198,53 +226,51 @@ const data = ref([
     children: [
       {
         title: '研发部',
-        id: 3,
+        id: 2,
         children: [
           {
             title: '研发一部',
-            id: 23
+            id: 3
           },
           {
             title: '研发二部',
-            id: 7
+            id: 4
           },
           {
             title: '研发三部',
-            id: 8
+            id: 5
           }
         ]
       },
       {
         title: '测试部',
-        id: 4,
+        id: 6,
         children: [
           {
             title: '测试一部',
-            id: 9,
+            id: 7,
             disabled: true
           },
           {
             title: '测试二部',
-            id: 10
+            id: 8
           }
         ]
       },
       {
         title: '设计部',
-        id: 20
+        id: 9
       },
       {
         title: '市场部',
-        id: 21
-      },
-      {
-        title: '运维部',
-        id: 22
+        id: 10
       }
     ]
   }
 ])
 const showLine = ref(false)
+const selectedKey = ref('')
+const selectedNode = ref({})
 const isFold = ref(false)
 const searchQuery = ref({
   userAccount: '',
@@ -259,11 +285,61 @@ function toReset() {
   }
 }
 function handleClick(node: any) {
-  console.log('Click Node:' + JSON.stringify(node))
+  selectedNode.value = JSON.parse(JSON.stringify(node))
+  page.current = selectedNode.value.id
+  change(page)
 }
-function toAdd() {}
-function toEdit() {}
-function toDelete() {}
+function toAdd() {
+  visible22.value = true
+}
+function toEdit() {
+  model22.value = {
+    organization: '1',
+    name: '研发部',
+    fullName: 'xxxx公司-研发部',
+    code: '001',
+    type: '1',
+    sort: 1,
+    remark: '备注'
+  }
+  visible22.value = true
+}
+function toDelete() {
+  if (selectedKey.value == '') {
+    layer.msg('您未选择组织机构，请先选择要删除的组织机构', {
+      icon: 3,
+      time: 2000
+    })
+    return
+  }
+  layer.confirm(
+    '您将删除所选中的组织机构 [ ' + selectedNode.value.title + ' ] ？',
+    {
+      title: '提示',
+      btn: [
+        {
+          text: '确定',
+          callback: (id: any) => {
+            layer.msg('您已成功删除')
+            layer.close(id)
+          }
+        },
+        {
+          text: '取消',
+          callback: (id: any) => {
+            layer.msg('您已取消操作')
+            layer.close(id)
+          }
+        }
+      ]
+    }
+  )
+}
+
+function toSearch() {
+  page.current = 1
+  change(page)
+}
 
 const loading = ref(false)
 const selectedKeys = ref([])
@@ -485,7 +561,6 @@ const reset11 = function () {
   layFormRef11.value.reset()
 }
 function toRemove() {
-  console.log(selectedKeys.value.length, 'toRemove')
   if (selectedKeys.value.length == 0) {
     layer.msg('您未选择数据，请先选择要删除的数据', { icon: 3, time: 2000 })
     return
@@ -529,7 +604,7 @@ function cancel() {
 const model22 = ref({})
 const layFormRef22 = ref()
 const visible22 = ref(false)
-const title22 = ref('新增')
+const title22 = ref('新建')
 </script>
 
 <style scoped>
@@ -576,5 +651,10 @@ const title22 = ref('新增')
 }
 .table-style {
   margin-top: 10px;
+}
+.isChecked {
+  display: inline-block;
+  background-color: #e8f1ff;
+  color: red;
 }
 </style>
