@@ -37,36 +37,67 @@
       </div>
       <div style="flex: 1; padding: 10px; over-flow: auto">
         <!-- table -->
-        <div>
-          用户账号
-          <lay-input
-            class="search-input"
-            :allow-clear="true"
-            v-model="searchQuery.userAccount"
-            placeholder="请输入"
-          ></lay-input>
-          用户名
-          <lay-input
-            class="search-input"
-            :allow-clear="true"
-            v-model="searchQuery.userName"
-            placeholder="请输入"
-          ></lay-input>
-          性别
-          <lay-select
-            class="search-input"
-            v-model="searchQuery.sex"
-            :allow-clear="true"
-            placeholder="请选择"
-          >
-            <lay-select-option value="man" label="男"></lay-select-option>
-            <lay-select-option value="woman" label="女"></lay-select-option>
-          </lay-select>
-          <lay-button type="normal" size="sm" @click="toSearch">
-            查询
-          </lay-button>
-          <lay-button size="sm" @click="toReset"> 重置 </lay-button>
-        </div>
+        <lay-card>
+          <lay-form>
+            <lay-row>
+              <lay-col :md="5">
+                <lay-form-item label="用户账号" label-width="80">
+                  <lay-input
+                    v-model="searchQuery.userAccount"
+                    placeholder="请输入"
+                    size="sm"
+                    :allow-clear="true"
+                    style="width: 98%"
+                  ></lay-input>
+                </lay-form-item>
+              </lay-col>
+              <lay-col :md="5">
+                <lay-form-item label="用户名" label-width="80">
+                  <lay-input
+                    v-model="searchQuery.userName"
+                    placeholder="请输入"
+                    size="sm"
+                    :allow-clear="true"
+                    style="width: 98%"
+                  ></lay-input>
+                </lay-form-item>
+              </lay-col>
+              <lay-col :md="5">
+                <lay-form-item label="性别" label-width="80">
+                  <lay-select
+                    class="search-input"
+                    size="sm"
+                    v-model="searchQuery.sex"
+                    :allow-clear="true"
+                    placeholder="请选择"
+                  >
+                    <lay-select-option
+                      value="man"
+                      label="男"
+                    ></lay-select-option>
+                    <lay-select-option
+                      value="woman"
+                      label="女"
+                    ></lay-select-option>
+                  </lay-select>
+                </lay-form-item>
+              </lay-col>
+              <lay-col :md="5">
+                <lay-form-item label-width="20">
+                  <lay-button
+                    style="margin-left: 20px"
+                    type="normal"
+                    size="sm"
+                    @click="toSearch"
+                  >
+                    查询
+                  </lay-button>
+                  <lay-button size="sm" @click="toReset"> 重置 </lay-button>
+                </lay-form-item>
+              </lay-col>
+            </lay-row>
+          </lay-form>
+        </lay-card>
         <lay-table
           class="table-style"
           :page="page"
@@ -217,7 +248,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { layer } from '@layui/layui-vue'
-import func from '../../../../vue-temp/vue-editor-bridge'
+
 const data = ref([
   {
     title: 'xxxx公司',
@@ -646,7 +677,7 @@ const title22 = ref('新建')
 }
 .search-input {
   display: inline-block;
-  width: 150px;
+  width: 98%;
   margin-right: 10px;
 }
 .table-style {

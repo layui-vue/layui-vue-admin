@@ -36,7 +36,7 @@ const menus = [
   },
   {
     id: "/form",
-    icon: "layui-icon-transfer",
+    icon: "layui-icon-table",
     title: "表单页面",
     children: [
       {
@@ -199,17 +199,17 @@ const menus = [
     children: [
       {
         id: '/system/user',
-        icon: "layui-icon-username",
+        icon: "layui-icon-user",
         title: '用户管理',
       },
       {
         id: '/system/role',
-        icon: "layui-icon-email",
+        icon: "layui-icon-group",
         title: '角色管理',
       },
       {
         id: '/system/organization',
-        icon: "layui-icon-cols",
+        icon: "layui-icon-transfer",
         title: '机构管理',
       },
     ]
