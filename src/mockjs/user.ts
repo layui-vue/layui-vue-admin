@@ -212,6 +212,11 @@ const menus = [
         icon: "layui-icon-transfer",
         title: '机构管理',
       },
+      {
+        id: '/system/menu',
+        icon: "layui-icon-spread-left",
+        title: '菜单管理',
+      },
     ]
   },
 

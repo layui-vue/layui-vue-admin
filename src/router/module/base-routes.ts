@@ -80,12 +80,16 @@ export default [
         path: '/system/role',
         component: () => import('../../views/system/role/index.vue'),
         meta: { title: '角色管理', requireAuth: true },
-      }
-      ,
+      },
       {
         path: '/system/organization',
         component: () => import('../../views/system/organization/index.vue'),
         meta: { title: '机构管理', requireAuth: true },
+      },
+      {
+        path: '/system/menu',
+        component: () => import('../../views/system/menu/index.vue'),
+        meta: { title: '菜单管理', requireAuth: true },
       }
     ]
   }, {

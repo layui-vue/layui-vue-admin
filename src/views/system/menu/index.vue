@@ -1,12 +1,12 @@
 <template>
-  <lay-container fluid="true" class="role-box">
+  <lay-container fluid="true" class="menu-box">
     <lay-card>
       <lay-form style="margin-top: 10px">
         <lay-row>
           <lay-col :md="5">
-            <lay-form-item label="角色名称" label-width="80">
+            <lay-form-item label="菜单名称" label-width="80">
               <lay-input
-                v-model="searchQuery.roleName"
+                v-model="searchQuery.name"
                 placeholder="请输入"
                 size="sm"
                 :allow-clear="true"
@@ -15,20 +15,20 @@
             </lay-form-item>
           </lay-col>
           <lay-col :md="5">
-            <lay-form-item label="角色标识" label-width="80">
+            <lay-form-item label="菜单地址" label-width="80">
+              <lay-input
+                v-model="searchQuery.address"
+                placeholder="请输入"
+                size="sm"
+                :allow-clear="true"
+                style="width: 98%"
+              ></lay-input>
+            </lay-form-item>
+          </lay-col>
+          <lay-col :md="5">
+            <lay-form-item label="权限标识" label-width="80">
               <lay-input
                 v-model="searchQuery.identifying"
-                placeholder="请输入"
-                size="sm"
-                :allow-clear="true"
-                style="width: 98%"
-              ></lay-input>
-            </lay-form-item>
-          </lay-col>
-          <lay-col :md="5">
-            <lay-form-item label="备注" label-width="80">
-              <lay-input
-                v-model="searchQuery.mark"
                 placeholder="请输入"
                 size="sm"
                 :allow-clear="true"
@@ -55,49 +55,24 @@
     <!-- table -->
     <div class="table-box">
       <lay-table
-        class="table-style"
-        :page="page"
-        :columns="columns"
+        ref="tableRef6"
         :loading="loading"
+        children-column-name="children"
+        :columns="columns6"
+        :data-source="dataSource6"
         :default-toolbar="true"
-        :data-source="dataSource"
-        v-model:selected-keys="selectedKeys"
-        @change="change"
-        @sortChange="sortChange"
+        :default-expand-all="defaultExpandAll6"
+        :expand-index="1"
       >
-        <template #status="{ row }">
-          <lay-switch
-            :model-value="row.status"
-            @change="changeStatus($event, row)"
-          ></lay-switch>
-        </template>
-        <template v-slot:toolbar>
-          <lay-button size="sm" type="primary" @click="changeVisible11('新增')">
-            <lay-icon class="layui-icon-addition"></lay-icon>
-            新增</lay-button
+        <template #toolbar>
+          <lay-button type="primary" size="sm" @click="getCheckData6"
+            >获取选中数据</lay-button
           >
-          <lay-button size="sm" @click="toRemove">
-            <lay-icon class="layui-icon-delete"></lay-icon>
-            删除
+          <lay-button size="sm" @click="changeVisible11('新建')">
+            新建
           </lay-button>
-        </template>
-        <template v-slot:operator="{ row }">
-          <lay-button
-            size="xs"
-            type="primary"
-            @click="changeVisible11('编辑', row)"
-            >编辑</lay-button
-          >
-          <lay-button size="xs" type="primary" @click="toPrivileges(row)"
-            >分配权限</lay-button
-          >
-          <lay-popconfirm
-            content="确定要删除此用户吗?"
-            @confirm="confirm"
-            @cancel="cancel"
-          >
-            <lay-button size="xs">删除</lay-button>
-          </lay-popconfirm>
+          <lay-button size="sm" @click="expandAll6(true)">展开全部</lay-button>
+          <lay-button size="sm" @click="expandAll6(false)">折叠全部</lay-button>
         </template>
       </lay-table>
     </div>
@@ -183,182 +158,374 @@ function toSearch() {
   page.current = 1
   change(page)
 }
-
-const loading = ref(false)
-const selectedKeys = ref([])
-const page = reactive({ current: 1, limit: 10, total: 100 })
-const columns = ref([
-  { title: '选项', width: '55px', type: 'checkbox', fixed: 'left' },
-  { title: '编号', width: '80px', key: 'id', fixed: 'left', sort: 'desc' },
-  { title: '姓名', width: '80px', key: 'name', sort: 'desc' },
-  { title: '状态', width: '80px', key: 'status', customSlot: 'status' },
-  { title: '邮箱', width: '120px', key: 'email' },
-  { title: '性别', width: '80px', key: 'sex' },
-  { title: '年龄', width: '80px', key: 'age' },
-  { title: '城市', width: '120px', key: 'city' },
-  { title: '签名', width: '260px', key: 'remark' },
-  { title: '隐藏', width: '260px', key: 'hide', hide: true },
-  { title: '时间', width: '120px', key: 'joinTime' },
-  {
-    title: '操作',
-    width: '150px',
-    customSlot: 'operator',
-    key: 'operator',
-    fixed: 'right'
-  }
-])
 const change = (page: any) => {
   loading.value = true
   setTimeout(() => {
-    dataSource.value = loadDataSource(page.current, page.limit)
+    //
     loading.value = false
   }, 1000)
 }
-const sortChange = (key: any, sort: number) => {
-  layer.msg(`字段${key} - 排序${sort}, 你可以利用 sort-change 实现服务端排序`)
-}
-const dataSource = ref([
+const page = reactive({ current: 1, limit: 10, total: 100 })
+const loading = ref(false)
+const tableRef6 = ref()
+
+const columns6 = [
   {
-    id: '1',
-    name: '张三1',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '18',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    fixed: 'left',
+    type: 'checkbox',
+    title: '复选'
+  },
+
+  {
+    title: '名称',
+    width: '200px',
+    key: 'name'
   },
   {
-    id: '2',
-    name: '张三2',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    title: '性别',
+    width: '100px',
+    key: 'sex'
   },
   {
-    id: '3',
-    name: '张三3',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    title: '城市',
+    width: '120px',
+    key: 'city'
   },
   {
-    id: '4',
-    name: '张三4',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    title: '签到',
+    width: '100px',
+    key: 'sign'
   },
   {
-    id: '5',
-    name: '张三5',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
-  },
-  {
-    id: '6',
-    name: '张三6',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
-  },
-  {
-    id: '7',
-    name: '张三7',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '18',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
-  },
-  {
-    id: '8',
-    name: '张三8',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
-  },
-  {
-    id: '9',
-    name: '张三9',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
-  },
-  {
-    id: '10',
-    name: '张三10',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    title: '签名',
+    width: '240px',
+    key: 'remark'
   }
-])
-const changeStatus = (isChecked: boolean, row: any) => {
-  dataSource.value.forEach((item) => {
-    if (item.id === row.id) {
-      layer.msg('Success', { icon: 1 }, () => {
-        item.status = isChecked
-      })
-    }
-  })
-}
-const remove = () => {
-  layer.msg(selectedKeys.value, { area: '50%' })
-}
-const loadDataSource = (page: number, pageSize: number) => {
-  var response = []
-  var startIndex = (page - 1) * pageSize + 1
-  var endIndex = page * pageSize
-  for (var i = startIndex; i <= endIndex; i++) {
-    response.push({
-      id: `${i}`,
-      age: '18',
-      sex: '男',
-      name: `张三${i}`,
-      email: 'test@qq.com',
-      remark: '花开堪折直须折,莫待无花空折枝.',
-      joinTime: '2022-02-09',
-      city: '浙江杭州',
-      status: true
-    })
+]
+
+const dataSource6 = [
+  {
+    id: '10001',
+    name: '张三 1',
+    sex: '男',
+    age: 22,
+    city: '浙江杭州',
+    sign: '已签到',
+    remark: '人生若只如初见，何事秋风悲画扇。',
+    children: [
+      {
+        id: '10009',
+        name: '张三 1-1',
+        sex: '男',
+        age: 22,
+        city: '浙江杭州',
+        sign: '已签到',
+        remark: '人生若只如初见，何事秋风悲画扇。',
+        children: [
+          {
+            id: '10010',
+            name: '张三 1-1-1',
+            sex: '男',
+            age: 22,
+            city: '浙江杭州',
+            sign: '已签到',
+            remark: '人生若只如初见，何事秋风悲画扇。',
+            children: [
+              {
+                id: '10029',
+                name: '张三 1-1-1-1',
+                sex: '男',
+                age: 22,
+                city: '浙江杭州',
+                sign: '已签到',
+                remark: '人生若只如初见，何事秋风悲画扇。'
+              },
+              {
+                id: '10030',
+                name: '张三 1-1-1-2',
+                sex: '男',
+                age: 22,
+                city: '浙江杭州',
+                sign: '已签到',
+                remark: '人生若只如初见，何事秋风悲画扇。'
+              }
+            ]
+          },
+          {
+            id: '10011',
+            name: '张三 1-1-2',
+            sex: '男',
+            age: 22,
+            city: '浙江杭州',
+            sign: '已签到',
+            remark: '人生若只如初见，何事秋风悲画扇。',
+            children: [
+              {
+                id: '10031',
+                name: '张三 1-1-2-1',
+                sex: '男',
+                age: 22,
+                city: '浙江杭州',
+                sign: '已签到',
+                remark: '人生若只如初见，何事秋风悲画扇。'
+              },
+              {
+                id: '10032',
+                name: '张三 1-1-2-2',
+                sex: '男',
+                age: 22,
+                city: '浙江杭州',
+                sign: '已签到',
+                remark: '人生若只如初见，何事秋风悲画扇。'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: '10012',
+        name: '张三 1-2',
+        sex: '男',
+        age: 22,
+        city: '浙江杭州',
+        sign: '已签到',
+        remark: '人生若只如初见，何事秋风悲画扇。',
+        children: [
+          {
+            id: '10013',
+            name: '张三 1-2-1',
+            sex: '男',
+            age: 22,
+            city: '浙江杭州',
+            sign: '已签到',
+            remark: '人生若只如初见，何事秋风悲画扇。'
+          },
+          {
+            id: '10014',
+            name: '张三 1-2-2',
+            sex: '男',
+            age: 22,
+            city: '浙江杭州',
+            sign: '已签到',
+            remark: '人生若只如初见，何事秋风悲画扇。'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: '10002',
+    name: '张三 2',
+    sex: '男',
+    age: 22,
+    city: '浙江杭州',
+    sign: '已签到',
+    remark: '人生若只如初见，何事秋风悲画扇。',
+    children: [
+      {
+        id: '10015',
+        name: '张三 2-1',
+        sex: '男',
+        age: 22,
+        city: '浙江杭州',
+        sign: '已签到',
+        remark: '人生若只如初见，何事秋风悲画扇。'
+      },
+      {
+        id: '10016',
+        name: '张三 2-2',
+        sex: '男',
+        age: 22,
+        city: '浙江杭州',
+        sign: '已签到',
+        remark: '人生若只如初见，何事秋风悲画扇。'
+      }
+    ]
+  },
+  {
+    id: '10003',
+    name: '张三 3',
+    sex: '男',
+    age: 22,
+    city: '浙江杭州',
+    sign: '已签到',
+    remark: '人生若只如初见，何事秋风悲画扇。',
+    children: [
+      {
+        id: '10017',
+        name: '张三 3-1',
+        sex: '男',
+        age: 22,
+        city: '浙江杭州',
+        sign: '已签到',
+        remark: '人生若只如初见，何事秋风悲画扇。'
+      },
+      {
+        id: '10018',
+        name: '张三 3-2',
+        sex: '男',
+        age: 22,
+        city: '浙江杭州',
+        sign: '已签到',
+        remark: '人生若只如初见，何事秋风悲画扇。'
+      }
+    ]
+  },
+  {
+    id: '10004',
+    name: '张三 4',
+    sex: '男',
+    age: 22,
+    city: '浙江杭州',
+    sign: '已签到',
+    remark: '人生若只如初见，何事秋风悲画扇。',
+    children: [
+      {
+        id: '10019',
+        name: '张三 4-1',
+        sex: '男',
+        age: 22,
+        city: '浙江杭州',
+        sign: '已签到',
+        remark: '人生若只如初见，何事秋风悲画扇。'
+      },
+      {
+        id: '10020',
+        name: '张三 4-2',
+        sex: '男',
+        age: 22,
+        city: '浙江杭州',
+        sign: '已签到',
+        remark: '人生若只如初见，何事秋风悲画扇。'
+      }
+    ]
+  },
+  {
+    id: '10005',
+    name: '张三 5',
+    sex: '男',
+    age: 22,
+    city: '浙江杭州',
+    sign: '已签到',
+    remark: '人生若只如初见，何事秋风悲画扇。',
+    children: [
+      {
+        id: '10021',
+        name: '张三 5-1',
+        sex: '男',
+        age: 22,
+        city: '浙江杭州',
+        sign: '已签到',
+        remark: '人生若只如初见，何事秋风悲画扇。'
+      },
+      {
+        id: '10022',
+        name: '张三 5-2',
+        sex: '男',
+        age: 22,
+        city: '浙江杭州',
+        sign: '已签到',
+        remark: '人生若只如初见，何事秋风悲画扇。'
+      }
+    ]
+  },
+  {
+    id: '10006',
+    name: '张三 6',
+    sex: '男',
+    age: 22,
+    city: '浙江杭州',
+    sign: '已签到',
+    remark: '人生若只如初见，何事秋风悲画扇。',
+    children: [
+      {
+        id: '10023',
+        name: '张三 6-1',
+        sex: '男',
+        age: 22,
+        city: '浙江杭州',
+        sign: '已签到',
+        remark: '人生若只如初见，何事秋风悲画扇。'
+      },
+      {
+        id: '10024',
+        name: '张三 6-2',
+        sex: '男',
+        age: 22,
+        city: '浙江杭州',
+        sign: '已签到',
+        remark: '人生若只如初见，何事秋风悲画扇。'
+      }
+    ]
+  },
+  {
+    id: '10007',
+    name: '张三 7',
+    sex: '男',
+    age: 22,
+    city: '浙江杭州',
+    sign: '已签到',
+    remark: '人生若只如初见，何事秋风悲画扇。',
+    children: [
+      {
+        id: '10025',
+        name: '张三 7-1',
+        sex: '男',
+        age: 22,
+        city: '浙江杭州',
+        sign: '已签到',
+        remark: '人生若只如初见，何事秋风悲画扇。'
+      },
+      {
+        id: '10026',
+        name: '张三 7-2',
+        sex: '男',
+        age: 22,
+        city: '浙江杭州',
+        sign: '已签到',
+        remark: '人生若只如初见，何事秋风悲画扇。'
+      }
+    ]
+  },
+  {
+    id: '10008',
+    name: '张三 8',
+    sex: '男',
+    age: 22,
+    city: '浙江杭州',
+    sign: '已签到',
+    remark: '人生若只如初见，何事秋风悲画扇。',
+    children: [
+      {
+        id: '10027',
+        name: '张三 8-1',
+        sex: '男',
+        age: 22,
+        city: '浙江杭州',
+        sign: '已签到',
+        remark: '人生若只如初见，何事秋风悲画扇。'
+      },
+      {
+        id: '10028',
+        name: '张三 8-2',
+        sex: '男',
+        age: 22,
+        city: '浙江杭州',
+        sign: '已签到',
+        remark: '人生若只如初见，何事秋风悲画扇。'
+      }
+    ]
   }
-  return response
+]
+
+const getCheckData6 = function () {
+  layer.msg(tableRef6.value.getCheckData())
+}
+
+const defaultExpandAll6 = ref(false)
+
+const expandAll6 = function (flag: any) {
+  defaultExpandAll6.value = flag
 }
 const model11 = ref({})
 const layFormRef11 = ref()
@@ -548,7 +715,7 @@ function toPrivileges() {
 </script>
 
 <style scoped>
-.role-box {
+.menu-box {
   width: calc(100vw - 220px);
   height: calc(100vh - 110px);
   margin-top: 10px;
