@@ -41,6 +41,9 @@
         <template #status="{ row }">
           <lay-switch :model-value="row.status" @change="changeStatus($event, row)"></lay-switch>
         </template>
+        <template #avatar="{ row }">
+          <lay-avatar :src="row.avatar"></lay-avatar>
+        </template>
         <template v-slot:toolbar>
           <lay-button size="sm" type="primary" @click="changeVisible11('新增')">
             <lay-icon class="layui-icon-addition"></lay-icon>
@@ -138,8 +141,9 @@ const loading = ref(false)
 const selectedKeys = ref<string[]>([])
 const page = reactive({ current: 1, limit: 10, total: 100 })
 const columns = ref([
-  { title: '选项', width: '55px', type: 'checkbox', fixed: 'left' },
+  { title: '选项', width: '60px', type: 'checkbox', fixed: 'left' },
   { title: '编号', width: '80px', key: 'id', fixed: 'left', sort: 'desc' },
+  { title: '头像', width: '50px', key: 'avatar', customSlot: 'avatar' },
   { title: '姓名', width: '80px', key: 'name', sort: 'desc' },
   { title: '状态', width: '80px', key: 'status', customSlot: 'status' },
   { title: '邮箱', width: '120px', key: 'email' },
@@ -147,11 +151,10 @@ const columns = ref([
   { title: '年龄', width: '80px', key: 'age' },
   { title: '城市', width: '120px', key: 'city' },
   { title: '签名', width: '260px', key: 'remark' },
-  { title: '隐藏', width: '260px', key: 'hide', hide: true },
   { title: '时间', width: '120px', key: 'joinTime' },
   {
     title: '操作',
-    width: '150px',
+    width: '120px',
     customSlot: 'operator',
     key: 'operator',
     fixed: 'right'
@@ -171,6 +174,7 @@ const dataSource = ref([
   {
     id: '1',
     name: '张三1',
+    avatar: "https://foruda.gitee.com/avatar/1677022544584087390/4835367_jmysy_1578975358.png",
     email: 'test@qq.com',
     sex: '男',
     city: '浙江杭州',
@@ -182,6 +186,7 @@ const dataSource = ref([
   {
     id: '2',
     name: '张三2',
+    avatar: "https://foruda.gitee.com/avatar/1677022544584087390/4835367_jmysy_1578975358.png",
     email: 'test@qq.com',
     sex: '男',
     city: '浙江杭州',
@@ -193,6 +198,7 @@ const dataSource = ref([
   {
     id: '3',
     name: '张三3',
+    avatar: "https://foruda.gitee.com/avatar/1677022544584087390/4835367_jmysy_1578975358.png",
     email: 'test@qq.com',
     sex: '男',
     city: '浙江杭州',
@@ -204,6 +210,7 @@ const dataSource = ref([
   {
     id: '4',
     name: '张三4',
+    avatar: "https://foruda.gitee.com/avatar/1677022544584087390/4835367_jmysy_1578975358.png",
     email: 'test@qq.com',
     sex: '男',
     city: '浙江杭州',
@@ -215,6 +222,7 @@ const dataSource = ref([
   {
     id: '5',
     name: '张三5',
+    avatar: "https://foruda.gitee.com/avatar/1677022544584087390/4835367_jmysy_1578975358.png",
     email: 'test@qq.com',
     sex: '男',
     city: '浙江杭州',
@@ -226,6 +234,7 @@ const dataSource = ref([
   {
     id: '6',
     name: '张三6',
+    avatar: "https://foruda.gitee.com/avatar/1677022544584087390/4835367_jmysy_1578975358.png",
     email: 'test@qq.com',
     sex: '男',
     city: '浙江杭州',
@@ -237,6 +246,7 @@ const dataSource = ref([
   {
     id: '7',
     name: '张三7',
+    avatar: "https://foruda.gitee.com/avatar/1677022544584087390/4835367_jmysy_1578975358.png",
     email: 'test@qq.com',
     sex: '男',
     city: '浙江杭州',
@@ -248,6 +258,7 @@ const dataSource = ref([
   {
     id: '8',
     name: '张三8',
+    avatar: "https://foruda.gitee.com/avatar/1677022544584087390/4835367_jmysy_1578975358.png",
     email: 'test@qq.com',
     sex: '男',
     city: '浙江杭州',
@@ -259,6 +270,7 @@ const dataSource = ref([
   {
     id: '9',
     name: '张三9',
+    avatar: "https://foruda.gitee.com/avatar/1677022544584087390/4835367_jmysy_1578975358.png",
     email: 'test@qq.com',
     sex: '男',
     city: '浙江杭州',
@@ -270,6 +282,7 @@ const dataSource = ref([
   {
     id: '10',
     name: '张三10',
+    avatar: "https://foruda.gitee.com/avatar/1677022544584087390/4835367_jmysy_1578975358.png",
     email: 'test@qq.com',
     sex: '男',
     city: '浙江杭州',
@@ -303,6 +316,7 @@ const loadDataSource = (page: number, pageSize: number) => {
       id: `${i}`,
       age: '18',
       sex: '男',
+      avatar: "https://foruda.gitee.com/avatar/1677022544584087390/4835367_jmysy_1578975358.png",
       name: `张三${i}`,
       email: 'test@qq.com',
       remark: '花开堪折直须折,莫待无花空折枝.',
