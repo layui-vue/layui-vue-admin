@@ -102,28 +102,28 @@
               </template>
               <dl>
                 <dd class="dynamic">
-                  <div class="layui-status-img"><a href="javascript:;"><img></a></div>
+                  <div class="layui-status-img"><a href="javascript:;"><img src="https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7"></a></div>
                   <div>
                     <p>张三 在 <a href="javascript:;/vipclub/list/layuiadmin/">讨论区</a> 回答问题</p>
                     <span>几秒前</span>
                   </div>
                 </dd>
                 <dd class="dynamic">
-                  <div class="layui-status-img"><a href="javascript:;"><img></a></div>
+                  <div class="layui-status-img"><a href="javascript:;"><img src="https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7"></a></div>
                   <div>
                     <p>张三 在 <a href="javascript:;/vipclub/list/layuiadmin/">讨论区</a> 回答问题</p>
                     <span>几秒前</span>
                   </div>
                 </dd>
                 <dd class="dynamic">
-                  <div class="layui-status-img"><a href="javascript:;"><img></a></div>
+                  <div class="layui-status-img"><a href="javascript:;"><img src="https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7"></a></div>
                   <div>
                     <p>张三 在 <a href="javascript:;/vipclub/list/layuiadmin/">讨论区</a> 回答问题</p>
                     <span>几秒前</span>
                   </div>
                 </dd>
                 <dd class="dynamic">
-                  <div class="layui-status-img"><a href="javascript:;"><img></a></div>
+                  <div class="layui-status-img"><a href="javascript:;"><img src="https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7"></a></div>
                   <div>
                     <p>张三 在 <a href="javascript:;/vipclub/list/layuiadmin/">讨论区</a> 回答问题</p>
                     <span>几秒前</span>
@@ -289,7 +289,7 @@ export default defineComponent({
   display: -webkit-flex;
   display: flex;
 
-  .layui-status-img {
+  .layui-status-img img{
     width: 32px;
     height: 32px;
     border-radius: 50%;
