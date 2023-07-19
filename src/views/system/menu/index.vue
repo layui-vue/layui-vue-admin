@@ -55,6 +55,7 @@
     <!-- table -->
     <div class="table-box">
       <lay-table
+        :height="`570px`"
         ref="tableRef6"
         :loading="loading"
         children-column-name="children"
@@ -68,71 +69,101 @@
           <lay-button type="primary" size="sm" @click="getCheckData6"
             >获取选中数据</lay-button
           >
-          <lay-button size="sm" @click="changeVisible11('新建')">
+          <lay-button size="sm" @click="changeVisible11('新建')" type="normal">
             新建
           </lay-button>
           <lay-button size="sm" @click="expandAll6(true)">展开全部</lay-button>
           <lay-button size="sm" @click="expandAll6(false)">折叠全部</lay-button>
         </template>
+        <template #name="{ row }">
+          <lay-icon :class="row.icon"></lay-icon> &nbsp;&nbsp;
+          {{ row.name }}
+        </template>
+        <template #option="{ row }">
+          <lay-button
+            @click="changeVisible11('新建')"
+            size="xs"
+            border="blue"
+            border-style="dashed"
+          >
+            添加
+          </lay-button>
+          <lay-button
+            @click="changeVisible11('修改', row)"
+            size="xs"
+            border="green"
+            border-style="dashed"
+          >
+            修改
+          </lay-button>
+          <lay-button
+            @click="toRemove"
+            size="xs"
+            border="red"
+            border-style="dashed"
+          >
+            删除
+          </lay-button>
+        </template>
+        <template #type="{ row }">
+          <div v-show="row.type == '目录'">
+            <lay-tag color="#165DFF" variant="light">目录</lay-tag>
+          </div>
+          <div v-show="row.type == '菜单'">
+            <lay-tag color="#2dc570" variant="light">菜单</lay-tag>
+          </div>
+          <div v-show="row.type == '外链'">
+            <lay-tag color="#F5319D" variant="light">外链</lay-tag>
+          </div>
+        </template>
       </lay-table>
     </div>
 
-    <lay-layer v-model="visible11" :title="title" :area="['600px', '450px']">
+    <lay-layer v-model="visible11" :title="title" :area="['700px', '370px']">
       <div style="padding: 20px">
         <lay-form :model="model11" ref="layFormRef11" required>
-          <lay-form-item label="姓名" prop="name">
-            <lay-input v-model="model11.name"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="年龄" prop="age">
-            <lay-input v-model="model11.age"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="性别" prop="sex">
-            <lay-select v-model="model11.sex" style="width: 100%">
-              <lay-select-option value="男" label="男"></lay-select-option>
-              <lay-select-option value="女" label="女"></lay-select-option>
-            </lay-select>
-          </lay-form-item>
-          <lay-form-item label="城市" prop="city">
-            <lay-input v-model="model11.city"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="email" prop="email">
-            <lay-input v-model="model11.email"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="描述" prop="remark">
-            <lay-textarea
-              placeholder="请输入描述"
-              v-model="model11.remark"
-            ></lay-textarea>
-          </lay-form-item>
+          <lay-row>
+            <lay-col md="12">
+              <lay-form-item label="菜单名称" prop="name">
+                <lay-input v-model="model11.name"></lay-input>
+              </lay-form-item>
+              <lay-form-item label="路由路径" prop="routePath">
+                <lay-input v-model="model11.routePath"></lay-input>
+              </lay-form-item>
+              <lay-form-item label="组件路径" prop="compontPath">
+                <lay-input v-model="model11.compontPath"></lay-input>
+              </lay-form-item>
+              <lay-form-item label="图标" prop="icon">
+                <lay-input v-model="model11.icon"></lay-input>
+              </lay-form-item>
+            </lay-col>
+            <lay-col md="12">
+              <lay-form-item label="排序" prop="sort">
+                <lay-input-number
+                  style="width: 100%"
+                  v-model="model11.sort"
+                  position="right"
+                ></lay-input-number>
+              </lay-form-item>
+              <lay-form-item label="是否显示" prop="isShow">
+                <lay-select v-model="model11.isShow" style="width: 100%">
+                  <lay-select-option value="是" label="是"></lay-select-option>
+                  <lay-select-option value="否" label="否"></lay-select-option>
+                </lay-select>
+              </lay-form-item>
+
+              <lay-form-item label="类型" prop="type">
+                <lay-input v-model="model11.type"></lay-input>
+              </lay-form-item>
+            </lay-col>
+          </lay-row>
         </lay-form>
-        <div style="width: 100%; text-align: center">
+        <div style="width: 97%; text-align: right">
           <lay-button size="sm" type="primary" @click="toSubmit"
             >保存</lay-button
           >
           <lay-button size="sm" @click="toCancel">取消</lay-button>
         </div>
-      </div>
-    </lay-layer>
-
-    <lay-layer v-model="visible22" title="分配权限" :area="['600px', '450px']">
-      <div style="height: 320px; overflow: auto">
-        <lay-tree
-          style="margin-left: 40px"
-          :tail-node-icon="false"
-          :data="data2"
-          :showCheckbox="showCheckbox2"
-          v-model:checkedKeys="checkedKeys2"
-        >
-          <template #title="{ data }">
-            <lay-icon :class="data.icon"></lay-icon>
-            {{ data.title }}
-          </template>
-        </lay-tree>
-      </div>
-      <lay-line></lay-line>
-      <div style="width: 90%; text-align: right">
-        <lay-button size="sm" type="primary" @click="toSubmit">保存</lay-button>
-        <lay-button size="sm" @click="toCancel">取消</lay-button>
       </div>
     </lay-layer>
   </lay-container>
@@ -143,14 +174,14 @@ import { layer } from '@layui/layui-vue'
 const searchQuery = ref({
   userAccount: '',
   userName: '',
-  sex: ''
+  type: ''
 })
 
 function toReset() {
   searchQuery.value = {
     userAccount: '',
     userName: '',
-    sex: ''
+    type: ''
   }
 }
 
@@ -177,342 +208,437 @@ const columns6 = [
   },
 
   {
-    title: '名称',
+    title: '菜单名称',
     width: '200px',
-    key: 'name'
+    key: 'name',
+    customSlot: 'name'
   },
   {
-    title: '性别',
-    width: '100px',
-    key: 'sex'
-  },
-  {
-    title: '城市',
+    title: '路由地址',
     width: '120px',
-    key: 'city'
+    key: 'routePath'
   },
   {
-    title: '签到',
+    title: '组件路径',
     width: '100px',
-    key: 'sign'
+    key: 'compontPath'
   },
   {
-    title: '签名',
+    title: '排序',
+    width: '60px',
+    key: 'sort'
+  },
+  {
+    title: '可见',
     width: '240px',
-    key: 'remark'
+    key: 'isShow'
+  },
+  {
+    title: '类型',
+    width: '100px',
+    key: 'type',
+    customSlot: 'type'
+  },
+  {
+    title: '操作',
+    width: '100px',
+    key: 'option',
+    customSlot: 'option'
   }
 ]
 
 const dataSource6 = [
   {
     id: '10001',
-    name: '张三 1',
-    sex: '男',
-    age: 22,
-    city: '浙江杭州',
-    sign: '已签到',
-    remark: '人生若只如初见，何事秋风悲画扇。',
+    name: '工作空间',
+    type: '目录',
+    icon: 'layui-icon-home',
+    age: 0,
+    routePath: '/workspace',
+    compontPath: '',
+    isShow: '是',
     children: [
       {
         id: '10009',
-        name: '张三 1-1',
-        sex: '男',
-        age: 22,
-        city: '浙江杭州',
-        sign: '已签到',
-        remark: '人生若只如初见，何事秋风悲画扇。',
-        children: [
-          {
-            id: '10010',
-            name: '张三 1-1-1',
-            sex: '男',
-            age: 22,
-            city: '浙江杭州',
-            sign: '已签到',
-            remark: '人生若只如初见，何事秋风悲画扇。',
-            children: [
-              {
-                id: '10029',
-                name: '张三 1-1-1-1',
-                sex: '男',
-                age: 22,
-                city: '浙江杭州',
-                sign: '已签到',
-                remark: '人生若只如初见，何事秋风悲画扇。'
-              },
-              {
-                id: '10030',
-                name: '张三 1-1-1-2',
-                sex: '男',
-                age: 22,
-                city: '浙江杭州',
-                sign: '已签到',
-                remark: '人生若只如初见，何事秋风悲画扇。'
-              }
-            ]
-          },
-          {
-            id: '10011',
-            name: '张三 1-1-2',
-            sex: '男',
-            age: 22,
-            city: '浙江杭州',
-            sign: '已签到',
-            remark: '人生若只如初见，何事秋风悲画扇。',
-            children: [
-              {
-                id: '10031',
-                name: '张三 1-1-2-1',
-                sex: '男',
-                age: 22,
-                city: '浙江杭州',
-                sign: '已签到',
-                remark: '人生若只如初见，何事秋风悲画扇。'
-              },
-              {
-                id: '10032',
-                name: '张三 1-1-2-2',
-                sex: '男',
-                age: 22,
-                city: '浙江杭州',
-                sign: '已签到',
-                remark: '人生若只如初见，何事秋风悲画扇。'
-              }
-            ]
-          }
-        ]
+        name: '工作台',
+        type: '菜单',
+        sort: 1,
+        icon: 'layui-icon-util',
+        routePath: '/workspace/workbench',
+        compontPath: '/workspace/workbench',
+        isShow: '是'
       },
       {
         id: '10012',
-        name: '张三 1-2',
-        sex: '男',
-        age: 22,
-        city: '浙江杭州',
-        sign: '已签到',
-        remark: '人生若只如初见，何事秋风悲画扇。',
-        children: [
-          {
-            id: '10013',
-            name: '张三 1-2-1',
-            sex: '男',
-            age: 22,
-            city: '浙江杭州',
-            sign: '已签到',
-            remark: '人生若只如初见，何事秋风悲画扇。'
-          },
-          {
-            id: '10014',
-            name: '张三 1-2-2',
-            sex: '男',
-            age: 22,
-            city: '浙江杭州',
-            sign: '已签到',
-            remark: '人生若只如初见，何事秋风悲画扇。'
-          }
-        ]
+        name: '控制台',
+        type: '菜单',
+        sort: 2,
+        icon: 'layui-icon-engine',
+        routePath: '/workspace/console',
+        compontPath: '/workspace/console',
+        isShow: '是'
+      },
+      {
+        id: '10012',
+        name: '分析页',
+        type: '菜单',
+        sort: 3,
+        icon: 'layui-icon-chart-screen',
+        routePath: '/workspace/analysis',
+        compontPath: '/workspace/analysis',
+        isShow: '是'
+      },
+      {
+        id: '10012',
+        name: '监控页',
+        type: '菜单',
+        sort: 4,
+        icon: 'layui-icon-find-fill',
+        routePath: '/workspace/monitor',
+        compontPath: '/workspace/monitor',
+        isShow: '是'
       }
     ]
   },
   {
     id: '10002',
-    name: '张三 2',
-    sex: '男',
-    age: 22,
-    city: '浙江杭州',
-    sign: '已签到',
-    remark: '人生若只如初见，何事秋风悲画扇。',
+    name: '表单页面',
+    type: '目录',
+    sort: 1,
+    icon: 'layui-icon-table',
+    routePath: '/form',
+    compontPath: '',
+    isShow: '是',
     children: [
       {
         id: '10015',
-        name: '张三 2-1',
-        sex: '男',
-        age: 22,
-        city: '浙江杭州',
-        sign: '已签到',
-        remark: '人生若只如初见，何事秋风悲画扇。'
+        name: '基础表单',
+        type: '菜单',
+        sort: 1,
+        icon: 'layui-icon-form',
+        routePath: '/form/base',
+        compontPath: '/form/base',
+        isShow: '是'
       },
       {
         id: '10016',
-        name: '张三 2-2',
-        sex: '男',
-        age: 22,
-        city: '浙江杭州',
-        sign: '已签到',
-        remark: '人生若只如初见，何事秋风悲画扇。'
+        name: '复杂表单',
+        type: '菜单',
+        sort: 2,
+        icon: 'layui-icon-form',
+        routePath: '/form/intricate',
+        compontPath: '/form/intricate',
+        isShow: '是'
       }
     ]
   },
   {
     id: '10003',
-    name: '张三 3',
-    sex: '男',
-    age: 22,
-    city: '浙江杭州',
-    sign: '已签到',
-    remark: '人生若只如初见，何事秋风悲画扇。',
+    name: '列表页面',
+    type: '目录',
+    sort: 3,
+    icon: 'layui-icon-align-left',
+    routePath: '/table',
+    compontPath: '',
+    isShow: '是',
     children: [
       {
         id: '10017',
-        name: '张三 3-1',
-        sex: '男',
-        age: 22,
-        city: '浙江杭州',
-        sign: '已签到',
-        remark: '人生若只如初见，何事秋风悲画扇。'
+        name: '查询列表',
+        type: '菜单',
+        sort: 1,
+        icon: 'layui-icon-search',
+        routePath: '/table/base',
+        compontPath: '/table/base',
+        isShow: '是'
       },
       {
         id: '10018',
-        name: '张三 3-2',
-        sex: '男',
-        age: 22,
-        city: '浙江杭州',
-        sign: '已签到',
-        remark: '人生若只如初见，何事秋风悲画扇。'
+        name: '卡片列表',
+        type: '菜单',
+        sort: 2,
+        icon: 'layui-icon-file-b',
+        routePath: '/table/card',
+        compontPath: '/table/card',
+        isShow: '是'
       }
     ]
   },
   {
     id: '10004',
-    name: '张三 4',
-    sex: '男',
-    age: 22,
-    city: '浙江杭州',
-    sign: '已签到',
-    remark: '人生若只如初见，何事秋风悲画扇。',
+    name: '结果页面',
+    type: '目录',
+    sort: 4,
+    icon: 'layui-icon-template',
+    routePath: '/result',
+    compontPath: '',
+    isShow: '是',
     children: [
       {
         id: '10019',
-        name: '张三 4-1',
-        sex: '男',
-        age: 22,
-        city: '浙江杭州',
-        sign: '已签到',
-        remark: '人生若只如初见，何事秋风悲画扇。'
+        name: '成功页面',
+        type: '菜单',
+        sort: 1,
+        icon: 'layui-icon-success',
+        routePath: '/result/success',
+        compontPath: '/result/success',
+        isShow: '是'
       },
       {
         id: '10020',
-        name: '张三 4-2',
-        sex: '男',
-        age: 22,
-        city: '浙江杭州',
-        sign: '已签到',
-        remark: '人生若只如初见，何事秋风悲画扇。'
+        name: '失败页面',
+        type: '菜单',
+        sort: 2,
+        icon: 'layui-icon-error',
+        routePath: '/result/failure',
+        compontPath: '/result/failure',
+        isShow: '是'
       }
     ]
   },
   {
     id: '10005',
-    name: '张三 5',
-    sex: '男',
-    age: 22,
-    city: '浙江杭州',
-    sign: '已签到',
-    remark: '人生若只如初见，何事秋风悲画扇。',
+    icon: 'layui-icon-unlink',
+    name: '异常页面',
+    type: '目录',
+    sort: 5,
+    routePath: '/error',
+    compontPath: '',
+    isShow: '是',
     children: [
       {
         id: '10021',
-        name: '张三 5-1',
-        sex: '男',
-        age: 22,
-        city: '浙江杭州',
-        sign: '已签到',
-        remark: '人生若只如初见，何事秋风悲画扇。'
+        name: '403',
+        type: '菜单',
+        sort: 1,
+        icon: 'layui-icon-not-found',
+        routePath: '/error/403',
+        compontPath: '/error/403',
+        isShow: '是'
       },
       {
         id: '10022',
-        name: '张三 5-2',
-        sex: '男',
-        age: 22,
-        city: '浙江杭州',
-        sign: '已签到',
-        remark: '人生若只如初见，何事秋风悲画扇。'
+        name: '404',
+        type: '菜单',
+        sort: 2,
+        icon: 'layui-icon-not-found',
+        routePath: '/error/404',
+        compontPath: '/error/404',
+        isShow: '是'
+      },
+      {
+        id: '10022',
+        name: '500',
+        type: '菜单',
+        sort: 3,
+        icon: 'layui-icon-not-found',
+        routePath: '/error/500',
+        compontPath: '/error/500',
+        isShow: '是'
       }
     ]
   },
   {
     id: '10006',
-    name: '张三 6',
-    sex: '男',
-    age: 22,
-    city: '浙江杭州',
-    sign: '已签到',
-    remark: '人生若只如初见，何事秋风悲画扇。',
+    name: '菜单嵌套',
+    type: '目录',
+    sort: 6,
+    icon: 'layui-icon-app',
+    routePath: '/menu',
+    compontPath: '',
+    isShow: '是',
     children: [
       {
         id: '10023',
-        name: '张三 6-1',
-        sex: '男',
-        age: 22,
-        city: '浙江杭州',
-        sign: '已签到',
-        remark: '人生若只如初见，何事秋风悲画扇。'
+        name: '二级菜单',
+        type: '菜单',
+        sort: 1,
+        icon: 'layui-icon-component',
+        routePath: '/menu/menu1',
+        compontPath: '/menu/menu1',
+        isShow: '是',
+        children: [
+          {
+            id: '10023',
+            name: '三级菜单1',
+            type: '菜单',
+            sort: 1,
+            icon: 'layui-icon-template-one',
+            routePath: '/menu/menu1/menu1',
+            compontPath: '/menu/menu1/menu1',
+            isShow: '是'
+          },
+          {
+            id: '10023',
+            name: '三级菜单2',
+            type: '菜单',
+            sort: 2,
+            icon: 'layui-icon-template-one',
+            routePath: '/menu/menu1/menu2',
+            compontPath: '/menu/menu1/menu2',
+            isShow: '是'
+          }
+        ]
       },
       {
         id: '10024',
-        name: '张三 6-2',
-        sex: '男',
-        age: 22,
-        city: '浙江杭州',
-        sign: '已签到',
-        remark: '人生若只如初见，何事秋风悲画扇。'
+        name: '二级菜单',
+        type: '菜单',
+        sort: 2,
+        icon: 'layui-icon-component',
+        routePath: '/menu/menu2',
+        compontPath: '/menu/menu2',
+        isShow: '是',
+        children: [
+          {
+            id: '10023',
+            name: '三级菜单1',
+            type: '菜单',
+            sort: 1,
+            icon: 'layui-icon-template-one',
+            routePath: '/menu/menu2/menu1',
+            compontPath: '/menu/menu2/menu1',
+            isShow: '是'
+          },
+          {
+            id: '10023',
+            name: '三级菜单2',
+            type: '菜单',
+            sort: 2,
+            icon: 'layui-icon-template-one',
+            routePath: '/menu/menu2/menu2',
+            compontPath: '/menu/menu2/menu2',
+            isShow: '是'
+          }
+        ]
       }
     ]
   },
   {
     id: '10007',
-    name: '张三 7',
-    sex: '男',
-    age: 22,
-    city: '浙江杭州',
-    sign: '已签到',
-    remark: '人生若只如初见，何事秋风悲画扇。',
+    name: '内置指令',
+    type: '目录',
+    sort: 7,
+    icon: 'layui-icon-test',
+    routePath: '/directive',
+    compontPath: '',
+    isShow: '是',
     children: [
       {
         id: '10025',
-        name: '张三 7-1',
-        sex: '男',
-        age: 22,
-        city: '浙江杭州',
-        sign: '已签到',
-        remark: '人生若只如初见，何事秋风悲画扇。'
-      },
-      {
-        id: '10026',
-        name: '张三 7-2',
-        sex: '男',
-        age: 22,
-        city: '浙江杭州',
-        sign: '已签到',
-        remark: '人生若只如初见，何事秋风悲画扇。'
+        name: '权限指令',
+        type: '菜单',
+        sort: 1,
+        icon: 'layui-icon-template',
+        routePath: '/directive/permission',
+        compontPath: '/directive/permission',
+        isShow: '是'
       }
     ]
   },
   {
     id: '10008',
-    name: '张三 8',
-    sex: '男',
-    age: 22,
-    city: '浙江杭州',
-    sign: '已签到',
-    remark: '人生若只如初见，何事秋风悲画扇。',
+    name: '外链页面',
+    type: '外链',
+    sort: 8,
+    icon: 'layui-icon-link',
+    routePath: '/page',
+    compontPath: '',
+    isShow: '是',
     children: [
       {
         id: '10027',
-        name: '张三 8-1',
-        sex: '男',
-        age: 22,
-        city: '浙江杭州',
-        sign: '已签到',
-        remark: '人生若只如初见，何事秋风悲画扇。'
+        name: '弹层外链',
+        type: '外链',
+        icon: 'layui-icon-home',
+        sort: 1,
+        routePath: 'layui-icon-layer',
+        compontPath: 'layui-icon-layer',
+        isShow: '是'
       },
       {
         id: '10028',
-        name: '张三 8-2',
-        sex: '男',
-        age: 22,
-        city: '浙江杭州',
-        sign: '已签到',
-        remark: '人生若只如初见，何事秋风悲画扇。'
+        name: '原生跳转',
+        type: '外链',
+        sort: 2,
+        icon: 'layui-icon-layouts',
+        routePath: 'http://www.baidu.com',
+        compontPath: 'http://www.baidu.com',
+        isShow: '是'
+      }
+    ]
+  },
+  {
+    id: '10008',
+    name: '个人中心',
+    type: '目录',
+    sort: 9,
+    icon: 'layui-icon-slider',
+    routePath: '/enrollee',
+    compontPath: '',
+    isShow: '是',
+    children: [
+      {
+        id: '10027',
+        name: '我的资料',
+        type: '菜单',
+        icon: 'layui-icon-home',
+        sort: 1,
+        routePath: '/enrollee/profile',
+        compontPath: '/enrollee/profile',
+        isShow: '是'
+      },
+      {
+        id: '10028',
+        name: '我的消息',
+        type: '菜单',
+        sort: 2,
+        icon: 'layui-icon-email',
+        routePath: '/enrollee/message',
+        compontPath: '/enrollee/message',
+        isShow: '是'
+      }
+    ]
+  },
+  {
+    id: '10008',
+    name: '系统管理',
+    type: '目录',
+    sort: 10,
+    icon: 'layui-icon-set',
+    routePath: '/system',
+    compontPath: '',
+    isShow: '是',
+    children: [
+      {
+        id: '10027',
+        name: '用户管理',
+        type: '菜单',
+        icon: 'layui-icon-home',
+        sort: 1,
+        routePath: '/system/user',
+        compontPath: '/system/user',
+        isShow: '是'
+      },
+      {
+        id: '10028',
+        name: '角色管理',
+        type: '菜单',
+        sort: 2,
+        icon: 'layui-icon-group',
+        routePath: '/system/role',
+        compontPath: '/system/role',
+        isShow: '是'
+      },
+      {
+        id: '10028',
+        name: '机构管理',
+        type: '菜单',
+        sort: 3,
+        icon: 'layui-icon-transfer',
+        routePath: '/system/organization',
+        compontPath: '/system/organization',
+        isShow: '是'
       }
     ]
   }
@@ -571,10 +697,6 @@ const reset11 = function () {
   layFormRef11.value.reset()
 }
 function toRemove() {
-  if (selectedKeys.value.length == 0) {
-    layer.msg('您未选择数据，请先选择要删除的数据', { icon: 3, time: 2000 })
-    return
-  }
   layer.confirm('您将删除所有选中的数据？', {
     title: '提示',
     btn: [
@@ -598,119 +720,9 @@ function toRemove() {
 function toSubmit() {
   layer.msg('保存成功！', { icon: 1, time: 1000 })
   visible11.value = false
-  visible22.value = false
 }
 function toCancel() {
   visible11.value = false
-  visible22.value = false
-}
-function confirm() {
-  layer.msg('您已成功删除')
-}
-function cancel() {
-  layer.msg('您已取消操作')
-}
-
-const visible22 = ref(false)
-const checkedKeys2 = ref([])
-const showCheckbox2 = ref(true)
-
-const data2 = ref([
-  {
-    icon: 'layui-icon-home',
-
-    title: '工作空间',
-    id: 1,
-    checked: true,
-    spread: true,
-    children: [
-      {
-        title: '工作台',
-        icon: 'layui-icon-util',
-        id: 3
-      },
-      {
-        title: '控制台',
-        icon: 'layui-icon-engine',
-        id: 4,
-        spread: true
-      },
-      {
-        title: '分析页',
-        id: 20,
-        icon: 'layui-icon-chart-screen'
-      },
-      {
-        title: '监控页',
-        id: 21,
-        icon: 'layui-icon-find-fill'
-      }
-    ]
-  },
-  {
-    title: '表单页面',
-    icon: 'layui-icon-table',
-    id: 2,
-    spread: true,
-    children: [
-      {
-        title: '基础表单',
-        icon: 'layui-icon-form',
-        id: 5,
-        spread: true
-      },
-      {
-        title: '复杂表单',
-        icon: 'layui-icon-form',
-        id: 6
-      }
-    ]
-  },
-  {
-    title: '个人中心',
-    icon: 'layui-icon-slider',
-    id: 16,
-    children: [
-      {
-        icon: 'layui-icon-username',
-        title: '我的资料',
-        id: 17,
-        fixed: true
-      },
-      {
-        title: '我的消息',
-        icon: 'layui-icon-email',
-        id: 27
-      }
-    ]
-  },
-  {
-    title: '系统管理',
-    icon: 'layui-icon-set',
-    id: 19,
-    children: [
-      {
-        icon: 'layui-icon-user',
-        title: '用户管理',
-        id: 25,
-        fixed: true
-      },
-      {
-        title: '角色管理',
-        icon: 'layui-icon-group',
-        id: 29
-      },
-      {
-        title: '机构管理',
-        icon: 'layui-icon-transfer',
-        id: 29
-      }
-    ]
-  }
-])
-
-function toPrivileges() {
-  visible22.value = true
 }
 </script>
 
