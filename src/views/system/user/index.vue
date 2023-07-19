@@ -5,35 +5,19 @@
         <lay-row>
           <lay-col :md="5">
             <lay-form-item label="用户账号" label-width="80">
-              <lay-input
-                v-model="searchQuery.userAccount"
-                placeholder="请输入"
-                size="sm"
-                :allow-clear="true"
-                style="width: 98%"
-              ></lay-input>
+              <lay-input v-model="searchQuery.userAccount" placeholder="请输入" size="sm" :allow-clear="true"
+                style="width: 98%"></lay-input>
             </lay-form-item>
           </lay-col>
           <lay-col :md="5">
             <lay-form-item label="用户名" label-width="80">
-              <lay-input
-                v-model="searchQuery.userName"
-                placeholder="请输入"
-                size="sm"
-                :allow-clear="true"
-                style="width: 98%"
-              ></lay-input>
+              <lay-input v-model="searchQuery.userName" placeholder="请输入" size="sm" :allow-clear="true"
+                style="width: 98%"></lay-input>
             </lay-form-item>
           </lay-col>
           <lay-col :md="5">
             <lay-form-item label="性别" label-width="80">
-              <lay-select
-                class="search-input"
-                size="sm"
-                v-model="searchQuery.sex"
-                :allow-clear="true"
-                placeholder="请选择"
-              >
+              <lay-select class="search-input" size="sm" v-model="searchQuery.sex" :allow-clear="true" placeholder="请选择">
                 <lay-select-option value="man" label="男"></lay-select-option>
                 <lay-select-option value="woman" label="女"></lay-select-option>
               </lay-select>
@@ -41,12 +25,7 @@
           </lay-col>
           <lay-col :md="5">
             <lay-form-item label-width="20">
-              <lay-button
-                style="margin-left: 20px"
-                type="normal"
-                size="sm"
-                @click="toSearch"
-              >
+              <lay-button style="margin-left: 20px" type="primary" size="sm" @click="toSearch">
                 查询
               </lay-button>
               <lay-button size="sm" @click="toReset"> 重置 </lay-button>
@@ -57,28 +36,15 @@
     </lay-card>
     <!-- table -->
     <div class="table-box">
-      <lay-table
-        class="table-style"
-        :page="page"
-        :columns="columns"
-        :loading="loading"
-        :default-toolbar="true"
-        :data-source="dataSource"
-        v-model:selected-keys="selectedKeys"
-        @change="change"
-        @sortChange="sortChange"
-      >
+      <lay-table class="table-style" :page="page" :columns="columns" :loading="loading" :default-toolbar="true"
+        :data-source="dataSource" v-model:selected-keys="selectedKeys" @change="change" @sortChange="sortChange">
         <template #status="{ row }">
-          <lay-switch
-            :model-value="row.status"
-            @change="changeStatus($event, row)"
-          ></lay-switch>
+          <lay-switch :model-value="row.status" @change="changeStatus($event, row)"></lay-switch>
         </template>
         <template v-slot:toolbar>
           <lay-button size="sm" type="primary" @click="changeVisible11('新增')">
             <lay-icon class="layui-icon-addition"></lay-icon>
-            新增</lay-button
-          >
+            新增</lay-button>
           <lay-button size="sm" @click="toRemove">
             <lay-icon class="layui-icon-delete"></lay-icon>
             删除
@@ -89,21 +55,9 @@
           </lay-button>
         </template>
         <template v-slot:operator="{ row }">
-          <lay-button
-            size="xs"
-            border="green"
-            border-style="dashed"
-            @click="changeVisible11('编辑', row)"
-            >编辑</lay-button
-          >
-          <lay-popconfirm
-            content="确定要删除此用户吗?"
-            @confirm="confirm"
-            @cancel="cancel"
-          >
-            <lay-button size="xs" border="red" border-style="dashed"
-              >删除</lay-button
-            >
+          <lay-button size="xs" type="primary" @click="changeVisible11('编辑', row)">编辑</lay-button>
+          <lay-popconfirm content="确定要删除此用户吗?" @confirm="confirm" @cancel="cancel">
+            <lay-button size="xs" border="red" border-style="dashed">删除</lay-button>
           </lay-popconfirm>
         </template>
       </lay-table>
@@ -131,34 +85,18 @@
             <lay-input v-model="model11.email"></lay-input>
           </lay-form-item>
           <lay-form-item label="描述" prop="remark">
-            <lay-textarea
-              placeholder="请输入描述"
-              v-model="model11.remark"
-            ></lay-textarea>
+            <lay-textarea placeholder="请输入描述" v-model="model11.remark"></lay-textarea>
           </lay-form-item>
         </lay-form>
         <div style="width: 100%; text-align: center">
-          <lay-button size="sm" type="primary" @click="toSubmit"
-            >保存</lay-button
-          >
+          <lay-button size="sm" type="primary" @click="toSubmit">保存</lay-button>
           <lay-button size="sm" @click="toCancel">取消</lay-button>
         </div>
       </div>
     </lay-layer>
-    <lay-layer
-      v-model="visibleImport"
-      title="导入用户"
-      :area="['380px', '380px']"
-    >
-      <lay-upload
-        :beforeUpload="beforeUpload10"
-        style="margin: 60px"
-        url="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-        v-model="file1"
-        field="file"
-        :auto="false"
-        :drag="true"
-      >
+    <lay-layer v-model="visibleImport" title="导入用户" :area="['380px', '380px']">
+      <lay-upload :beforeUpload="beforeUpload10" style="margin: 60px"
+        url="https://www.mocky.io/v2/5cc8019d300000980a055e76" v-model="file1" field="file" :auto="false" :drag="true">
         <template #preview>
           {{ file1[0]?.name }}
         </template>
@@ -179,9 +117,8 @@ const searchQuery = ref({
 })
 
 const visibleImport = ref(false)
-const file1 = ref([])
+const file1 = ref<any>([])
 function toImport() {
-  // layer.msg('导入')
   visibleImport.value = true
 }
 function toReset() {
@@ -198,7 +135,7 @@ function toSearch() {
 }
 
 const loading = ref(false)
-const selectedKeys = ref([])
+const selectedKeys = ref<string[]>([])
 const page = reactive({ current: 1, limit: 10, total: 100 })
 const columns = ref([
   { title: '选项', width: '55px', type: 'checkbox', fixed: 'left' },
@@ -342,6 +279,7 @@ const dataSource = ref([
     status: true
   }
 ])
+
 const changeStatus = (isChecked: boolean, row: any) => {
   dataSource.value.forEach((item) => {
     if (item.id === row.id) {
@@ -351,9 +289,11 @@ const changeStatus = (isChecked: boolean, row: any) => {
     }
   })
 }
+
 const remove = () => {
-  layer.msg(selectedKeys.value, { area: '50%' })
+  layer.msg(JSON.stringify(selectedKeys.value), { area: '50%' })
 }
+
 const loadDataSource = (page: number, pageSize: number) => {
   var response = []
   var startIndex = (page - 1) * pageSize + 1
@@ -373,11 +313,11 @@ const loadDataSource = (page: number, pageSize: number) => {
   }
   return response
 }
-const model11 = ref({})
+const model11 = ref<any>({})
 const layFormRef11 = ref()
 const visible11 = ref(false)
 const title = ref('新增')
-const changeVisible11 = (text: any, row: any) => {
+const changeVisible11 = (text: any, row?: any) => {
   title.value = text
   if (row) {
     let info = JSON.parse(JSON.stringify(row))
@@ -400,7 +340,7 @@ const submit11 = function () {
       btn: [
         {
           text: '确认',
-          callback(index) {
+          callback(index: number) {
             layer.close(index)
           }
         }
@@ -455,7 +395,7 @@ function confirm() {
 function cancel() {
   layer.msg('您已取消操作')
 }
-const beforeUpload10 = (file) => {
+const beforeUpload10 = (file: File) => {
   console.log(file, 'file')
   var isOver = false
   if (file.size > 1000) {
@@ -468,12 +408,12 @@ const beforeUpload10 = (file) => {
 
 <style scoped>
 .user-box {
-  width: calc(100vw - 220px);
   height: calc(100vh - 110px);
   margin-top: 10px;
   box-sizing: border-box;
   overflow: hidden;
 }
+
 .top-search {
   margin-top: 10px;
   padding: 10px;
@@ -481,6 +421,7 @@ const beforeUpload10 = (file) => {
   border-radius: 4px;
   background-color: #fff;
 }
+
 .table-box {
   margin-top: 10px;
   padding: 10px;
@@ -496,9 +437,11 @@ const beforeUpload10 = (file) => {
   width: 98%;
   margin-right: 10px;
 }
+
 .table-style {
   margin-top: 10px;
 }
+
 .isChecked {
   display: inline-block;
   background-color: #e8f1ff;
