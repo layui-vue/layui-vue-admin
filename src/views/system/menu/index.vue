@@ -663,6 +663,8 @@ const changeVisible11 = (text: any, row: any) => {
   if (row) {
     let info = JSON.parse(JSON.stringify(row))
     model11.value = info
+  } else {
+    model11.value = {}
   }
   visible11.value = !visible11.value
 }

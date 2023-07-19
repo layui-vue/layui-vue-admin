@@ -118,7 +118,8 @@
           <template v-slot:toolbar>
             <lay-button
               size="sm"
-              type="primary"
+              border="blue"
+              border-style="dashed"
               @click="changeVisible11('新增')"
               >新增</lay-button
             >
@@ -127,7 +128,8 @@
           <template v-slot:operator="{ row }">
             <lay-button
               size="xs"
-              type="primary"
+              border="green"
+              border-style="dashed"
               @click="changeVisible11('编辑', row)"
               >编辑</lay-button
             >
@@ -136,7 +138,9 @@
               @confirm="confirm"
               @cancel="cancel"
             >
-              <lay-button size="xs">删除</lay-button>
+              <lay-button size="xs" border="red" border-style="dashed"
+                >删除</lay-button
+              >
             </lay-popconfirm>
           </template>
         </lay-table>
@@ -558,6 +562,8 @@ const changeVisible11 = (text: any, row: any) => {
   if (row) {
     let info = JSON.parse(JSON.stringify(row))
     model11.value = info
+  } else {
+    model11.value = {}
   }
   visible11.value = !visible11.value
 }

@@ -208,14 +208,20 @@ const menus = [
         title: '角色管理',
       },
       {
+        id: '/system/menu',
+        icon: "layui-icon-spread-left",
+        title: '菜单管理',
+      },
+      {
         id: '/system/organization',
         icon: "layui-icon-transfer",
         title: '机构管理',
       },
+
       {
-        id: '/system/menu',
-        icon: "layui-icon-spread-left",
-        title: '菜单管理',
+        id: '/system/dictionary',
+        icon: "layui-icon-read",
+        title: '字典管理',
       },
     ]
   },
