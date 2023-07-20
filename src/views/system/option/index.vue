@@ -418,7 +418,6 @@ function cancel() {
   layer.msg('您已取消操作')
 }
 const beforeUpload10 = (file) => {
-  console.log(file, 'file')
   var isOver = false
   if (file.size > 1000) {
     isOver = true

@@ -384,7 +384,6 @@ export default defineComponent({
       echarts.registerMap('china', china)
       var userDistributionDomChart = echarts.init(userDistributionDom)
       userDistributionDomChart.on('dblclick', function (param) {
-        console.log(param, '1111111')
         let index = provincesText.indexOf(param.name)
         if (index != -1) {
           ///todo   如何动态的获取moudel/province/下的 province[index].json文件 ?

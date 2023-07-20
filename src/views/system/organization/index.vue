@@ -118,8 +118,7 @@
           <template v-slot:toolbar>
             <lay-button
               size="sm"
-              border="blue"
-              border-style="dashed"
+              type="primary"
               @click="changeVisible11('新增')"
               >新增</lay-button
             >
@@ -146,7 +145,7 @@
         </lay-table>
       </div>
     </div>
-    <lay-layer v-model="visible11" :title="title" :area="['600px', '450px']">
+    <lay-layer v-model="visible11" :title="title" :area="['600px', '550px']">
       <div style="padding: 20px">
         <lay-form :model="model11" ref="layFormRef11" required>
           <lay-form-item label="姓名" prop="name">

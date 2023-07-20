@@ -4,9 +4,9 @@
       <lay-form style="margin-top: 10px">
         <lay-row>
           <lay-col :md="5">
-            <lay-form-item label="用户账号" label-width="80">
+            <lay-form-item label="文件名称" label-width="80">
               <lay-input
-                v-model="searchQuery.userAccount"
+                v-model="searchQuery.flieName"
                 placeholder="请输入"
                 size="sm"
                 :allow-clear="true"
@@ -15,9 +15,9 @@
             </lay-form-item>
           </lay-col>
           <lay-col :md="5">
-            <lay-form-item label="用户名" label-width="80">
+            <lay-form-item label="文件路径" label-width="80">
               <lay-input
-                v-model="searchQuery.userName"
+                v-model="searchQuery.filePath"
                 placeholder="请输入"
                 size="sm"
                 :allow-clear="true"
@@ -26,19 +26,17 @@
             </lay-form-item>
           </lay-col>
           <lay-col :md="5">
-            <lay-form-item label="性别" label-width="80">
-              <lay-select
-                class="search-input"
+            <lay-form-item label="上传人" label-width="80">
+              <lay-input
+                v-model="searchQuery.uploadUser"
+                placeholder="请输入"
                 size="sm"
-                v-model="searchQuery.sex"
                 :allow-clear="true"
-                placeholder="请选择"
-              >
-                <lay-select-option value="man" label="男"></lay-select-option>
-                <lay-select-option value="woman" label="女"></lay-select-option>
-              </lay-select>
+                style="width: 98%"
+              ></lay-input>
             </lay-form-item>
           </lay-col>
+
           <lay-col :md="5">
             <lay-form-item label-width="20">
               <lay-button
@@ -68,24 +66,23 @@
         @change="change"
         @sortChange="sortChange"
       >
-        <template #status="{ row }">
-          <lay-switch
-            :model-value="row.status"
-            @change="changeStatus($event, row)"
-          ></lay-switch>
-        </template>
-        <template v-slot:toolbar>
-          <lay-button size="sm" type="primary" @click="changeVisible11('新增')">
-            <lay-icon class="layui-icon-addition"></lay-icon>
-            新增</lay-button
+        <template #filePath="{ row }">
+          <a
+            style="color: #1677ff"
+            href="https://foruda.gitee.com/avatar/1677022544584087390/4835367_jmysy_1578975358.png"
+            target="_blank"
+            >{{ row.filePath }}</a
           >
+        </template>
+
+        <template v-slot:toolbar>
+          <lay-button size="sm" type="primary" @click="toImport">
+            <lay-icon class="layui-icon-upload-drag"></lay-icon>
+            上传
+          </lay-button>
           <lay-button size="sm" @click="toRemove">
             <lay-icon class="layui-icon-delete"></lay-icon>
             删除
-          </lay-button>
-          <lay-button size="sm" @click="toImport">
-            <lay-icon class="layui-icon-upload-drag"></lay-icon>
-            导入
           </lay-button>
         </template>
         <template v-slot:operator="{ row }">
@@ -93,11 +90,11 @@
             size="xs"
             border="green"
             border-style="dashed"
-            @click="changeVisible11('编辑', row)"
-            >编辑</lay-button
+            @click="toDownload('编辑', row)"
+            >下载</lay-button
           >
           <lay-popconfirm
-            content="确定要删除此用户吗?"
+            content="确定要删除此文件吗?"
             @confirm="confirm"
             @cancel="cancel"
           >
@@ -109,45 +106,9 @@
       </lay-table>
     </div>
 
-    <lay-layer v-model="visible11" :title="title" :area="['600px', '450px']">
-      <div style="padding: 20px">
-        <lay-form :model="model11" ref="layFormRef11" required>
-          <lay-form-item label="姓名" prop="name">
-            <lay-input v-model="model11.name"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="年龄" prop="age">
-            <lay-input v-model="model11.age"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="性别" prop="sex">
-            <lay-select v-model="model11.sex" style="width: 100%">
-              <lay-select-option value="男" label="男"></lay-select-option>
-              <lay-select-option value="女" label="女"></lay-select-option>
-            </lay-select>
-          </lay-form-item>
-          <lay-form-item label="城市" prop="city">
-            <lay-input v-model="model11.city"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="email" prop="email">
-            <lay-input v-model="model11.email"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="描述" prop="remark">
-            <lay-textarea
-              placeholder="请输入描述"
-              v-model="model11.remark"
-            ></lay-textarea>
-          </lay-form-item>
-        </lay-form>
-        <div style="width: 100%; text-align: center">
-          <lay-button size="sm" type="primary" @click="toSubmit"
-            >保存</lay-button
-          >
-          <lay-button size="sm" @click="toCancel">取消</lay-button>
-        </div>
-      </div>
-    </lay-layer>
     <lay-layer
       v-model="visibleImport"
-      title="导入用户"
+      title="导入文件"
       :area="['380px', '380px']"
     >
       <lay-upload
@@ -196,22 +157,20 @@ function toSearch() {
   page.current = 1
   change(page)
 }
+function toDownload() {
+  layer.msg('下载成功！')
+}
 
 const loading = ref(false)
 const selectedKeys = ref([])
 const page = reactive({ current: 1, limit: 10, total: 100 })
 const columns = ref([
   { title: '选项', width: '55px', type: 'checkbox', fixed: 'left' },
-  { title: '编号', width: '80px', key: 'id', fixed: 'left', sort: 'desc' },
-  { title: '姓名', width: '80px', key: 'name', sort: 'desc' },
-  { title: '状态', width: '80px', key: 'status', customSlot: 'status' },
-  { title: '邮箱', width: '120px', key: 'email' },
-  { title: '性别', width: '80px', key: 'sex' },
-  { title: '年龄', width: '80px', key: 'age' },
-  { title: '城市', width: '120px', key: 'city' },
-  { title: '签名', width: '260px', key: 'remark' },
-  { title: '隐藏', width: '260px', key: 'hide', hide: true },
-  { title: '时间', width: '120px', key: 'joinTime' },
+  { title: '文件名称', key: 'fileName', sort: 'desc' },
+  { title: '文件路径', key: 'filePath', sort: 'desc', customSlot: 'filePath' },
+  { title: '文件大小', width: '120px', key: 'fileSize', sort: 'desc' },
+  { title: '上传人', width: '120px', key: 'name', sort: 'desc' },
+  { title: '上传时间', width: '220px', key: 'joinTime', sort: 'desc' },
   {
     title: '操作',
     width: '150px',
@@ -233,127 +192,116 @@ const sortChange = (key: any, sort: number) => {
 const dataSource = ref([
   {
     id: '1',
-    name: '张三1',
-    email: 'test@qq.com',
+    name: '张大福',
+    fileSize: '101.1KB',
     sex: '男',
     city: '浙江杭州',
     age: '18',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    fileName: 'eleadmin.jpg',
+    joinTime: '2022-02-09 09:45:21',
+    filePath: '20220722/881ef0f83ef347a18177ee26ccb33d1a.jpg'
   },
   {
     id: '2',
-    name: '张三2',
-    email: 'test@qq.com',
+    name: '李旺',
+    fileSize: '36.4KB',
     sex: '男',
     city: '浙江杭州',
     age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    fileName: 'CyrCNmTJfv7D6GFAg39bjT3eRkkRm5dI-copyright.jpg',
+    joinTime: '2022-02-09 09:45:21',
+    filePath: '20220722/881ef0f83ef347a18177ee26ccb33d1a.jpg'
   },
   {
     id: '3',
-    name: '张三3',
-    email: 'test@qq.com',
+    name: '韩学刚',
+    fileSize: '10.5KB',
     sex: '男',
     city: '浙江杭州',
     age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    fileName: 'fAenQ8nvRjL7x0i0jEfuDBZHvJfHf3v6.jpg',
+    joinTime: '2022-02-09 09:45:21',
+    filePath: '20220722/881ef0f83ef347a18177ee26ccb33d1a.jpg'
   },
   {
     id: '4',
-    name: '张三4',
-    email: 'test@qq.com',
+    name: '张东方',
+    fileSize: '12.3KB',
     sex: '男',
     city: '浙江杭州',
     age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    fileName: 'eleadmin20201020172822.jpg',
+    joinTime: '2022-02-09 09:45:21',
+    filePath: '20220722/881ef0f83ef347a18177ee26ccb33d1a.jpg'
   },
   {
     id: '5',
-    name: '张三5',
-    email: 'test@qq.com',
+    name: '金士顿',
+    fileSize: '17.4KB',
     sex: '男',
     city: '浙江杭州',
     age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    fileName: 'RZ8FQmZfHkcffMlTBCJllBFjEhEsObVo.jpg',
+    joinTime: '2022-02-09 09:45:21',
+    filePath: '20220722/881ef0f83ef347a18177ee26ccb33d1a.jpg'
   },
   {
     id: '6',
-    name: '张三6',
-    email: 'test@qq.com',
+    name: '杨丽娟',
+    fileSize: '2.0KB',
     sex: '男',
     city: '浙江杭州',
     age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    fileName: 'pro202012301.jpg',
+    joinTime: '2022-02-09 09:45:21',
+    filePath: '20220722/881ef0f83ef347a18177ee26ccb33d1a.jpg'
   },
   {
     id: '7',
-    name: '张三7',
-    email: 'test@qq.com',
+    name: '沈恒',
+    fileSize: '14.0KB',
     sex: '男',
     city: '浙江杭州',
     age: '18',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    fileName: 'CyrCNmTJfv7D6GFAg39bjT3eRkkRm5dI.jpg',
+    joinTime: '2022-02-09 09:45:21',
+    filePath: '20220722/881ef0f83ef347a18177ee26ccb33d1a.jpg'
   },
   {
     id: '8',
-    name: '张三8',
-    email: 'test@qq.com',
+    name: '程雪生',
+    fileSize: '3.7KB',
     sex: '男',
     city: '浙江杭州',
     age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    fileName: 'LrCTN2j94lo9N7wEql7cBr1Ux4rHMvmZ.jpg',
+    joinTime: '2022-02-09 09:45:21',
+    filePath: '20220722/881ef0f83ef347a18177ee26ccb33d1a.jpg'
   },
   {
     id: '9',
-    name: '张三9',
-    email: 'test@qq.com',
+    name: '石黄平',
+    fileSize: '820.3KB',
     sex: '男',
     city: '浙江杭州',
     age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    fileName: 'eleadmin20201020172822.jpg',
+    joinTime: '2022-02-09 09:45:21',
+    filePath: '20220722/881ef0f83ef347a18177ee26ccb33d1a.jpg'
   },
   {
     id: '10',
-    name: '张三10',
-    email: 'test@qq.com',
+    name: '萍雨安',
+    fileSize: '1.4M',
     sex: '男',
     city: '浙江杭州',
     age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    fileName: 'faa0202700ee455b90fe77d8bef98bc0.jpg',
+    joinTime: '2022-02-09 09:45:21',
+    filePath: '20220722/881ef0f83ef347a18177ee26ccb33d1a.jpg'
   }
 ])
-const changeStatus = (isChecked: boolean, row: any) => {
-  dataSource.value.forEach((item) => {
-    if (item.id === row.id) {
-      layer.msg('Success', { icon: 1 }, () => {
-        item.status = isChecked
-      })
-    }
-  })
-}
-const remove = () => {
-  layer.msg(selectedKeys.value, { area: '50%' })
-}
+
 const loadDataSource = (page: number, pageSize: number) => {
   var response = []
   var startIndex = (page - 1) * pageSize + 1
@@ -364,58 +312,14 @@ const loadDataSource = (page: number, pageSize: number) => {
       age: '18',
       sex: '男',
       name: `张三${i}`,
-      email: 'test@qq.com',
-      remark: '花开堪折直须折,莫待无花空折枝.',
-      joinTime: '2022-02-09',
+      fileSize: '148.4KB',
+      fileName: 'eleadmin.jpg',
+      joinTime: '2022-02-09 09:45:21',
       city: '浙江杭州',
-      status: true
+      filePath: '20220722/881ef0f83ef347a18177ee26ccb33d1a.jpg'
     })
   }
   return response
-}
-const model11 = ref({})
-const layFormRef11 = ref()
-const visible11 = ref(false)
-const title = ref('新增')
-const changeVisible11 = (text: any, row: any) => {
-  title.value = text
-  if (row) {
-    let info = JSON.parse(JSON.stringify(row))
-    model11.value = info
-  } else {
-    model11.value = {}
-  }
-  visible11.value = !visible11.value
-}
-const submit11 = function () {
-  layFormRef11.value.validate((isValidate: any, model: any, errors: any) => {
-    layer.open({
-      type: 1,
-      title: '表单提交结果',
-      content: `<div style="padding: 10px"><p>是否通过 : ${isValidate}</p> <p>表单数据 : ${JSON.stringify(
-        model
-      )} </p> <p>错误信息 : ${JSON.stringify(errors)}</p></div>`,
-      shade: false,
-      isHtmlFragment: true,
-      btn: [
-        {
-          text: '确认',
-          callback(index) {
-            layer.close(index)
-          }
-        }
-      ],
-      area: '500px'
-    })
-  })
-}
-// 清除校验
-const clearValidate11 = function () {
-  layFormRef11.value.clearValidate()
-}
-// 重置表单
-const reset11 = function () {
-  layFormRef11.value.reset()
 }
 function toRemove() {
   if (selectedKeys.value.length == 0) {
@@ -456,7 +360,6 @@ function cancel() {
   layer.msg('您已取消操作')
 }
 const beforeUpload10 = (file) => {
-  console.log(file, 'file')
   var isOver = false
   if (file.size > 1000) {
     isOver = true

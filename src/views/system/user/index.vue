@@ -5,19 +5,35 @@
         <lay-row>
           <lay-col :md="5">
             <lay-form-item label="用户账号" label-width="80">
-              <lay-input v-model="searchQuery.userAccount" placeholder="请输入" size="sm" :allow-clear="true"
-                style="width: 98%"></lay-input>
+              <lay-input
+                v-model="searchQuery.userAccount"
+                placeholder="请输入"
+                size="sm"
+                :allow-clear="true"
+                style="width: 98%"
+              ></lay-input>
             </lay-form-item>
           </lay-col>
           <lay-col :md="5">
             <lay-form-item label="用户名" label-width="80">
-              <lay-input v-model="searchQuery.userName" placeholder="请输入" size="sm" :allow-clear="true"
-                style="width: 98%"></lay-input>
+              <lay-input
+                v-model="searchQuery.userName"
+                placeholder="请输入"
+                size="sm"
+                :allow-clear="true"
+                style="width: 98%"
+              ></lay-input>
             </lay-form-item>
           </lay-col>
           <lay-col :md="5">
             <lay-form-item label="性别" label-width="80">
-              <lay-select class="search-input" size="sm" v-model="searchQuery.sex" :allow-clear="true" placeholder="请选择">
+              <lay-select
+                class="search-input"
+                size="sm"
+                v-model="searchQuery.sex"
+                :allow-clear="true"
+                placeholder="请选择"
+              >
                 <lay-select-option value="man" label="男"></lay-select-option>
                 <lay-select-option value="woman" label="女"></lay-select-option>
               </lay-select>
@@ -25,7 +41,12 @@
           </lay-col>
           <lay-col :md="5">
             <lay-form-item label-width="20">
-              <lay-button style="margin-left: 20px" type="primary" size="sm" @click="toSearch">
+              <lay-button
+                style="margin-left: 20px"
+                type="primary"
+                size="sm"
+                @click="toSearch"
+              >
                 查询
               </lay-button>
               <lay-button size="sm" @click="toReset"> 重置 </lay-button>
@@ -36,10 +57,22 @@
     </lay-card>
     <!-- table -->
     <div class="table-box">
-      <lay-table class="table-style" :page="page" :columns="columns" :loading="loading" :default-toolbar="true"
-        :data-source="dataSource" v-model:selected-keys="selectedKeys" @change="change" @sortChange="sortChange">
+      <lay-table
+        class="table-style"
+        :page="page"
+        :columns="columns"
+        :loading="loading"
+        :default-toolbar="true"
+        :data-source="dataSource"
+        v-model:selected-keys="selectedKeys"
+        @change="change"
+        @sortChange="sortChange"
+      >
         <template #status="{ row }">
-          <lay-switch :model-value="row.status" @change="changeStatus($event, row)"></lay-switch>
+          <lay-switch
+            :model-value="row.status"
+            @change="changeStatus($event, row)"
+          ></lay-switch>
         </template>
         <template #avatar="{ row }">
           <lay-avatar :src="row.avatar"></lay-avatar>
@@ -47,7 +80,8 @@
         <template v-slot:toolbar>
           <lay-button size="sm" type="primary" @click="changeVisible11('新增')">
             <lay-icon class="layui-icon-addition"></lay-icon>
-            新增</lay-button>
+            新增</lay-button
+          >
           <lay-button size="sm" @click="toRemove">
             <lay-icon class="layui-icon-delete"></lay-icon>
             删除
@@ -58,9 +92,20 @@
           </lay-button>
         </template>
         <template v-slot:operator="{ row }">
-          <lay-button size="xs" type="primary" @click="changeVisible11('编辑', row)">编辑</lay-button>
-          <lay-popconfirm content="确定要删除此用户吗?" @confirm="confirm" @cancel="cancel">
-            <lay-button size="xs" border="red" border-style="dashed">删除</lay-button>
+          <lay-button
+            size="xs"
+            type="primary"
+            @click="changeVisible11('编辑', row)"
+            >编辑</lay-button
+          >
+          <lay-popconfirm
+            content="确定要删除此用户吗?"
+            @confirm="confirm"
+            @cancel="cancel"
+          >
+            <lay-button size="xs" border="red" border-style="dashed"
+              >删除</lay-button
+            >
           </lay-popconfirm>
         </template>
       </lay-table>
@@ -88,18 +133,34 @@
             <lay-input v-model="model11.email"></lay-input>
           </lay-form-item>
           <lay-form-item label="描述" prop="remark">
-            <lay-textarea placeholder="请输入描述" v-model="model11.remark"></lay-textarea>
+            <lay-textarea
+              placeholder="请输入描述"
+              v-model="model11.remark"
+            ></lay-textarea>
           </lay-form-item>
         </lay-form>
         <div style="width: 100%; text-align: center">
-          <lay-button size="sm" type="primary" @click="toSubmit">保存</lay-button>
+          <lay-button size="sm" type="primary" @click="toSubmit"
+            >保存</lay-button
+          >
           <lay-button size="sm" @click="toCancel">取消</lay-button>
         </div>
       </div>
     </lay-layer>
-    <lay-layer v-model="visibleImport" title="导入用户" :area="['380px', '380px']">
-      <lay-upload :beforeUpload="beforeUpload10" style="margin: 60px"
-        url="https://www.mocky.io/v2/5cc8019d300000980a055e76" v-model="file1" field="file" :auto="false" :drag="true">
+    <lay-layer
+      v-model="visibleImport"
+      title="导入用户"
+      :area="['380px', '380px']"
+    >
+      <lay-upload
+        :beforeUpload="beforeUpload10"
+        style="margin: 60px"
+        url="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+        v-model="file1"
+        field="file"
+        :auto="false"
+        :drag="true"
+      >
         <template #preview>
           {{ file1[0]?.name }}
         </template>
@@ -174,7 +235,8 @@ const dataSource = ref([
   {
     id: '1',
     name: '张三1',
-    avatar: "https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+    avatar:
+      'https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7',
     email: 'test@qq.com',
     sex: '男',
     city: '浙江杭州',
@@ -186,7 +248,8 @@ const dataSource = ref([
   {
     id: '2',
     name: '张三2',
-    avatar: "https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+    avatar:
+      'https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7',
     email: 'test@qq.com',
     sex: '男',
     city: '浙江杭州',
@@ -198,7 +261,8 @@ const dataSource = ref([
   {
     id: '3',
     name: '张三3',
-    avatar: "https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+    avatar:
+      'https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7',
     email: 'test@qq.com',
     sex: '男',
     city: '浙江杭州',
@@ -210,7 +274,8 @@ const dataSource = ref([
   {
     id: '4',
     name: '张三4',
-    avatar: "https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+    avatar:
+      'https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7',
     email: 'test@qq.com',
     sex: '男',
     city: '浙江杭州',
@@ -222,7 +287,8 @@ const dataSource = ref([
   {
     id: '5',
     name: '张三5',
-    avatar: "https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+    avatar:
+      'https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7',
     email: 'test@qq.com',
     sex: '男',
     city: '浙江杭州',
@@ -234,7 +300,8 @@ const dataSource = ref([
   {
     id: '6',
     name: '张三6',
-    avatar: "https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+    avatar:
+      'https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7',
     email: 'test@qq.com',
     sex: '男',
     city: '浙江杭州',
@@ -246,7 +313,8 @@ const dataSource = ref([
   {
     id: '7',
     name: '张三7',
-    avatar: "https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+    avatar:
+      'https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7',
     email: 'test@qq.com',
     sex: '男',
     city: '浙江杭州',
@@ -258,7 +326,8 @@ const dataSource = ref([
   {
     id: '8',
     name: '张三8',
-    avatar: "https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+    avatar:
+      'https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7',
     email: 'test@qq.com',
     sex: '男',
     city: '浙江杭州',
@@ -270,7 +339,8 @@ const dataSource = ref([
   {
     id: '9',
     name: '张三9',
-    avatar: "https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+    avatar:
+      'https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7',
     email: 'test@qq.com',
     sex: '男',
     city: '浙江杭州',
@@ -282,7 +352,8 @@ const dataSource = ref([
   {
     id: '10',
     name: '张三10',
-    avatar: "https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+    avatar:
+      'https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7',
     email: 'test@qq.com',
     sex: '男',
     city: '浙江杭州',
@@ -316,7 +387,8 @@ const loadDataSource = (page: number, pageSize: number) => {
       id: `${i}`,
       age: '18',
       sex: '男',
-      avatar: "https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7",
+      avatar:
+        'https://tse1-mm.cn.bing.net/th/id/OIP-C.0fLeVmNXnV-6Eom3FEUNjgAAAA?w=196&h=196&c=7&r=0&o=5&dpr=1.5&pid=1.7',
       name: `张三${i}`,
       email: 'test@qq.com',
       remark: '花开堪折直须折,莫待无花空折枝.',
@@ -410,7 +482,6 @@ function cancel() {
   layer.msg('您已取消操作')
 }
 const beforeUpload10 = (file: File) => {
-  console.log(file, 'file')
   var isOver = false
   if (file.size > 1000) {
     isOver = true
