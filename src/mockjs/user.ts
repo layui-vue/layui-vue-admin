@@ -223,6 +223,22 @@ const menus = [
         icon: "layui-icon-read",
         title: '字典管理',
       },
+      {
+        id: '/system/file',
+        icon: "layui-icon-file",
+        title: '文件管理',
+      },
+      {
+        id: '/system/login',
+        icon: "layui-icon-date",
+        title: '登录日志',
+      },
+      {
+        id: '/system/option',
+        icon: "layui-icon-survey",
+        title: '操作日志',
+      },
+
     ]
   },
 

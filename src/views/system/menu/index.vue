@@ -209,39 +209,33 @@ const columns6 = [
 
   {
     title: '菜单名称',
-    width: '200px',
     key: 'name',
     customSlot: 'name'
   },
   {
     title: '路由地址',
-    width: '120px',
     key: 'routePath'
   },
   {
     title: '组件路径',
-    width: '100px',
     key: 'compontPath'
   },
   {
     title: '排序',
-    width: '60px',
+    width: '120px',
     key: 'sort'
   },
   {
     title: '可见',
-    width: '240px',
     key: 'isShow'
   },
   {
     title: '类型',
-    width: '100px',
     key: 'type',
     customSlot: 'type'
   },
   {
     title: '操作',
-    width: '100px',
     key: 'option',
     customSlot: 'option'
   }

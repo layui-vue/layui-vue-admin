@@ -258,7 +258,7 @@ const dataSourceSex = ref([
     nameValue: 1,
     sort: 1,
     joinTime: '2022-02-09',
-    status: false
+    status: true
   },
   {
     id: '2',
@@ -266,7 +266,7 @@ const dataSourceSex = ref([
     nameValue: 2,
     sort: 2,
     joinTime: '2022-02-09',
-    status: false
+    status: true
   }
 ])
 const dataSourceOri = ref([
@@ -283,7 +283,7 @@ const dataSourceOri = ref([
     nameValue: 2,
     sort: 2,
     joinTime: '2022-02-09',
-    status: false
+    status: true
   },
   {
     id: '3',
@@ -291,7 +291,7 @@ const dataSourceOri = ref([
     nameValue: 3,
     sort: 3,
     joinTime: '2022-02-09',
-    status: false
+    status: true
   },
   {
     id: '4',
@@ -299,7 +299,7 @@ const dataSourceOri = ref([
     nameValue: 4,
     sort: 4,
     joinTime: '2022-02-09',
-    status: false
+    status: true
   }
 ])
 const dataSource = ref([])

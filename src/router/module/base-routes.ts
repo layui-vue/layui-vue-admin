@@ -96,6 +96,21 @@ export default [
         component: () => import('../../views/system/dictionary/index.vue'),
         meta: { title: '字典管理', requireAuth: true },
       },
+      {
+        path: '/system/file',
+        component: () => import('../../views/system/file/index.vue'),
+        meta: { title: '文件管理', requireAuth: true },
+      },
+      {
+        path: '/system/login',
+        component: () => import('../../views/system/login/index.vue'),
+        meta: { title: '登录日志', requireAuth: true },
+      },
+      {
+        path: '/system/option',
+        component: () => import('../../views/system/option/index.vue'),
+        meta: { title: '操作日志', requireAuth: true },
+      },
     ]
   }, {
     path: '/result',
