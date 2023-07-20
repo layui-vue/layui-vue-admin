@@ -1,10 +1,10 @@
 <template>
-  <lay-container fluid="true" class="user-box">
+  <lay-container fluid="true" class="option-box">
     <lay-card>
       <lay-form style="margin-top: 10px">
         <lay-row>
           <lay-col :md="5">
-            <lay-form-item label="文件名称" label-width="80">
+            <lay-form-item label="用户账号" label-width="80">
               <lay-input
                 v-model="searchQuery.userAccount"
                 placeholder="请输入"
@@ -15,7 +15,7 @@
             </lay-form-item>
           </lay-col>
           <lay-col :md="5">
-            <lay-form-item label="文件路径" label-width="80">
+            <lay-form-item label="用户名" label-width="80">
               <lay-input
                 v-model="searchQuery.userName"
                 placeholder="请输入"
@@ -25,16 +25,16 @@
               ></lay-input>
             </lay-form-item>
           </lay-col>
-          <lay-col :md="5">
-            <lay-form-item label="上传人" label-width="80">
-              <lay-input
-                v-model="searchQuery.upload"
-                placeholder="请输入"
+          <lay-col :md="8">
+            <lay-form-item label="登录时间" label-width="80">
+              <lay-date-picker
                 size="sm"
-                :allow-clear="true"
-                style="width: 98%"
-              ></lay-input>
-            </lay-form-item>
+                v-model="searchQuery.rangeTime"
+                range
+                type="datetime"
+                :placeholder="['开始日期', '结束日期']"
+              ></lay-date-picker
+            ></lay-form-item>
           </lay-col>
           <lay-col :md="5">
             <lay-form-item label-width="20">
@@ -65,103 +65,111 @@
         @change="change"
         @sortChange="sortChange"
       >
-        <template #status="{ row }">
-          <lay-switch
-            :model-value="row.status"
-            @change="changeStatus($event, row)"
-          ></lay-switch>
-        </template>
-        <template v-slot:toolbar>
-          <lay-button size="sm" type="primary" @click="changeVisible11('新增')">
-            <lay-icon class="layui-icon-addition"></lay-icon>
-            新增</lay-button
+        <template #requestPath="{ row }">
+          <lay-tooltip
+            :visible="false"
+            trigger="hover"
+            :content="row.requestPath"
           >
-          <lay-button size="sm" @click="toRemove">
-            <lay-icon class="layui-icon-delete"></lay-icon>
-            删除
-          </lay-button>
-          <lay-button size="sm" @click="toImport">
-            <lay-icon class="layui-icon-upload-drag"></lay-icon>
-            导入
-          </lay-button>
+            <div class="oneRow">{{ row.requestPath }}</div>
+          </lay-tooltip>
         </template>
+
+        <template #status="{ row }">
+          <div v-show="row.status == '正常'">
+            <lay-tag color="#2dc570" variant="light">正常</lay-tag>
+          </div>
+          <div v-show="row.status == '失败'">
+            <lay-tag color="#F5319D" variant="light">失败</lay-tag>
+          </div>
+        </template>
+        <template #time="{ row }">
+          <div class="oneRow">{{ row.time }}s</div>
+        </template>
+        <template v-slot:toolbar> </template>
         <template v-slot:operator="{ row }">
           <lay-button
             size="xs"
             border="green"
             border-style="dashed"
-            @click="changeVisible11('编辑', row)"
-            >编辑</lay-button
+            @click="showDetail(row)"
+            >详情</lay-button
           >
-          <lay-popconfirm
-            content="确定要删除此用户吗?"
-            @confirm="confirm"
-            @cancel="cancel"
-          >
-            <lay-button size="xs" border="red" border-style="dashed"
-              >删除</lay-button
-            >
-          </lay-popconfirm>
         </template>
       </lay-table>
     </div>
 
-    <lay-layer v-model="visible11" :title="title" :area="['600px', '450px']">
+    <!-- layer -->
+
+    <lay-layer v-model="visible11" title="详情" :area="['700px', '450px']">
       <div style="padding: 20px">
-        <lay-form :model="model11" ref="layFormRef11" required>
-          <lay-form-item label="姓名" prop="name">
-            <lay-input v-model="model11.name"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="年龄" prop="age">
-            <lay-input v-model="model11.age"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="性别" prop="sex">
-            <lay-select v-model="model11.sex" style="width: 100%">
-              <lay-select-option value="男" label="男"></lay-select-option>
-              <lay-select-option value="女" label="女"></lay-select-option>
-            </lay-select>
-          </lay-form-item>
-          <lay-form-item label="城市" prop="city">
-            <lay-input v-model="model11.city"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="email" prop="email">
-            <lay-input v-model="model11.email"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="描述" prop="remark">
-            <lay-textarea
-              placeholder="请输入描述"
-              v-model="model11.remark"
-            ></lay-textarea>
-          </lay-form-item>
-        </lay-form>
-        <div style="width: 100%; text-align: center">
-          <lay-button size="sm" type="primary" @click="toSubmit"
-            >保存</lay-button
+        <lay-row>
+          <lay-col md="4" class="title">操作人</lay-col>
+          <lay-col md="8" class="content">{{
+            dataLayer.name + '(' + dataLayer.account + ')'
+          }}</lay-col>
+          <lay-col md="4" class="title">IP地址</lay-col>
+          <lay-col md="8" class="content borderR">{{
+            dataLayer.ipAddrees
+          }}</lay-col>
+        </lay-row>
+        <lay-row>
+          <lay-col md="4" class="title">操作模块</lay-col>
+          <lay-col md="8" class="content">{{ dataLayer.optionModule }}</lay-col>
+          <lay-col md="4" class="title">操作功能</lay-col>
+          <lay-col md="8" class="content borderR">{{
+            dataLayer.optionFunction
+          }}</lay-col>
+        </lay-row>
+        <lay-row>
+          <lay-col md="4" class="title">操作时间</lay-col>
+          <lay-col md="8" class="content">{{ dataLayer.joinTime }}</lay-col>
+          <lay-col md="4" class="title">请求耗时</lay-col>
+          <lay-col md="8" class="content borderR"
+            >{{ dataLayer.time }}s</lay-col
           >
-          <lay-button size="sm" @click="toCancel">取消</lay-button>
-        </div>
-      </div>
-    </lay-layer>
-    <lay-layer
-      v-model="visibleImport"
-      title="导入用户"
-      :area="['380px', '380px']"
-    >
-      <lay-upload
-        :beforeUpload="beforeUpload10"
-        style="margin: 60px"
-        url="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-        v-model="file1"
-        field="file"
-        :auto="false"
-        :drag="true"
-      >
-        <template #preview>
-          {{ file1[0]?.name }}
-        </template>
-      </lay-upload>
-      <div style="width: 100%; text-align: center">
-        只能上传小于1000KB的文件
+        </lay-row>
+        <lay-row>
+          <lay-col md="4" class="title">请求方式</lay-col>
+          <lay-col md="8" class="content">{{
+            dataLayer.requestMethod
+          }}</lay-col>
+          <lay-col md="4" class="title">请求状态</lay-col>
+          <lay-col md="8" class="content borderR">
+            <div v-show="dataLayer.status == '正常'">
+              <lay-tag color="#2dc570" variant="light">正常</lay-tag>
+            </div>
+            <div v-show="dataLayer.status == '失败'">
+              <lay-tag color="#F5319D" variant="light">失败</lay-tag>
+            </div>
+          </lay-col>
+        </lay-row>
+        <lay-row>
+          <lay-col md="4" class="title">请求地址</lay-col>
+          <lay-col md="20" class="content borderR">{{
+            dataLayer.requestPath
+          }}</lay-col>
+        </lay-row>
+        <lay-row>
+          <lay-col md="4" class="title">调用方法</lay-col>
+          <lay-col md="20" class="content borderR"
+            >com.eleadmin.common.system.controller.LoginRecordController.page</lay-col
+          >
+        </lay-row>
+        <lay-row>
+          <lay-col md="4" class="title">请求参数</lay-col>
+          <lay-col md="20" class="content borderR"
+            >{"nickname":"","limit":"10","page":"1","username":""}</lay-col
+          >
+        </lay-row>
+        <lay-row>
+          <lay-col md="4" class="title borderB">返回结果</lay-col>
+          <lay-col md="20" class="content borderR borderB"
+            >{"code":0,"message":"操作成功","data":{"list":[{"id":89548,"username":"admin","os":"Windows","device":"Windows
+            10 or Windows Server
+            2016","browser":"Chrome","ip":"113.128.81.221","loginType":3,"comments":null,"tenantId":4,"createTime":1689857372000,"updateTime":1689857372000,"userId":40,"nickname":"管理员"},{"id":89547,"username":"admin","os":"Win</lay-col
+          >
+        </lay-row>
       </div>
     </lay-layer>
   </lay-container>
@@ -172,20 +180,14 @@ import { layer } from '@layui/layui-vue'
 const searchQuery = ref({
   userAccount: '',
   userName: '',
-  sex: ''
+  rangeTime: ['2001-01-01 01:01:00', '2001-02-1 01:01:00']
 })
 
-const visibleImport = ref(false)
-const file1 = ref([])
-function toImport() {
-  // layer.msg('导入')
-  visibleImport.value = true
-}
 function toReset() {
   searchQuery.value = {
     userAccount: '',
     userName: '',
-    sex: ''
+    rangeTime: ['2001-01-01 01:01:00', '2001-02-1 01:01:00']
   }
 }
 
@@ -198,15 +200,30 @@ const loading = ref(false)
 const selectedKeys = ref([])
 const page = reactive({ current: 1, limit: 10, total: 100 })
 const columns = ref([
-  { title: '选项', width: '55px', type: 'checkbox', fixed: 'left' },
-  { title: '编号', width: '80px', key: 'id', fixed: 'left', sort: 'desc' },
-  { title: '文件名称', key: 'name', sort: 'desc' },
-  { title: '文件路径', key: 'path', sort: 'desc' },
-  { title: '上传人', key: 'upload', sort: 'desc' },
-  { title: '时间', key: 'joinTime' },
+  { title: '账号', key: 'account', sort: 'desc' },
+  { title: '用户名', key: 'name', sort: 'desc' },
+  { title: '操作模块', key: 'optionModule', sort: 'desc' },
+  { title: '操作功能', width: '180px', key: 'optionFunction', sort: 'desc' },
+  {
+    title: ' 请求地址',
+    width: '180px',
+    key: 'requestPath',
+    sort: 'desc',
+    customSlot: 'requestPath'
+  },
+  { title: '请求方式', key: 'requestMethod' },
+
+  {
+    title: '状态',
+    width: '100px',
+    key: 'status',
+    customSlot: 'status'
+  },
+  { title: '耗时', key: 'time', customSlot: 'time' },
+  { title: '登录时间', width: '180px', key: 'joinTime' },
   {
     title: '操作',
-    width: '150px',
+    width: '100px',
     customSlot: 'operator',
     key: 'operator',
     fixed: 'right'
@@ -225,97 +242,135 @@ const sortChange = (key: any, sort: number) => {
 const dataSource = ref([
   {
     id: '1',
-    name: '张三1',
-    path: 'test@qq.com',
-    upload: '男',
-    joinTime: '2022-02-09',
-    status: true
+    name: '管理员',
+    account: 'admin',
+    optionModule: '登录日志',
+    optionFunction: '分页查询登录日志',
+    requestPath: '/api/system/login-record/page',
+    requestMethod: 'GET',
+    time: '0.015',
+    ipAddrees: '171.120.210.128',
+    joinTime: '2022-02-09 15:09:34',
+    status: '正常'
   },
   {
     id: '2',
-    name: '张三1',
-    path: 'test@qq.com',
-    upload: '男',
-    joinTime: '2022-02-09',
-    status: true
+    name: '用户1',
+    account: 'admin',
+    optionModule: '用户管理',
+    optionFunction: '分页查询用户',
+    requestPath: '/api/system/user/page',
+    requestMethod: 'GET',
+    time: '0.045',
+    joinTime: '2022-02-09 15:09:34',
+    status: '正常',
+    ipAddrees: '124.92.199.219'
   },
   {
     id: '3',
-    name: '张三1',
-    path: 'test@qq.com',
-    upload: '男',
-    joinTime: '2022-02-09',
-    status: true
+    account: 'admin',
+    name: '管理员',
+    optionModule: '登录日志',
+    requestMethod: 'GET',
+    requestPath: '/api/system/login-record/page',
+    optionFunction: '分页查询登录日志',
+    time: '0.027',
+    joinTime: '2022-02-09 15:09:34',
+    status: '正常',
+    ipAddrees: '39.155.212.237'
   },
   {
     id: '4',
-    name: '张三1',
-    path: 'test@qq.com',
-    upload: '男',
-    joinTime: '2022-02-09',
-    status: true
+    account: 'admin',
+    name: '用户2',
+    optionModule: '菜单管理',
+    requestPath: '/api/system/menu/page',
+    requestMethod: 'GET',
+    optionFunction: '查询全部菜单',
+    time: '2.397',
+    joinTime: '2022-02-09 15:09:34',
+    status: '失败',
+    ipAddrees: '113.65.14.222'
   },
   {
     id: '5',
-    name: '张三1',
-    path: 'test@qq.com',
-    upload: '男',
-    joinTime: '2022-02-09',
-    status: true
+    account: 'admin',
+    name: '管理员',
+    optionModule: '文件上传下载',
+    requestPath: '/api/file/page',
+    requestMethod: 'GET',
+    optionFunction: '分页查询文件',
+    time: '0.016',
+    joinTime: '2022-02-09 15:09:34',
+    status: '正常',
+    ipAddrees: '113.128.81.221'
   },
   {
     id: '6',
-    name: '张三1',
-    path: 'test@qq.com',
-    upload: '男',
-    joinTime: '2022-02-09',
-    status: true
+    account: 'admin',
+    name: '管理员',
+    optionModule: '文件上传下载',
+    requestPath: '/api/file/page',
+    requestMethod: 'GET',
+    optionFunction: '分页查询文件',
+    time: '0.051',
+    joinTime: '2022-02-09 15:09:34',
+    status: '正常',
+    ipAddrees: '182.48.101.103'
   },
   {
     id: '7',
-    name: '张三1',
-    path: 'test@qq.com',
-    upload: '男',
-    joinTime: '2022-02-09',
-    status: true
+    account: 'admin',
+    name: '用户1',
+    optionModule: '菜单管理',
+    requestPath: '/api/system/menu/page',
+    requestMethod: 'GET',
+    optionFunction: '查询全部菜单',
+    time: '0.231',
+    joinTime: '2022-02-09 15:09:34',
+    status: '正常',
+    ipAddrees: '171.213.58.73'
   },
   {
     id: '8',
-    name: '张三1',
-    path: 'test@qq.com',
-    upload: '男',
-    joinTime: '2022-02-09',
-    status: true
+    account: 'admin',
+    name: '用户1',
+    optionModule: '菜单管理',
+    requestPath: '/api/system/menu/page',
+    requestMethod: 'GET',
+    optionFunction: '查询全部菜单',
+    time: '0.47',
+    joinTime: '2022-02-09 15:09:34',
+    status: '正常',
+    ipAddrees: '119.143.100.106'
   },
   {
     id: '9',
-    name: '张三1',
-    path: 'test@qq.com',
-    upload: '男',
-    joinTime: '2022-02-09',
-    status: true
+    account: 'admin',
+    name: '管理员',
+    optionModule: '登录日志',
+    requestMethod: 'GET',
+    requestPath: '/api/system/login-record/page',
+    optionFunction: '分页查询登录日志',
+    time: '0.015',
+    joinTime: '2022-02-09 15:09:34',
+    status: '失败',
+    ipAddrees: '139.162.18.175'
   },
   {
     id: '10',
-    name: '张三1',
-    path: 'test@qq.com',
-    upload: '男',
-    joinTime: '2022-02-09',
-    status: true
+    account: 'admin',
+    name: '管理员',
+    optionModule: '登录日志',
+    requestMethod: 'GET',
+    requestPath: '/api/system/login-record/page',
+    optionFunction: '分页查询登录日志',
+    time: '0.015',
+    joinTime: '2022-02-09 15:09:34',
+    status: '正常',
+    ipAddrees: '14.215.245.130'
   }
 ])
-const changeStatus = (isChecked: boolean, row: any) => {
-  dataSource.value.forEach((item) => {
-    if (item.id === row.id) {
-      layer.msg('Success', { icon: 1 }, () => {
-        item.status = isChecked
-      })
-    }
-  })
-}
-const remove = () => {
-  layer.msg(selectedKeys.value, { area: '50%' })
-}
 const loadDataSource = (page: number, pageSize: number) => {
   var response = []
   var startIndex = (page - 1) * pageSize + 1
@@ -323,112 +378,30 @@ const loadDataSource = (page: number, pageSize: number) => {
   for (var i = startIndex; i <= endIndex; i++) {
     response.push({
       id: `${i}`,
-      age: '18',
-      sex: '男',
-      name: `张三${i}`,
-      email: 'test@qq.com',
-      remark: '花开堪折直须折,莫待无花空折枝.',
-      joinTime: '2022-02-09',
-      city: '浙江杭州',
-      status: true
+      optionModule: '登录日志',
+      requestMethod: 'GET',
+      requestPath: '/api/system/login-record/page',
+      optionFunction: '分页查询登录日志',
+      account: 'admin',
+      status: '正常',
+      name: '管理员',
+      time: '0.015',
+      joinTime: '2022-02-09 15:09:34',
+      ipAddrees: '111.121.13.184'
     })
   }
   return response
 }
-const model11 = ref({})
-const layFormRef11 = ref()
+const dataLayer = ref({})
 const visible11 = ref(false)
-const title = ref('新增')
-const changeVisible11 = (text: any, row: any) => {
-  title.value = text
-  if (row) {
-    let info = JSON.parse(JSON.stringify(row))
-    model11.value = info
-  } else {
-    model11.value = {}
-  }
-  visible11.value = !visible11.value
-}
-const submit11 = function () {
-  layFormRef11.value.validate((isValidate: any, model: any, errors: any) => {
-    layer.open({
-      type: 1,
-      title: '表单提交结果',
-      content: `<div style="padding: 10px"><p>是否通过 : ${isValidate}</p> <p>表单数据 : ${JSON.stringify(
-        model
-      )} </p> <p>错误信息 : ${JSON.stringify(errors)}</p></div>`,
-      shade: false,
-      isHtmlFragment: true,
-      btn: [
-        {
-          text: '确认',
-          callback(index) {
-            layer.close(index)
-          }
-        }
-      ],
-      area: '500px'
-    })
-  })
-}
-// 清除校验
-const clearValidate11 = function () {
-  layFormRef11.value.clearValidate()
-}
-// 重置表单
-const reset11 = function () {
-  layFormRef11.value.reset()
-}
-function toRemove() {
-  if (selectedKeys.value.length == 0) {
-    layer.msg('您未选择数据，请先选择要删除的数据', { icon: 3, time: 2000 })
-    return
-  }
-  layer.confirm('您将删除所有选中的数据？', {
-    title: '提示',
-    btn: [
-      {
-        text: '确定',
-        callback: (id: any) => {
-          layer.msg('您已成功删除')
-          layer.close(id)
-        }
-      },
-      {
-        text: '取消',
-        callback: (id: any) => {
-          layer.msg('您已取消操作')
-          layer.close(id)
-        }
-      }
-    ]
-  })
-}
-function toSubmit() {
-  layer.msg('保存成功！', { icon: 1, time: 1000 })
-  visible11.value = false
-}
-function toCancel() {
-  visible11.value = false
-}
-function confirm() {
-  layer.msg('您已成功删除')
-}
-function cancel() {
-  layer.msg('您已取消操作')
-}
-const beforeUpload10 = (file) => {
-  var isOver = false
-  if (file.size > 1000) {
-    isOver = true
-    layer.msg(`file size over 1000 KB`, { icon: 2 })
-  }
-  return new Promise((resolver) => resolver(true))
+function showDetail(row: any) {
+  visible11.value = true
+  dataLayer.value = row
 }
 </script>
 
 <style scoped>
-.user-box {
+.option-box {
   width: calc(100vw - 220px);
   height: calc(100vh - 110px);
   margin-top: 10px;
@@ -464,5 +437,38 @@ const beforeUpload10 = (file) => {
   display: inline-block;
   background-color: #e8f1ff;
   color: red;
+}
+.oneRow {
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+.title {
+  height: 40px;
+  line-height: 40px;
+  padding: 0 10px;
+  display: inline-block;
+  background: #f7f7f7;
+  border-top: 1px solid #e8e8e8;
+  border-left: 1px solid #e8e8e8;
+}
+.content {
+  height: 40px;
+  line-height: 40px;
+  padding: 0 3px 0 10px;
+  border-top: 1px solid #e8e8e8;
+  border-left: 1px solid #e8e8e8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+.borderR {
+  border-right: 1px solid #e8e8e8;
+}
+.borderB {
+  border-bottom: 1px solid #e8e8e8;
 }
 </style>

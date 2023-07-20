@@ -1,5 +1,5 @@
 <template>
-  <lay-container fluid="true" class="user-box">
+  <lay-container fluid="true" class="file-box">
     <lay-card>
       <lay-form style="margin-top: 10px">
         <lay-row>
@@ -134,9 +134,9 @@
 import { ref, reactive } from 'vue'
 import { layer } from '@layui/layui-vue'
 const searchQuery = ref({
-  userAccount: '',
-  userName: '',
-  sex: ''
+  filePath: '',
+  flieName: '',
+  uploadUser: ''
 })
 
 const visibleImport = ref(false)
@@ -147,9 +147,9 @@ function toImport() {
 }
 function toReset() {
   searchQuery.value = {
-    userAccount: '',
-    userName: '',
-    sex: ''
+    filePath: '',
+    flieName: '',
+    uploadUser: ''
   }
 }
 
@@ -370,7 +370,7 @@ const beforeUpload10 = (file) => {
 </script>
 
 <style scoped>
-.user-box {
+.file-box {
   width: calc(100vw - 220px);
   height: calc(100vh - 110px);
   margin-top: 10px;

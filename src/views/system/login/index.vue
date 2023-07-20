@@ -1,5 +1,5 @@
 <template>
-  <lay-container fluid="true" class="user-box">
+  <lay-container fluid="true" class="login-box">
     <lay-card>
       <lay-form style="margin-top: 10px">
         <lay-row>
@@ -25,19 +25,16 @@
               ></lay-input>
             </lay-form-item>
           </lay-col>
-          <lay-col :md="5">
-            <lay-form-item label="性别" label-width="80">
-              <lay-select
-                class="search-input"
+          <lay-col :md="8">
+            <lay-form-item label="登录时间" label-width="80">
+              <lay-date-picker
                 size="sm"
-                v-model="searchQuery.sex"
-                :allow-clear="true"
-                placeholder="请选择"
-              >
-                <lay-select-option value="man" label="男"></lay-select-option>
-                <lay-select-option value="woman" label="女"></lay-select-option>
-              </lay-select>
-            </lay-form-item>
+                v-model="searchQuery.rangeTime"
+                range
+                type="datetime"
+                :placeholder="['开始日期', '结束日期']"
+              ></lay-date-picker
+            ></lay-form-item>
           </lay-col>
           <lay-col :md="5">
             <lay-form-item label-width="20">
@@ -68,26 +65,26 @@
         @change="change"
         @sortChange="sortChange"
       >
-        <template #status="{ row }">
-          <lay-switch
-            :model-value="row.status"
-            @change="changeStatus($event, row)"
-          ></lay-switch>
+        <template #unitType="{ row }">
+          <lay-tooltip :visible="false" trigger="hover" :content="row.unitType">
+            <div class="oneRow">{{ row.unitType }}</div>
+          </lay-tooltip>
         </template>
-        <template v-slot:toolbar>
-          <lay-button size="sm" type="primary" @click="changeVisible11('新增')">
-            <lay-icon class="layui-icon-addition"></lay-icon>
-            新增</lay-button
-          >
-          <lay-button size="sm" @click="toRemove">
-            <lay-icon class="layui-icon-delete"></lay-icon>
-            删除
-          </lay-button>
-          <lay-button size="sm" @click="toImport">
-            <lay-icon class="layui-icon-upload-drag"></lay-icon>
-            导入
-          </lay-button>
+
+        <template #operatingType="{ row }">
+          <div v-show="row.operatingType == '登录成功'">
+            <lay-tag color="#2dc570" variant="light">登录成功</lay-tag>
+          </div>
+          <div v-show="row.operatingType == '登录失败'">
+            <lay-tag color="#F5319D" variant="light">登录失败</lay-tag>
+          </div>
         </template>
+        <template #remark="{ row }">
+          <lay-tooltip :visible="false" trigger="hover" :content="row.remark">
+            <div class="oneRow">{{ row.remark }}</div>
+          </lay-tooltip>
+        </template>
+        <template v-slot:toolbar> </template>
         <template v-slot:operator="{ row }">
           <lay-button
             size="xs"
@@ -108,65 +105,6 @@
         </template>
       </lay-table>
     </div>
-
-    <lay-layer v-model="visible11" :title="title" :area="['600px', '450px']">
-      <div style="padding: 20px">
-        <lay-form :model="model11" ref="layFormRef11" required>
-          <lay-form-item label="姓名" prop="name">
-            <lay-input v-model="model11.name"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="年龄" prop="age">
-            <lay-input v-model="model11.age"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="性别" prop="sex">
-            <lay-select v-model="model11.sex" style="width: 100%">
-              <lay-select-option value="男" label="男"></lay-select-option>
-              <lay-select-option value="女" label="女"></lay-select-option>
-            </lay-select>
-          </lay-form-item>
-          <lay-form-item label="城市" prop="city">
-            <lay-input v-model="model11.city"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="email" prop="email">
-            <lay-input v-model="model11.email"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="描述" prop="remark">
-            <lay-textarea
-              placeholder="请输入描述"
-              v-model="model11.remark"
-            ></lay-textarea>
-          </lay-form-item>
-        </lay-form>
-        <div style="width: 100%; text-align: center">
-          <lay-button size="sm" type="primary" @click="toSubmit"
-            >保存</lay-button
-          >
-          <lay-button size="sm" @click="toCancel">取消</lay-button>
-        </div>
-      </div>
-    </lay-layer>
-    <lay-layer
-      v-model="visibleImport"
-      title="导入用户"
-      :area="['380px', '380px']"
-    >
-      <lay-upload
-        :beforeUpload="beforeUpload10"
-        style="margin: 60px"
-        url="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-        v-model="file1"
-        field="file"
-        :auto="false"
-        :drag="true"
-      >
-        <template #preview>
-          {{ file1[0]?.name }}
-        </template>
-      </lay-upload>
-      <div style="width: 100%; text-align: center">
-        只能上传小于1000KB的文件
-      </div>
-    </lay-layer>
   </lay-container>
 </template>
 <script setup lang="ts">
@@ -175,20 +113,14 @@ import { layer } from '@layui/layui-vue'
 const searchQuery = ref({
   userAccount: '',
   userName: '',
-  sex: ''
+  rangeTime: ['2001-01-01 01:01:00', '2001-02-1 01:01:00']
 })
 
-const visibleImport = ref(false)
-const file1 = ref([])
-function toImport() {
-  // layer.msg('导入')
-  visibleImport.value = true
-}
 function toReset() {
   searchQuery.value = {
     userAccount: '',
     userName: '',
-    sex: ''
+    rangeTime: ['2001-01-01 01:01:00', '2001-02-1 01:01:00']
   }
 }
 
@@ -201,17 +133,26 @@ const loading = ref(false)
 const selectedKeys = ref([])
 const page = reactive({ current: 1, limit: 10, total: 100 })
 const columns = ref([
-  { title: '选项', width: '55px', type: 'checkbox', fixed: 'left' },
-  { title: '编号', width: '80px', key: 'id', fixed: 'left', sort: 'desc' },
-  { title: '姓名', width: '80px', key: 'name', sort: 'desc' },
-  { title: '状态', width: '80px', key: 'status', customSlot: 'status' },
-  { title: '邮箱', width: '120px', key: 'email' },
-  { title: '性别', width: '80px', key: 'sex' },
-  { title: '年龄', width: '80px', key: 'age' },
-  { title: '城市', width: '120px', key: 'city' },
-  { title: '签名', width: '260px', key: 'remark' },
-  { title: '隐藏', width: '260px', key: 'hide', hide: true },
-  { title: '时间', width: '120px', key: 'joinTime' },
+  { title: '账号', key: 'account', sort: 'desc' },
+  { title: '用户名', key: 'name', sort: 'desc' },
+  { title: 'IP地址', key: 'ipAddrees', sort: 'desc' },
+  {
+    title: '设备型号',
+    width: '120px',
+    key: 'unitType',
+    sort: 'desc',
+    customSlot: 'unitType'
+  },
+  { title: '操作系统', key: 'operatingSystem' },
+  {
+    title: '操作类型',
+    width: '120px',
+    key: 'operatingType',
+    customSlot: 'operatingType'
+  },
+  { title: '浏览器', key: 'browser' },
+  { title: '备注', width: '120px', key: 'remark', customSlot: 'remark' },
+  { title: '登录时间', width: '120px', key: 'joinTime' },
   {
     title: '操作',
     width: '150px',
@@ -233,120 +174,130 @@ const sortChange = (key: any, sort: number) => {
 const dataSource = ref([
   {
     id: '1',
-    name: '张三1',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '18',
+    name: '管理员',
+    account: 'admin',
+    operatingSystem: 'Windows',
+    unitType: 'Windows 10 or Windows Server 2016',
+    browser: 'Chrome',
     remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    joinTime: '2022-02-09 15:09:34',
+    ipAddrees: '171.120.210.128',
+    operatingType: '登录成功'
   },
   {
     id: '2',
-    name: '张三2',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
+    name: '用户1',
+    account: 'admin',
+    operatingSystem: 'Android',
+    unitType: 'Android',
+    browser: 'DingTalk',
     remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    joinTime: '2022-02-09 15:09:34',
+    operatingType: '登录成功',
+    ipAddrees: '124.92.199.219'
   },
   {
     id: '3',
-    name: '张三3',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
+    account: 'admin',
+    name: '管理员',
+    operatingSystem: 'Windows',
+    unitType: 'Windows 10 or Windows Server 2016',
+    browser: 'Firefox',
     remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    joinTime: '2022-02-09 15:09:34',
+    operatingType: '登录成功',
+    ipAddrees: '39.155.212.237'
   },
   {
     id: '4',
-    name: '张三4',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
+    account: 'admin',
+    name: '用户2',
+    operatingSystem: 'Windows',
+    unitType: 'Windows 10 or Windows Server 2016',
+    browser: 'Chrome',
     remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    joinTime: '2022-02-09 15:09:34',
+    operatingType: '登录失败',
+    ipAddrees: '113.65.14.222'
   },
   {
     id: '5',
-    name: '张三5',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
+    account: 'admin',
+    name: '管理员',
+    operatingSystem: 'Android',
+    unitType: 'Android',
+    browser: 'Chrome',
     remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    joinTime: '2022-02-09 15:09:34',
+    operatingType: '登录成功',
+    ipAddrees: '113.128.81.221'
   },
   {
     id: '6',
-    name: '张三6',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
+    account: 'admin',
+    name: '管理员',
+    operatingSystem: 'Windows',
+    unitType: 'Windows 10 or Windows Server 2016',
+    browser: 'MSEdge',
     remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    joinTime: '2022-02-09 15:09:34',
+    operatingType: '登录成功',
+    ipAddrees: '182.48.101.103'
   },
   {
     id: '7',
-    name: '张三7',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '18',
+    account: 'admin',
+    name: '用户1',
+    operatingSystem: 'Windows',
+    unitType: 'Windows 10 or Windows Server 2016',
+    browser: 'MSEdge',
     remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    joinTime: '2022-02-09 15:09:34',
+    operatingType: '登录成功',
+    ipAddrees: '171.213.58.73'
   },
   {
     id: '8',
-    name: '张三8',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
+    account: 'admin',
+    name: '用户1',
+    operatingSystem: 'Windows',
+    unitType: 'Windows 10 or Windows Server 2016',
+    browser: 'MicroMessenger',
     remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    joinTime: '2022-02-09 15:09:34',
+    operatingType: '登录成功',
+    ipAddrees: '119.143.100.106'
   },
   {
     id: '9',
-    name: '张三9',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
+    account: 'admin',
+    name: '管理员',
+    operatingSystem: 'Windows',
+    unitType: 'Windows 10 or Windows Server 2016',
+    browser: 'Chrome',
     remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    joinTime: '2022-02-09 15:09:34',
+    operatingType: '登录失败',
+    ipAddrees: '139.162.18.175'
   },
   {
     id: '10',
-    name: '张三10',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
+    account: 'admin',
+    name: '管理员',
+    operatingSystem: 'Windows',
+    unitType: 'Windows 10 or Windows Server 2016',
+    browser: 'Chrome',
     remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    joinTime: '2022-02-09 15:09:34',
+    operatingType: '登录成功',
+    ipAddrees: '14.215.245.130'
   }
 ])
 const changeStatus = (isChecked: boolean, row: any) => {
   dataSource.value.forEach((item) => {
     if (item.id === row.id) {
       layer.msg('Success', { icon: 1 }, () => {
-        item.status = isChecked
+        item.ipAddrees = isChecked
       })
     }
   })
@@ -361,112 +312,23 @@ const loadDataSource = (page: number, pageSize: number) => {
   for (var i = startIndex; i <= endIndex; i++) {
     response.push({
       id: `${i}`,
-      age: '18',
-      sex: '男',
-      name: `张三${i}`,
-      email: 'test@qq.com',
+      browser: 'Chrome',
+      operatingSystem: 'Windows',
+      account: 'admin',
+      operatingType: '登录成功',
+      name: '管理员',
       remark: '花开堪折直须折,莫待无花空折枝.',
-      joinTime: '2022-02-09',
-      city: '浙江杭州',
-      status: true
+      joinTime: '2022-02-09 15:09:34',
+      unitType: 'Windows 10 or Windows Server 2016',
+      ipAddrees: '111.121.13.184'
     })
   }
   return response
 }
-const model11 = ref({})
-const layFormRef11 = ref()
-const visible11 = ref(false)
-const title = ref('新增')
-const changeVisible11 = (text: any, row: any) => {
-  title.value = text
-  if (row) {
-    let info = JSON.parse(JSON.stringify(row))
-    model11.value = info
-  } else {
-    model11.value = {}
-  }
-  visible11.value = !visible11.value
-}
-const submit11 = function () {
-  layFormRef11.value.validate((isValidate: any, model: any, errors: any) => {
-    layer.open({
-      type: 1,
-      title: '表单提交结果',
-      content: `<div style="padding: 10px"><p>是否通过 : ${isValidate}</p> <p>表单数据 : ${JSON.stringify(
-        model
-      )} </p> <p>错误信息 : ${JSON.stringify(errors)}</p></div>`,
-      shade: false,
-      isHtmlFragment: true,
-      btn: [
-        {
-          text: '确认',
-          callback(index) {
-            layer.close(index)
-          }
-        }
-      ],
-      area: '500px'
-    })
-  })
-}
-// 清除校验
-const clearValidate11 = function () {
-  layFormRef11.value.clearValidate()
-}
-// 重置表单
-const reset11 = function () {
-  layFormRef11.value.reset()
-}
-function toRemove() {
-  if (selectedKeys.value.length == 0) {
-    layer.msg('您未选择数据，请先选择要删除的数据', { icon: 3, time: 2000 })
-    return
-  }
-  layer.confirm('您将删除所有选中的数据？', {
-    title: '提示',
-    btn: [
-      {
-        text: '确定',
-        callback: (id: any) => {
-          layer.msg('您已成功删除')
-          layer.close(id)
-        }
-      },
-      {
-        text: '取消',
-        callback: (id: any) => {
-          layer.msg('您已取消操作')
-          layer.close(id)
-        }
-      }
-    ]
-  })
-}
-function toSubmit() {
-  layer.msg('保存成功！', { icon: 1, time: 1000 })
-  visible11.value = false
-}
-function toCancel() {
-  visible11.value = false
-}
-function confirm() {
-  layer.msg('您已成功删除')
-}
-function cancel() {
-  layer.msg('您已取消操作')
-}
-const beforeUpload10 = (file) => {
-  var isOver = false
-  if (file.size > 1000) {
-    isOver = true
-    layer.msg(`file size over 1000 KB`, { icon: 2 })
-  }
-  return new Promise((resolver) => resolver(true))
-}
 </script>
 
 <style scoped>
-.user-box {
+.login-box {
   width: calc(100vw - 220px);
   height: calc(100vh - 110px);
   margin-top: 10px;
@@ -502,5 +364,12 @@ const beforeUpload10 = (file) => {
   display: inline-block;
   background-color: #e8f1ff;
   color: red;
+}
+.oneRow {
+  width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
 }
 </style>
