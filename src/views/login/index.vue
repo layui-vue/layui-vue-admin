@@ -2,14 +2,10 @@
   <div class="login-wrap">
     <div class="login-root">
       <div class="login-main">
-        <img
-          class="login-one-ball"
-          src="https://assets.codehub.cn/micro-frontend/login/fca1d5960ccf0dfc8e32719d8a1d80d2.png"
-        />
-        <img
-          class="login-two-ball"
-          src="https://assets.codehub.cn/micro-frontend/login/4bcf705dad662b33a4fc24aaa67f6234.png"
-        />
+        <img class="login-one-ball"
+          src="https://assets.codehub.cn/micro-frontend/login/fca1d5960ccf0dfc8e32719d8a1d80d2.png" />
+        <img class="login-two-ball"
+          src="https://assets.codehub.cn/micro-frontend/login/4bcf705dad662b33a4fc24aaa67f6234.png" />
         <div class="login-container">
           <div class="login-side">
             <div class="login-bg-title">
@@ -28,72 +24,35 @@
               <lay-tab-item title="用户名" id="1">
                 <div style="height: 250px">
                   <lay-form-item :label-width="0">
-                    <lay-input
-                      :allow-clear="true"
-                      prefix-icon="layui-icon-username"
-                      placeholder="用户名"
-                      v-model="loginForm.account"
-                    ></lay-input>
+                    <lay-input :allow-clear="true" prefix-icon="layui-icon-username" placeholder="用户名"
+                      v-model="loginForm.account"></lay-input>
                   </lay-form-item>
                   <lay-form-item :label-width="0">
-                    <lay-input
-                      :allow-clear="true"
-                      prefix-icon="layui-icon-password"
-                      placeholder="密码"
-                      password
-                      type="password"
-                      v-model="loginForm.password"
-                    ></lay-input>
+                    <lay-input :allow-clear="true" prefix-icon="layui-icon-password" placeholder="密码" password
+                      type="password" v-model="loginForm.password"></lay-input>
                   </lay-form-item>
                   <lay-form-item :label-width="0">
                     <div style="width: 264px; display: inline-block">
-                      <lay-input
-                        :allow-clear="true"
-                        prefix-icon="layui-icon-vercode"
-                        placeholder="验证码"
-                        v-model="loginForm.vercode"
-                      ></lay-input>
+                      <lay-input :allow-clear="true" prefix-icon="layui-icon-vercode" placeholder="验证码"
+                        v-model="loginForm.vercode"></lay-input>
                     </div>
 
                     <div class="login-captach" @click="toRefreshImg">
-                      <img
-                        style="width: 100%"
-                        src="../../assets/login/login-yzm.jpg"
-                        alt="获取验证码"
-                      />
+                      <img style="width: 100%" src="../../assets/login/login-yzm.jpg" alt="获取验证码" />
                     </div>
                   </lay-form-item>
-                  <lay-checkbox
-                    value=""
-                    name="like"
-                    v-model="remember"
-                    skin="primary"
-                    label="1"
-                    >记住密码</lay-checkbox
-                  >
+                  <lay-checkbox value="" name="like" v-model="remember" skin="primary" label="1">记住密码</lay-checkbox>
                   <lay-form-item :label-width="0">
-                    <lay-button
-                      style="margin-top: 20px"
-                      type="primary"
-                      :fluid="true"
-                      @click="loginSubmit"
-                      >登录</lay-button
-                    >
+                    <lay-button style="margin-top: 20px" type="primary" :loading="loging" :fluid="true"
+                      loadingIcon="layui-icon-loading" @click="loginSubmit">登录</lay-button>
                   </lay-form-item>
                 </div>
               </lay-tab-item>
               <lay-tab-item title="二维码" id="2">
                 <div style="width: 200px; height: 250px; margin: 0 auto">
-                  <lay-qrcode
-                    text="http://www.layui-vue.com"
-                    :width="200"
-                    color="#000"
-                    style="margin: 10px 0 20px"
-                  ></lay-qrcode>
-                  <div
-                    style="text-align: center; cursor: pointer"
-                    @click="toRefreshQrcode"
-                  >
+                  <lay-qrcode text="http://www.layui-vue.com" :width="200" color="#000"
+                    style="margin: 10px 0 20px"></lay-qrcode>
+                  <div style="text-align: center; cursor: pointer" @click="toRefreshQrcode">
                     <lay-icon type="layui-icon-refresh-three"> </lay-icon>
                     刷新二维码
                   </div>
@@ -148,6 +107,7 @@ export default defineComponent({
     const userStore = useUserStore()
     const method = ref('1')
     const verificationImgUrl = ref('')
+    const loging = ref(false);
     const loginQrcodeText = ref('')
     const remember = ref(false)
     const loginForm = reactive({
@@ -155,23 +115,29 @@ export default defineComponent({
       password: '123456',
       vercode: 'DqJFN'
     })
+
     onMounted(() => {
       // toRefreshImg()
       // toRefreshQrcode()
     })
 
     const loginSubmit = async () => {
-      let { data, code, msg } = await login(loginForm)
-      if (code == 200) {
-        layer.msg(msg, { icon: 1 }, async () => {
-          userStore.token = data.token
-          await userStore.loadMenus()
-          await userStore.loadPermissions()
-          router.push('/')
-        })
-      } else {
-        layer.msg(msg, { icon: 2 })
-      }
+      loging.value = true;
+      login(loginForm).then(({ data, code, msg }) => {
+        setTimeout(() => {
+          loging.value = false;
+          if (code == 200) {
+            layer.msg(msg, { icon: 1 }, async () => {
+              userStore.token = data.token
+              await userStore.loadMenus()
+              await userStore.loadPermissions()
+              router.push('/')
+            })
+          } else {
+            layer.msg(msg, { icon: 2 })
+          }
+        }, 1000)
+      })
     }
 
     const toRefreshImg = async () => {
@@ -197,7 +163,8 @@ export default defineComponent({
       loginSubmit,
       loginForm,
       remember,
-      method
+      method,
+      loging
     }
   }
 })
@@ -219,6 +186,7 @@ export default defineComponent({
   overflow: hidden;
   cursor: pointer;
 }
+
 .login-one-ball {
   opacity: 0.4;
   position: absolute;
@@ -301,12 +269,14 @@ export default defineComponent({
   display: flex;
   box-shadow: 6px 6px 12px 4px rgba(0, 0, 0, 0.1);
 }
+
 .login-side {
   padding: 40px 20px 20px;
   background-color: var(--global-primary-color);
   flex: 1;
   height: 100%;
 }
+
 .login-bg-title {
   flex: 1;
   height: 84%;
@@ -319,6 +289,7 @@ export default defineComponent({
   text-align: center;
   min-width: 200px;
 }
+
 .login-ID {
   padding: 20px;
   width: 380px;
