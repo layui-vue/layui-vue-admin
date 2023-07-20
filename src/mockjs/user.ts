@@ -204,7 +204,7 @@ const menus = [
       },
       {
         id: '/system/role',
-        icon: "layui-icon-group",
+        icon: "layui-icon-user",
         title: '角色管理',
       },
       {
