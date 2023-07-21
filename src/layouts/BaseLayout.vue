@@ -9,7 +9,7 @@
       :class="[
         appStore.tab ? 'has-tab' : '',
         appStore.collapse ? 'collapse' : '',
-        appStore.greyMode ? 'grey-mode' : '',
+        appStore.greyMode ? 'grey-mode' : ''
       ]"
     >
       <!-- 遮盖层 -->
@@ -21,12 +21,15 @@
       <!-- 核心菜单  -->
       <lay-side
         :width="sideWidth"
-        :class="appStore.sideTheme == 'dark' ? 'dark' : 'light'"
+        :class="appStore.sideTheme == 'dark' ? 'dark changeBgc' : 'light'"
       >
         <lay-logo v-if="appStore.logo"></lay-logo>
         <lay-scroll style="height: calc(100% - 52px)">
           <div class="side-menu-wrapper">
-            <div class="side-menu1" v-if="(appStore.subfield && appStore.subfieldPosition == 'side')">
+            <div
+              class="side-menu1"
+              v-if="appStore.subfield && appStore.subfieldPosition == 'side'"
+            >
               <global-main-menu
                 :collapse="true"
                 :menus="mainMenus"
@@ -71,7 +74,7 @@
           </lay-menu>
           <!-- 菜单分组 -->
           <lay-menu
-            v-if="(appStore.subfield && appStore.subfieldPosition == 'head')"
+            v-if="appStore.subfield && appStore.subfieldPosition == 'head'"
             class="layui-nav-center"
             :selectedKey="mainSelectedKey"
             @changeSelectedKey="changeMainSelectedKey"
@@ -82,12 +85,24 @@
               </lay-menu-item>
             </template>
           </lay-menu>
-          <lay-dropdown v-if="(appStore.subfield && appStore.subfieldPosition == 'head')" trigger="hover" placement="bottom">
-            <lay-icon type="layui-icon-more" style="padding: 0px 15px"></lay-icon>
+          <lay-dropdown
+            v-if="appStore.subfield && appStore.subfieldPosition == 'head'"
+            trigger="hover"
+            placement="bottom"
+          >
+            <lay-icon
+              type="layui-icon-more"
+              style="padding: 0px 15px"
+            ></lay-icon>
             <template #content>
               <lay-dropdown-menu>
                 <template v-for="(menu, index) in mainMenus">
-                  <lay-dropdown-menu-item v-if="index >= 4" @click="changeMainSelectedKey(menu.id)">{{ menu.title }}</lay-dropdown-menu-item>
+                  <lay-dropdown-menu-item
+                    :key="menu.id"
+                    v-if="index >= 4"
+                    @click="changeMainSelectedKey(menu.id)"
+                    >{{ menu.title }}</lay-dropdown-menu-item
+                  >
                 </template>
               </lay-dropdown-menu>
             </template>
@@ -132,10 +147,14 @@
                 <lay-icon type="layui-icon-website"></lay-icon>
                 <template #content>
                   <lay-dropdown-menu>
-                    <lay-dropdown-menu-item @click="() => appStore.locale = 'zh_CN'">
+                    <lay-dropdown-menu-item
+                      @click="() => (appStore.locale = 'zh_CN')"
+                    >
                       <template #default>中文</template>
                     </lay-dropdown-menu-item>
-                    <lay-dropdown-menu-item @click="() => appStore.locale = 'en_US'">
+                    <lay-dropdown-menu-item
+                      @click="() => (appStore.locale = 'en_US')"
+                    >
                       <template #default>英文</template>
                     </lay-dropdown-menu-item>
                   </lay-dropdown-menu>
@@ -167,7 +186,7 @@
           </lay-menu>
         </lay-header>
         <lay-body>
-          <global-tab></global-tab>
+          <global-tab class="top-global-tab"></global-tab>
           <global-content></global-content>
         </lay-body>
         <lay-footer></lay-footer>
@@ -178,19 +197,19 @@
 </template>
 
 <script lang="ts">
-import { computed, onMounted, ref } from "vue";
-import { useAppStore } from "../store/app";
-import { useUserStore } from "../store/user";
-import GlobalSetup from "./global/GlobalSetup.vue";
-import GlobalContent from "./global/GlobalContent.vue";
-import GlobalBreadcrumb from "./global/GlobalBreadcrumb.vue";
-import GlobalTab from "./global/GlobalTab.vue";
-import GlobalMenu from "./global/GlobalMenu.vue";
-import GlobalMainMenu from "./global/GlobalMainMenu.vue";
-import { useRouter } from "vue-router";
-import { useMenu } from "./composable/useMenu";
-import zh_CN from "../lang/zh_CN";
-import en_US from "../lang/en_US";
+import { computed, onMounted, ref } from 'vue'
+import { useAppStore } from '../store/app'
+import { useUserStore } from '../store/user'
+import GlobalSetup from './global/GlobalSetup.vue'
+import GlobalContent from './global/GlobalContent.vue'
+import GlobalBreadcrumb from './global/GlobalBreadcrumb.vue'
+import GlobalTab from './global/GlobalTab.vue'
+import GlobalMenu from './global/GlobalMenu.vue'
+import GlobalMainMenu from './global/GlobalMainMenu.vue'
+import { useRouter } from 'vue-router'
+import { useMenu } from './composable/useMenu'
+import zh_CN from '../lang/zh_CN'
+import en_US from '../lang/en_US'
 
 export default {
   components: {
@@ -199,18 +218,21 @@ export default {
     GlobalTab,
     GlobalMenu,
     GlobalBreadcrumb,
-    GlobalMainMenu,
+    GlobalMainMenu
   },
   setup() {
-
-    const appStore = useAppStore();
-    const userInfoStore = useUserStore();
-    const fullscreenRef = ref();
-    const visible = ref(false);
+    const appStore = useAppStore()
+    const userInfoStore = useUserStore()
+    const fullscreenRef = ref()
+    const visible = ref(false)
     const sideWidth = computed(() =>
-      appStore.collapse ? "60px" : (appStore.subfield && appStore.subfieldPosition == 'side') ? "280px" : "220px"
-    );
-    const router = useRouter();
+      appStore.collapse
+        ? '60px'
+        : appStore.subfield && appStore.subfieldPosition == 'side'
+        ? '280px'
+        : '220px'
+    )
+    const router = useRouter()
 
     const {
       selectedKey,
@@ -220,44 +242,44 @@ export default {
       mainSelectedKey,
       changeMainSelectedKey,
       changeSelectedKey,
-      changeOpenKeys,
-    } = useMenu();
+      changeOpenKeys
+    } = useMenu()
 
     onMounted(() => {
       if (document.body.clientWidth < 768) {
-        appStore.collapse = true;
+        appStore.collapse = true
       }
-      userInfoStore.loadMenus();
-      userInfoStore.loadPermissions();
-    });
+      userInfoStore.loadMenus()
+      userInfoStore.loadPermissions()
+    })
 
     const changeVisible = () => {
-      visible.value = !visible.value;
-    };
+      visible.value = !visible.value
+    }
 
-    const currentIndex = ref("1");
+    const currentIndex = ref('1')
 
     const collapse = () => {
-      appStore.collapse = !appStore.collapse;
-    };
+      appStore.collapse = !appStore.collapse
+    }
 
     const refresh = () => {
-      appStore.routerAlive = false;
+      appStore.routerAlive = false
       setTimeout(function () {
-        appStore.routerAlive = true;
-      }, 500);
-    };
+        appStore.routerAlive = true
+      }, 500)
+    }
 
     const logOut = () => {
-      const userInfoStore = useUserStore();
-      userInfoStore.token = "";
-      userInfoStore.userInfo = {};
-      router.push("/login");
-    };
+      const userInfoStore = useUserStore()
+      userInfoStore.token = ''
+      userInfoStore.userInfo = {}
+      router.push('/login')
+    }
 
     const locales = [
-      { name: "zh_CN", locale: zh_CN, merge: true },
-      { name: "en_US", locale: en_US, merge: true },
+      { name: 'zh_CN', locale: zh_CN, merge: true },
+      { name: 'en_US', locale: en_US, merge: true }
     ]
 
     return {
@@ -279,13 +301,13 @@ export default {
       changeVisible,
       refresh,
       logOut,
-      locales,
-    };
-  },
-};
+      locales
+    }
+  }
+}
 </script>
 
-<style>
+<style lang="less">
 @media screen and (max-width: 767px) {
   .layui-side {
     position: absolute;
@@ -339,5 +361,54 @@ export default {
 }
 .side-menu2 {
   flex: 1;
+}
+.changeBgc {
+  background-color: #171717 !important;
+}
+.side-menu-wrapper {
+  .layui-this {
+    width: calc(100% - 3px) !important;
+  }
+  .layui-nav-item :hover {
+    background-color: #000;
+    .layui-this {
+      background-color: var(--global-primary-color) !important;
+    }
+    // border-bottom: 0.1px solid var(--global-primary-color) !important;
+    box-shadow: 1px 1px 1px var(--global-primary-color) unset !important;
+    > span {
+      color: #fff !important;
+      border: unset !important;
+      background-color: unset !important;
+    }
+    .layui-icon-down {
+      color: #fff !important;
+    }
+    // todo  不生效 或者错乱显示
+    .layui-sub-menu-icon {
+      color: #fff !important;
+    }
+  }
+}
+.top-global-tab {
+  .layui-tab-title {
+    .layui-this {
+      color: var(--global-primary-color) !important;
+      background-color: #009b8e0d !important;
+      border-bottom: 2px solid var(--global-primary-color) !important;
+      .layui-icon {
+        color: var(--global-primary-color) !important;
+      }
+    }
+  }
+}
+.layui-body
+  > .global-tab
+  > .layui-tab
+  > .layui-tab-head
+  > .layui-tab-title
+  > li {
+  height: 38px !important;
+  line-height: 38px !important;
 }
 </style>
