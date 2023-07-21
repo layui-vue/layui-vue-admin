@@ -115,6 +115,10 @@
               @change="changeStatus($event, row)"
             ></lay-switch>
           </template>
+          <template #role="{ row }">
+            <lay-tag color="#165DFF" variant="light">{{ row.role }}</lay-tag>
+          </template>
+
           <template v-slot:toolbar>
             <lay-button
               size="sm"
@@ -145,14 +149,14 @@
         </lay-table>
       </div>
     </div>
-    <lay-layer v-model="visible11" :title="title" :area="['600px', '550px']">
+    <lay-layer v-model="visible11" :title="title" :area="['500px', '450px']">
       <div style="padding: 20px">
         <lay-form :model="model11" ref="layFormRef11" required>
-          <lay-form-item label="姓名" prop="name">
-            <lay-input v-model="model11.name"></lay-input>
+          <lay-form-item label="用户账号" prop="account">
+            <lay-input v-model="model11.account"></lay-input>
           </lay-form-item>
-          <lay-form-item label="年龄" prop="age">
-            <lay-input v-model="model11.age"></lay-input>
+          <lay-form-item label="用户名" prop="name">
+            <lay-input v-model="model11.name"></lay-input>
           </lay-form-item>
           <lay-form-item label="性别" prop="sex">
             <lay-select v-model="model11.sex" style="width: 100%">
@@ -160,17 +164,11 @@
               <lay-select-option value="女" label="女"></lay-select-option>
             </lay-select>
           </lay-form-item>
-          <lay-form-item label="城市" prop="city">
-            <lay-input v-model="model11.city"></lay-input>
+          <lay-form-item label="角色" prop="role">
+            <lay-input v-model="model11.role"></lay-input>
           </lay-form-item>
-          <lay-form-item label="email" prop="email">
-            <lay-input v-model="model11.email"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="描述" prop="remark">
-            <lay-textarea
-              placeholder="请输入描述"
-              v-model="model11.remark"
-            ></lay-textarea>
+          <lay-form-item label="状态" prop="status">
+            <lay-switch :model-value="model11.status"></lay-switch>
           </lay-form-item>
         </lay-form>
         <div style="width: 100%; text-align: center">
@@ -304,7 +302,10 @@ const data = ref([
 ])
 const showLine = ref(false)
 const selectedKey = ref('')
-const selectedNode = ref({})
+const selectedNode = ref({
+  id: 0,
+  title: ''
+})
 const isFold = ref(false)
 const searchQuery = ref({
   userAccount: '',
@@ -376,20 +377,22 @@ function toSearch() {
 }
 
 const loading = ref(false)
-const selectedKeys = ref([])
+const selectedKeys = ref()
 const page = reactive({ current: 1, limit: 10, total: 100 })
 const columns = ref([
   { title: '选项', width: '55px', type: 'checkbox', fixed: 'left' },
-  { title: '编号', width: '80px', key: 'id', fixed: 'left', sort: 'desc' },
-  { title: '姓名', width: '80px', key: 'name', sort: 'desc' },
-  { title: '状态', width: '80px', key: 'status', customSlot: 'status' },
-  { title: '邮箱', width: '120px', key: 'email' },
-  { title: '性别', width: '80px', key: 'sex' },
-  { title: '年龄', width: '80px', key: 'age' },
-  { title: '城市', width: '120px', key: 'city' },
-  { title: '签名', width: '260px', key: 'remark' },
-  { title: '隐藏', width: '260px', key: 'hide', hide: true },
-  { title: '时间', width: '120px', key: 'joinTime' },
+  { title: '编号', width: '80px', key: 'id', fixed: 'left', sort: 'id' },
+  { title: '用户账号', width: '80px', key: 'account', sort: 'account' },
+  { title: '用户名', width: '80px', key: 'name', sort: 'name' },
+  { title: '性别', width: '80px', key: 'sex', sort: 'sex' },
+  { title: '角色', width: '120px', key: 'role', customSlot: 'role' },
+  {
+    title: '创建时间',
+    width: '120px',
+    key: 'joinTime'
+  },
+  { title: '状态', width: '120px', key: 'status', sort: 'status' },
+
   {
     title: '操作',
     width: '150px',
@@ -411,112 +414,92 @@ const sortChange = (key: any, sort: number) => {
 const dataSource = ref([
   {
     id: '1',
-    name: '张三1',
-    email: 'test@qq.com',
+    name: '管理员',
     sex: '男',
-    city: '浙江杭州',
-    age: '18',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
+    role: '管理员',
+    account: 'admin',
+    joinTime: '2022-02-09 18:34:56',
     status: true
   },
   {
     id: '2',
     name: '张三2',
-    email: 'test@qq.com',
     sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
+    role: '普通用户',
+    account: '用户2',
+    joinTime: '2022-02-09 18:34:56',
     status: true
   },
   {
     id: '3',
-    name: '张三3',
-    email: 'test@qq.com',
+    name: '李四3',
     sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
+    role: '普通用户',
+    account: '用户3',
+    joinTime: '2022-02-09 18:34:56',
     status: true
   },
   {
     id: '4',
-    name: '张三4',
-    email: 'test@qq.com',
+    name: '用户4',
     sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
+    role: '普通用户',
+    account: '用户4',
+    joinTime: '2022-02-09 18:34:56',
     status: true
   },
   {
     id: '5',
-    name: '张三5',
-    email: 'test@qq.com',
+    name: '王五5',
     sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
+    role: '普通用户',
+    account: '用户5',
+    joinTime: '2022-02-09 18:34:56',
     status: true
   },
   {
     id: '6',
-    name: '张三6',
-    email: 'test@qq.com',
+    name: '赵六6',
     sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
+    role: '普通用户',
+    account: '用户6',
+    joinTime: '2022-02-09 18:34:56',
     status: true
   },
   {
     id: '7',
-    name: '张三7',
-    email: 'test@qq.com',
+    name: '黄齐7',
     sex: '男',
-    city: '浙江杭州',
-    age: '18',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
+    role: '普通用户',
+    account: '用户7',
+    joinTime: '2022-02-09 18:34:56',
     status: true
   },
   {
     id: '8',
-    name: '张三8',
-    email: 'test@qq.com',
+    name: '用户8',
     sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
+    role: '普通用户',
+    account: '用户8',
+    joinTime: '2022-02-09 18:34:56',
     status: true
   },
   {
     id: '9',
-    name: '张三9',
-    email: 'test@qq.com',
+    name: '游客9',
     sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
+    role: '游客',
+    account: '游客9',
+    joinTime: '用户22-02-09 18:34:56',
     status: true
   },
   {
     id: '10',
-    name: '张三10',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
+    name: '用户10',
+    sex: '女',
+    role: '普通用户',
+    account: 'user10',
+    joinTime: '2022-02-09 18:34:56 18:34:56',
     status: true
   }
 ])
@@ -539,13 +522,11 @@ const loadDataSource = (page: number, pageSize: number) => {
   for (var i = startIndex; i <= endIndex; i++) {
     response.push({
       id: `${i}`,
-      age: '18',
+      account: `user${i}`,
       sex: '男',
-      name: `张三${i}`,
-      email: 'test@qq.com',
-      remark: '花开堪折直须折,莫待无花空折枝.',
-      joinTime: '2022-02-09',
-      city: '浙江杭州',
+      name: `用户${i}`,
+      joinTime: '2022-02-09 18:34:56',
+      role: '普通用户',
       status: true
     })
   }
@@ -579,7 +560,7 @@ const submit11 = function () {
       btn: [
         {
           text: '确认',
-          callback(index) {
+          callback(index: any) {
             layer.close(index)
           }
         }

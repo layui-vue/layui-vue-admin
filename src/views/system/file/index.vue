@@ -346,20 +346,14 @@ function toRemove() {
     ]
   })
 }
-function toSubmit() {
-  layer.msg('保存成功！', { icon: 1, time: 1000 })
-  visible11.value = false
-}
-function toCancel() {
-  visible11.value = false
-}
+
 function confirm() {
   layer.msg('您已成功删除')
 }
 function cancel() {
   layer.msg('您已取消操作')
 }
-const beforeUpload10 = (file) => {
+const beforeUpload10 = (file: any) => {
   var isOver = false
   if (file.size > 1000) {
     isOver = true

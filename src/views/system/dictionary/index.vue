@@ -194,7 +194,11 @@ const data = ref([
 ])
 const showLine = ref(false)
 const selectedKey = ref('')
-const selectedNode = ref({})
+const selectedNode = ref({
+  id: 0,
+  title: '',
+  checked: false
+})
 const isFold = ref(false)
 const searchQuery = ref({
   userAccount: '',
@@ -302,9 +306,9 @@ const dataSourceOri = ref([
     status: true
   }
 ])
-const dataSource = ref([])
+const dataSource = ref()
 const loading = ref(false)
-const selectedKeys = ref([])
+const selectedKeys = ref()
 const page = reactive({ current: 1, limit: 10, total: 2 })
 const columns = ref([
   { title: '选项', width: '55px', type: 'checkbox', fixed: 'left' },
@@ -378,7 +382,7 @@ const submit11 = function () {
       btn: [
         {
           text: '确认',
-          callback(index) {
+          callback(index: number) {
             layer.close(index)
           }
         }

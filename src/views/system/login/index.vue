@@ -86,16 +86,9 @@
         </template>
         <template v-slot:toolbar> </template>
         <template v-slot:operator="{ row }">
-          <lay-button
-            size="xs"
-            border="green"
-            border-style="dashed"
-            @click="changeVisible11('编辑', row)"
-            >编辑</lay-button
-          >
           <lay-popconfirm
-            content="确定要删除此用户吗?"
-            @confirm="confirm"
+            content="确定要删除此条登录记录吗?"
+            @confirm="confirm(row)"
             @cancel="cancel"
           >
             <lay-button size="xs" border="red" border-style="dashed"
@@ -130,7 +123,7 @@ function toSearch() {
 }
 
 const loading = ref(false)
-const selectedKeys = ref([])
+const selectedKeys = ref()
 const page = reactive({ current: 1, limit: 10, total: 100 })
 const columns = ref([
   { title: '账号', key: 'account', sort: 'desc' },
@@ -138,7 +131,7 @@ const columns = ref([
   { title: 'IP地址', key: 'ipAddrees', sort: 'desc' },
   {
     title: '设备型号',
-    width: '120px',
+    width: '220px',
     key: 'unitType',
     sort: 'desc',
     customSlot: 'unitType'
@@ -151,15 +144,8 @@ const columns = ref([
     customSlot: 'operatingType'
   },
   { title: '浏览器', key: 'browser' },
-  { title: '备注', width: '120px', key: 'remark', customSlot: 'remark' },
-  { title: '登录时间', width: '120px', key: 'joinTime' },
-  {
-    title: '操作',
-    width: '150px',
-    customSlot: 'operator',
-    key: 'operator',
-    fixed: 'right'
-  }
+  { title: '备注', width: '220px', key: 'remark', customSlot: 'remark' },
+  { title: '登录时间', width: '220px', key: 'joinTime' }
 ])
 const change = (page: any) => {
   loading.value = true
@@ -294,7 +280,7 @@ const dataSource = ref([
   }
 ])
 const changeStatus = (isChecked: boolean, row: any) => {
-  dataSource.value.forEach((item) => {
+  dataSource.value.forEach((item: any) => {
     if (item.id === row.id) {
       layer.msg('Success', { icon: 1 }, () => {
         item.ipAddrees = isChecked
@@ -366,10 +352,9 @@ const loadDataSource = (page: number, pageSize: number) => {
   color: red;
 }
 .oneRow {
-  width: 120px;
+  width: 220px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-align: center;
 }
 </style>

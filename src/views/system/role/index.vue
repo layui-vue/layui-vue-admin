@@ -65,12 +65,6 @@
         @change="change"
         @sortChange="sortChange"
       >
-        <template #status="{ row }">
-          <lay-switch
-            :model-value="row.status"
-            @change="changeStatus($event, row)"
-          ></lay-switch>
-        </template>
         <template v-slot:toolbar>
           <lay-button size="sm" type="primary" @click="changeVisible11('新增')">
             <lay-icon class="layui-icon-addition"></lay-icon>
@@ -97,7 +91,7 @@
             >分配权限</lay-button
           >
           <lay-popconfirm
-            content="确定要删除此用户吗?"
+            content="确定要删除此角色吗?"
             @confirm="confirm"
             @cancel="cancel"
           >
@@ -109,26 +103,14 @@
       </lay-table>
     </div>
 
-    <lay-layer v-model="visible11" :title="title" :area="['600px', '450px']">
+    <lay-layer v-model="visible11" :title="title" :area="['500px', '370px']">
       <div style="padding: 20px">
         <lay-form :model="model11" ref="layFormRef11" required>
-          <lay-form-item label="姓名" prop="name">
+          <lay-form-item label="角色名称" prop="name">
             <lay-input v-model="model11.name"></lay-input>
           </lay-form-item>
-          <lay-form-item label="年龄" prop="age">
-            <lay-input v-model="model11.age"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="性别" prop="sex">
-            <lay-select v-model="model11.sex" style="width: 100%">
-              <lay-select-option value="男" label="男"></lay-select-option>
-              <lay-select-option value="女" label="女"></lay-select-option>
-            </lay-select>
-          </lay-form-item>
-          <lay-form-item label="城市" prop="city">
-            <lay-input v-model="model11.city"></lay-input>
-          </lay-form-item>
-          <lay-form-item label="email" prop="email">
-            <lay-input v-model="model11.email"></lay-input>
+          <lay-form-item label="角色标识" prop="flage">
+            <lay-input v-model="model11.flage"></lay-input>
           </lay-form-item>
           <lay-form-item label="描述" prop="remark">
             <lay-textarea
@@ -146,7 +128,7 @@
       </div>
     </lay-layer>
 
-    <lay-layer v-model="visible22" title="分配权限" :area="['600px', '450px']">
+    <lay-layer v-model="visible22" title="分配权限" :area="['500px', '450px']">
       <div style="height: 320px; overflow: auto">
         <lay-tree
           style="margin-left: 40px"
@@ -192,20 +174,15 @@ function toSearch() {
 }
 
 const loading = ref(false)
-const selectedKeys = ref([])
-const page = reactive({ current: 1, limit: 10, total: 100 })
+const selectedKeys = ref()
+const page = reactive({ current: 1, limit: 10, total: 4 })
 const columns = ref([
   { title: '选项', width: '55px', type: 'checkbox', fixed: 'left' },
   { title: '编号', width: '80px', key: 'id', fixed: 'left', sort: 'desc' },
-  { title: '姓名', width: '80px', key: 'name', sort: 'desc' },
-  { title: '状态', width: '80px', key: 'status', customSlot: 'status' },
-  { title: '邮箱', width: '120px', key: 'email' },
-  { title: '性别', width: '80px', key: 'sex' },
-  { title: '年龄', width: '80px', key: 'age' },
-  { title: '城市', width: '120px', key: 'city' },
-  { title: '签名', width: '260px', key: 'remark' },
-  { title: '隐藏', width: '260px', key: 'hide', hide: true },
-  { title: '时间', width: '120px', key: 'joinTime' },
+  { title: '角色名称', width: '80px', key: 'name', sort: 'desc' },
+  { title: '角色标识', width: '80px', key: 'flage', sort: 'desc' },
+  { title: '备注', width: '260px', key: 'remark', sort: 'desc' },
+  { title: '创建时间', width: '120px', key: 'joinTime', sort: 'desc' },
   {
     title: '操作',
     width: '150px',
@@ -217,7 +194,6 @@ const columns = ref([
 const change = (page: any) => {
   loading.value = true
   setTimeout(() => {
-    dataSource.value = loadDataSource(page.current, page.limit)
     loading.value = false
   }, 1000)
 }
@@ -227,120 +203,31 @@ const sortChange = (key: any, sort: number) => {
 const dataSource = ref([
   {
     id: '1',
-    name: '张三1',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '18',
+    name: '管理员',
     remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    joinTime: '2022-02-09 16:35:07',
+    flage: 'admin'
   },
   {
     id: '2',
-    name: '张三2',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
+    name: '普通用户',
     remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    joinTime: '2022-02-09 16:35:07',
+    flage: 'user'
   },
   {
     id: '3',
-    name: '张三3',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
+    name: '游客',
     remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
-  },
-  {
-    id: '4',
-    name: '张三4',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
-  },
-  {
-    id: '5',
-    name: '张三5',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
-  },
-  {
-    id: '6',
-    name: '张三6',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
-  },
-  {
-    id: '7',
-    name: '张三7',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '18',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
-  },
-  {
-    id: '8',
-    name: '张三8',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
-  },
-  {
-    id: '9',
-    name: '张三9',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
-  },
-  {
-    id: '10',
-    name: '张三10',
-    email: 'test@qq.com',
-    sex: '男',
-    city: '浙江杭州',
-    age: '20',
-    remark: '花开堪折直须折,莫待无花空折枝.',
-    joinTime: '2022-02-09',
-    status: true
+    joinTime: '2022-02-09 16:35:07',
+    flage: 'guser'
   }
 ])
 const changeStatus = (isChecked: boolean, row: any) => {
-  dataSource.value.forEach((item) => {
+  dataSource.value.forEach((item: any) => {
     if (item.id === row.id) {
       layer.msg('Success', { icon: 1 }, () => {
-        item.status = isChecked
+        item.flage = isChecked
       })
     }
   })
@@ -355,14 +242,10 @@ const loadDataSource = (page: number, pageSize: number) => {
   for (var i = startIndex; i <= endIndex; i++) {
     response.push({
       id: `${i}`,
-      age: '18',
-      sex: '男',
-      name: `张三${i}`,
-      email: 'test@qq.com',
+      name: `用户${i}`,
+      flage: 'user',
       remark: '花开堪折直须折,莫待无花空折枝.',
-      joinTime: '2022-02-09',
-      city: '浙江杭州',
-      status: true
+      joinTime: '2022-02-09 16:35:07'
     })
   }
   return response
@@ -395,7 +278,7 @@ const submit11 = function () {
       btn: [
         {
           text: '确认',
-          callback(index) {
+          callback(index: number) {
             layer.close(index)
           }
         }

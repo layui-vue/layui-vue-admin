@@ -675,7 +675,7 @@ const submit11 = function () {
       btn: [
         {
           text: '确认',
-          callback(index) {
+          callback(index: number) {
             layer.close(index)
           }
         }

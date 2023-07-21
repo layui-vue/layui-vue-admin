@@ -111,7 +111,7 @@
       </lay-table>
     </div>
 
-    <lay-layer v-model="visible11" :title="title" :area="['600px', '450px']">
+    <lay-layer v-model="visible11" :title="title" :area="['500px', '550px']">
       <div style="padding: 20px">
         <lay-form :model="model11" ref="layFormRef11" required>
           <lay-form-item label="姓名" prop="name">
