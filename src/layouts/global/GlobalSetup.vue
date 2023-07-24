@@ -53,9 +53,19 @@
       <global-setup-item label="菜单分栏">
         <lay-switch v-model="appStore.subfield" size="xs"></lay-switch>
       </global-setup-item>
-      <!-- <global-setup-item label="选项卡风格">
-        <lay-switch v-model="appStore.subfield" size="xs"></lay-switch>
-      </global-setup-item> -->
+      <global-setup-item label="选项卡风格">
+        <lay-radio-group
+          name="action"
+          v-model="appStore.tagsTheme"
+          @change="change4"
+        >
+          <lay-radio-button size="xs" value="concise">样式一</lay-radio-button>
+          <lay-radio-button size="xs" value="underpainting">
+            样式二
+          </lay-radio-button>
+          <lay-radio-button size="xs" value="designer">样式三</lay-radio-button>
+        </lay-radio-group>
+      </global-setup-item>
       <div style="padding: 15px">
         <lay-button border="green" border-style="dashed" :fluid="true"
           >重置配置</lay-button

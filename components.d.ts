@@ -44,6 +44,8 @@ declare module '@vue/runtime-core' {
     LayProgress: typeof import('@layui/layui-vue')['LayProgress']
     LayQrcode: typeof import('@layui/layui-vue')['LayQrcode']
     LayRadio: typeof import('@layui/layui-vue')['LayRadio']
+    LayRadioButton: typeof import('@layui/layui-vue')['LayRadioButton']
+    LayRadioGroup: typeof import('@layui/layui-vue')['LayRadioGroup']
     LayResult: typeof import('@layui/layui-vue')['LayResult']
     LayRow: typeof import('@layui/layui-vue')['LayRow']
     LayScroll: typeof import('@layui/layui-vue')['LayScroll']

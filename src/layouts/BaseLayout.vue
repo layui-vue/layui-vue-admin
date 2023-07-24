@@ -186,7 +186,16 @@
           </lay-menu>
         </lay-header>
         <lay-body>
-          <global-tab class="top-global-tab"></global-tab>
+          <global-tab
+            :class="
+              appStore.tagsTheme == 'concise'
+                ? ''
+                : appStore.tagsTheme == 'underpainting'
+                ? 'underpainting'
+                : 'designer'
+            "
+          >
+          </global-tab>
           <global-content></global-content>
         </lay-body>
         <lay-footer></lay-footer>
@@ -401,7 +410,7 @@ export default {
     }
   }
 }
-.top-global-tab {
+.underpainting {
   .layui-tab-title {
     .layui-this {
       color: var(--global-primary-color) !important;
@@ -411,6 +420,14 @@ export default {
         color: var(--global-primary-color) !important;
       }
     }
+  }
+}
+.designer {
+  .layui-tab-head {
+    background-color: unset !important;
+  }
+  .layui-tab-title {
+    background-color: unset !important;
   }
 }
 .layui-body

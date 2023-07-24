@@ -1,9 +1,9 @@
 import { computed, Ref, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import {useAppStore} from "../../store/app";
+import { useAppStore } from "../../store/app";
 
 export function useTab() {
-  
+
   const route = useRoute();
   const router = useRouter();
   const routes = router.getRoutes()
@@ -69,8 +69,8 @@ export function useTab() {
     if (!bool) {
       tabs.value.push({ id: route.path, title: route.meta.title, name: route?.name });
     }
-    appStore.$patch((state)=> {
-      state.keepAliveList = tabs.value.map((item: any) => item?.name).filter((item: any)=> item)
+    appStore.$patch((state) => {
+      state.keepAliveList = tabs.value.map((item: any) => item?.name).filter((item: any) => item)
     })
   });
 
