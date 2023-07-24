@@ -202,7 +202,7 @@ import * as echarts from 'echarts'
 import china from './moudel/china.json'
 import shandong from './moudel/province/shandong.json'
 import jinan from './moudel/citys/370100.json'
-import minx from './moudel/minx.ts'
+import minx from './moudel/minx'
 
 export default defineComponent({
   name: 'Analysis',

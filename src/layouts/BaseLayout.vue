@@ -166,10 +166,10 @@
                 <lay-icon type="layui-icon-username"></lay-icon>
                 <template #content>
                   <lay-dropdown-menu>
-                    <lay-dropdown-menu-item>
+                    <lay-dropdown-menu-item @click="toUserInfo">
                       <template #default>用户信息</template>
                     </lay-dropdown-menu-item>
-                    <lay-dropdown-menu-item>
+                    <lay-dropdown-menu-item @click="toSystemSet">
                       <template #default>系统设置</template>
                     </lay-dropdown-menu-item>
                     <lay-line></lay-line>
@@ -281,6 +281,12 @@ export default {
       { name: 'zh_CN', locale: zh_CN, merge: true },
       { name: 'en_US', locale: en_US, merge: true }
     ]
+    function toUserInfo() {
+      router.push('/enrollee/profile')
+    }
+    function toSystemSet() {
+      router.push('/system/menu')
+    }
 
     return {
       sideWidth,
@@ -301,7 +307,9 @@ export default {
       changeVisible,
       refresh,
       logOut,
-      locales
+      locales,
+      toUserInfo,
+      toSystemSet
     }
   }
 }
@@ -384,6 +392,9 @@ export default {
     .layui-icon-down {
       color: #fff !important;
     }
+    // .layui-icon {
+    //   color: #fff !important;
+    // }
     // todo  不生效 或者错乱显示
     .layui-sub-menu-icon {
       color: #fff !important;

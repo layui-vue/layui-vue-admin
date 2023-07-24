@@ -126,10 +126,16 @@
             <lay-card>
               <lay-tab type="brief" v-model="currentIndex">
                 <lay-tab-item title="今日热搜" id="1">
-                  <lay-table :columns="columns21" :data-source="dataSource21"></lay-table>
+                  <lay-table
+                    :columns="columns21"
+                    :data-source="dataSource21"
+                  ></lay-table>
                 </lay-tab-item>
                 <lay-tab-item title="今日热帖" id="2">
-                  <lay-table :columns="columns21" :data-source="dataSource21"></lay-table>
+                  <lay-table
+                    :columns="columns21"
+                    :data-source="dataSource21"
+                  ></lay-table>
                 </lay-tab-item>
               </lay-tab>
             </lay-card>
@@ -171,8 +177,9 @@
           <lay-col :md="24">
             <lay-card>
               <template #title>作者寄语</template>
-              <p style="line-height:40px;">
-              原想将澎湃的爱平平稳稳放置你手心，奈何我徒有一股蛮劲，只顾向你跑去，一个不稳跌的满身脏兮兮。试图爬起的我， 心想你会不会笑我 " 献爱献的这样笨拙, 怎么不知避开爱里的埋伏 "
+              <p style="line-height: 40px">
+                原想将澎湃的爱平平稳稳放置你手心，奈何我徒有一股蛮劲，只顾向你跑去，一个不稳跌的满身脏兮兮。试图爬起的我，
+                心想你会不会笑我 " 献爱献的这样笨拙, 怎么不知避开爱里的埋伏 "
               </p>
             </lay-card>
           </lay-col>
@@ -182,91 +189,90 @@
   </lay-container>
 </template>
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
+import { defineComponent, ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
-import * as echarts from 'echarts';
+import * as echarts from 'echarts'
 
 export default defineComponent({
   setup() {
-
     const mainRef = ref()
-    const currentIndex = ref("1")
-    const router = useRouter();
+    const currentIndex = ref('1')
+    const router = useRouter()
 
     const changePage = () => {
-      router.push({path:"/form/base",query:{id:"1111"}});
+      router.push({ path: '/form/base', query: { id: '1111' } })
     }
 
     onMounted(() => {
-      var chartDom = mainRef.value;
+      var chartDom = mainRef.value
       // @ts-ignore
-      var myChart = echarts.init(chartDom);
-      var option;
+      var myChart = echarts.init(chartDom)
+      var option
 
       let color = [
-        "#0090FF",
-        "#36CE9E",
-        "#FFC005",
-        "#FF515A",
-        "#8B5CFF",
-        "#00CA69"
-      ];
-      let echartData = [{
-        name: "1",
-        value1: 100,
-        value2: 233
-      },
-      {
-        name: "2",
-        value1: 138,
-        value2: 233
-      },
-      {
-        name: "3",
-        value1: 350,
-        value2: 200
-      },
-      {
-        name: "4",
-        value1: 173,
-        value2: 180
-      },
-      {
-        name: "5",
-        value1: 180,
-        value2: 199
-      },
-      {
-        name: "6",
-        value1: 150,
-        value2: 233
-      },
-      {
-        name: "7",
-        value1: 180,
-        value2: 210
-      },
-      {
-        name: "8",
-        value1: 230,
-        value2: 180
-      }
-      ];
-
-      let xAxisData = echartData.map(v => v.name);
-      let yAxisData1 = echartData.map(v => v.value1);
-      let yAxisData2 = echartData.map(v => v.value2);
-      const hexToRgba = (hex: any, opacity: any) => {
-        let rgbaColor = "";
-        let reg = /^#[\da-f]{6}$/i;
-        if (reg.test(hex)) {
-          rgbaColor =
-            `rgba(${parseInt("0x" + hex.slice(1, 3))},${parseInt(
-              "0x" + hex.slice(3, 5)
-            )},${parseInt("0x" + hex.slice(5, 7))},${opacity})`;
+        '#0090FF',
+        '#36CE9E',
+        '#FFC005',
+        '#FF515A',
+        '#8B5CFF',
+        '#00CA69'
+      ]
+      let echartData = [
+        {
+          name: '1',
+          value1: 100,
+          value2: 233
+        },
+        {
+          name: '2',
+          value1: 138,
+          value2: 233
+        },
+        {
+          name: '3',
+          value1: 350,
+          value2: 200
+        },
+        {
+          name: '4',
+          value1: 173,
+          value2: 180
+        },
+        {
+          name: '5',
+          value1: 180,
+          value2: 199
+        },
+        {
+          name: '6',
+          value1: 150,
+          value2: 233
+        },
+        {
+          name: '7',
+          value1: 180,
+          value2: 210
+        },
+        {
+          name: '8',
+          value1: 230,
+          value2: 180
         }
-        return rgbaColor;
+      ]
+
+      let xAxisData = echartData.map((v) => v.name)
+      let yAxisData1 = echartData.map((v) => v.value1)
+      let yAxisData2 = echartData.map((v) => v.value2)
+      const hexToRgba = (hex: any, opacity: any) => {
+        let rgbaColor = ''
+        let reg = /^#[\da-f]{6}$/i
+        if (reg.test(hex)) {
+          rgbaColor = `rgba(${parseInt('0x' + hex.slice(1, 3))},${parseInt(
+            '0x' + hex.slice(3, 5)
+          )},${parseInt('0x' + hex.slice(5, 7))},${opacity})`
+        }
+        return rgbaColor
       }
 
       option = {
@@ -276,179 +282,226 @@ export default defineComponent({
           top: 10
         },
         tooltip: {
-          trigger: "axis",
+          trigger: 'axis',
           formatter: function (params: any) {
-            let html = '';
+            let html = ''
             params.forEach((v: any) => {
-              html +=
-                `<div style="color: #666;font-size: 14px;line-height: 24px">
-					                <span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${color[v.componentIndex]};"></span>
+              html += `<div style="color: #666;font-size: 14px;line-height: 24px">
+					                <span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${
+                            color[v.componentIndex]
+                          };"></span>
 					                ${v.seriesName}.${v.name}
-					                <span style="color:${color[v.componentIndex]};font-weight:700;font-size: 18px">${v.value}</span>
-					                万元`;
+					                <span style="color:${
+                            color[v.componentIndex]
+                          };font-weight:700;font-size: 18px">${v.value}</span>
+					                万元`
             })
             return html
           },
-          extraCssText: 'background: #fff; border-radius: 0;box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);color: #333;',
+          extraCssText:
+            'background: #fff; border-radius: 0;box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);color: #333;',
           axisPointer: {
-            type: 'shadow',
+            type: 'shadow'
           }
         },
         grid: {
           x: '50px',
           y: '50px',
           x2: '50px',
-          y2: '50px',
+          y2: '50px'
         },
-        xAxis: [{
-          type: "category",
-          boundaryGap: false,
-          axisLabel: {
-            formatter: '{value}月',
-            textStyle: {
-              color: "#333"
-            }
-          },
-          axisLine: {
-            lineStyle: {
-              color: "#D9D9D9"
-            }
-          },
-          data: xAxisData
-        }],
-        yAxis: [{
-          type: "value",
-          axisLabel: {
-            textStyle: {
-              color: "#666"
-            }
-          },
-          nameTextStyle: {
-            color: "#666",
-            fontSize: 12,
-            lineHeight: 40
-          },
-          splitLine: {
-            lineStyle: {
-              type: "dashed",
-              color: "#E9E9E9"
-            }
-          },
-          axisLine: {
-            show: false
-          },
-          axisTick: {
-            show: false
+        xAxis: [
+          {
+            type: 'category',
+            boundaryGap: false,
+            axisLabel: {
+              formatter: '{value}月',
+              textStyle: {
+                color: '#333'
+              }
+            },
+            axisLine: {
+              lineStyle: {
+                color: '#D9D9D9'
+              }
+            },
+            data: xAxisData
           }
-        }],
-        series: [{
-          name: "2018",
-          type: "line",
-          smooth: true,
-          symbolSize: 8,
-          zlevel: 3,
-          lineStyle: {
-            normal: {
-              color: color[0],
-              shadowBlur: 3,
-              shadowColor: hexToRgba(color[0], 0.5),
-              shadowOffsetY: 8
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            axisLabel: {
+              textStyle: {
+                color: '#666'
+              }
+            },
+            nameTextStyle: {
+              color: '#666',
+              fontSize: 12,
+              lineHeight: 40
+            },
+            splitLine: {
+              lineStyle: {
+                type: 'dashed',
+                color: '#E9E9E9'
+              }
+            },
+            axisLine: {
+              show: false
+            },
+            axisTick: {
+              show: false
             }
+          }
+        ],
+        series: [
+          {
+            name: '2018',
+            type: 'line',
+            smooth: true,
+            symbolSize: 8,
+            zlevel: 3,
+            lineStyle: {
+              normal: {
+                color: color[0],
+                shadowBlur: 3,
+                shadowColor: hexToRgba(color[0], 0.5),
+                shadowOffsetY: 8
+              }
+            },
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(
+                  0,
+                  0,
+                  0,
+                  1,
+                  [
+                    {
+                      offset: 0,
+                      color: hexToRgba(color[0], 0.3)
+                    },
+                    {
+                      offset: 1,
+                      color: hexToRgba(color[0], 0.1)
+                    }
+                  ],
+                  false
+                ),
+                shadowColor: hexToRgba(color[0], 0.1),
+                shadowBlur: 10
+              }
+            },
+            data: yAxisData1
           },
-          areaStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(
-                0,
-                0,
-                0,
-                1,
-                [{
-                  offset: 0,
-                  color: hexToRgba(color[0], 0.3)
-                },
-                {
-                  offset: 1,
-                  color: hexToRgba(color[0], 0.1)
-                }
-                ],
-                false
-              ),
-              shadowColor: hexToRgba(color[0], 0.1),
-              shadowBlur: 10
-            }
-          },
-          data: yAxisData1
-        }, {
-          name: "2019",
-          type: "line",
-          smooth: true,
-          symbolSize: 8,
-          zlevel: 3,
-          lineStyle: {
-            normal: {
-              color: color[1],
-              shadowBlur: 3,
-              shadowColor: hexToRgba(color[1], 0.5),
-              shadowOffsetY: 8
-            }
-          },
-          areaStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(
-                0,
-                0,
-                0,
-                1,
-                [{
-                  offset: 0,
-                  color: hexToRgba(color[1], 0.3)
-                },
-                {
-                  offset: 1,
-                  color: hexToRgba(color[1], 0.1)
-                }
-                ],
-                false
-              ),
-              shadowColor: hexToRgba(color[1], 0.1),
-              shadowBlur: 10
-            }
-          },
-          data: yAxisData2
-        }]
-      };
-      option && myChart.setOption(option);
+          {
+            name: '2019',
+            type: 'line',
+            smooth: true,
+            symbolSize: 8,
+            zlevel: 3,
+            lineStyle: {
+              normal: {
+                color: color[1],
+                shadowBlur: 3,
+                shadowColor: hexToRgba(color[1], 0.5),
+                shadowOffsetY: 8
+              }
+            },
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(
+                  0,
+                  0,
+                  0,
+                  1,
+                  [
+                    {
+                      offset: 0,
+                      color: hexToRgba(color[1], 0.3)
+                    },
+                    {
+                      offset: 1,
+                      color: hexToRgba(color[1], 0.1)
+                    }
+                  ],
+                  false
+                ),
+                shadowColor: hexToRgba(color[1], 0.1),
+                shadowBlur: 10
+              }
+            },
+            data: yAxisData2
+          }
+        ]
+      }
+      option && myChart.setOption(option)
     })
 
     const columns21 = [
       {
-        type: "number",
+        type: 'number'
       },
       {
-        title: "标题",
-        key: "username"
-      }, {
-        title: "作者",
-        key: "password"
-      }, {
-        title: "类别",
-        key: "sex"
-      }, {
-        title: "点击率",
-        key: "age"
-      }, {
-        title: "发布时间",
-        key: "remark",
+        title: '标题',
+        key: 'username'
+      },
+      {
+        title: '作者',
+        key: 'password'
+      },
+      {
+        title: '类别',
+        key: 'sex'
+      },
+      {
+        title: '点击率',
+        key: 'age'
+      },
+      {
+        title: '发布时间',
+        key: 'remark',
         ellipsisTooltip: true
       }
     ]
 
     const dataSource21 = [
-      { username: "root", password: "root", sex: "男", age: "18", remark: 'layui - vue（谐音：类 UI) ' },
-      { username: "root", password: "root", sex: "男", age: "18", remark: 'layui - vue（谐音：类 UI) ' },
-      { username: "woow", password: "woow", sex: "男", age: "20", remark: 'layui - vue（谐音：类 UI) ' },
-      { username: "woow", password: "woow", sex: "男", age: "20", remark: 'layui - vue（谐音：类 UI) ' },
-      { username: "woow", password: "woow", sex: "男", age: "20", remark: 'layui - vue（谐音：类 UI) ' }
+      {
+        username: 'root',
+        password: 'root',
+        sex: '男',
+        age: '18',
+        remark: 'layui - vue（谐音：类 UI) '
+      },
+      {
+        username: 'root',
+        password: 'root',
+        sex: '男',
+        age: '18',
+        remark: 'layui - vue（谐音：类 UI) '
+      },
+      {
+        username: 'woow',
+        password: 'woow',
+        sex: '男',
+        age: '20',
+        remark: 'layui - vue（谐音：类 UI) '
+      },
+      {
+        username: 'woow',
+        password: 'woow',
+        sex: '男',
+        age: '20',
+        remark: 'layui - vue（谐音：类 UI) '
+      },
+      {
+        username: 'woow',
+        password: 'woow',
+        sex: '男',
+        age: '20',
+        remark: 'layui - vue（谐音：类 UI) '
+      }
     ]
 
     return {
@@ -456,10 +509,10 @@ export default defineComponent({
       currentIndex,
       columns21,
       dataSource21,
-      changePage,
-    };
-  },
-});
+      changePage
+    }
+  }
+})
 </script>
 
 <style lang="less" scoped>
@@ -478,11 +531,12 @@ export default defineComponent({
     line-height: 60px;
     text-align: center;
     border-radius: 2px;
+    font-weight: 500;
     font-size: 30px;
     background-color: #f8f8f8;
     color: #333;
-    transition: all .3s;
-    -webkit-transition: all .3s;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
   }
 
   cite {
@@ -494,6 +548,18 @@ export default defineComponent({
     overflow: hidden;
     white-space: nowrap;
     font-size: 14px;
+  }
+}
+.shortcut:hover {
+  i {
+    font-weight: 700;
+    background-color: #009b410f;
+    color: #009688;
+    box-shadow: 1px 1px 4px #cccccc53;
+  }
+  cite {
+    font-weight: 600;
+    color: #009688;
   }
 }
 
