@@ -13,6 +13,7 @@ declare module '@vue/runtime-core' {
     LayBreadcrumb: typeof import('@layui/layui-vue')['LayBreadcrumb']
     LayBreadcrumbItem: typeof import('@layui/layui-vue')['LayBreadcrumbItem']
     LayButton: typeof import('@layui/layui-vue')['LayButton']
+    LayButtonContainer: typeof import('@layui/layui-vue')['LayButtonContainer']
     LayCard: typeof import('@layui/layui-vue')['LayCard']
     LayCheckbox: typeof import('@layui/layui-vue')['LayCheckbox']
     LayCol: typeof import('@layui/layui-vue')['LayCol']
