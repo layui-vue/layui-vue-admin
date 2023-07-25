@@ -286,7 +286,6 @@ export default {
     const flag = ref(false)
     function changeDropdown() {
       flag.value = !flag.value
-      console.log('触发', flag.value)
     }
 
     return {
@@ -311,7 +310,8 @@ export default {
       locales,
       toUserInfo,
       toSystemSet,
-      changeDropdown
+      changeDropdown,
+      flag
     }
   }
 }

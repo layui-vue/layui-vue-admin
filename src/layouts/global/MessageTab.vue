@@ -17,7 +17,7 @@
               :key="index"
             >
               <div class="inform-item-icon">
-                <img :src="`../assets/messageSlot/${item.img}}`" alt="" />
+                <img src="../../assets/messageSlot/info1.png" alt="" />
               </div>
               <div class="inform-item-text">
                 <div>{{ item.title }}</div>
@@ -36,7 +36,7 @@
               :key="index"
             >
               <div class="inform-item-icon">
-                <img :src="`../assets/messageSlot/${item.img}}`" alt="" />
+                <img src="../../assets/messageSlot/avatar1.png" alt="" />
               </div>
               <div class="inform-item-text">
                 <div>{{ item.title }}</div>
@@ -90,32 +90,35 @@ export default {
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 const manualRef = ref()
-const props = withDefaults(defineProps(), {
+interface MessageTabProps {
+  flag: boolean
+}
+const props = withDefaults(defineProps<MessageTabProps>(), {
   flag: false
 })
 const informList = ref([
   {
-    img: 'info1.png',
+    img: '../assets/messageSlot/info1.png',
     title: '您有一条新的通知',
     time: '2021-08-09 12:00:00'
   },
   {
-    img: 'info2.png',
+    img: '../assets/messageSlot/info1.png',
     title: '您有一条新的通知',
     time: '2021-08-09 12:00:00'
   },
   {
-    img: 'info3.png',
+    img: '../assets/messageSlot/info1.png',
     title: '您有一条新的通知',
     time: '2021-08-09 12:00:00'
   },
   {
-    img: 'info4.png',
+    img: '../assets/messageSlot/info1.png',
     title: '您有一条新的通知',
     time: '2021-08-09 12:00:00'
   },
   {
-    img: 'info5.png',
+    img: '../assets/messageSlot/info1.png',
     title: '您有一条新的通知',
     time: '2021-08-09 12:00:00'
   }
@@ -176,10 +179,10 @@ const todoList = ref([
   }
 ])
 
+const currentIndex = ref('1')
 watch(
   () => props.flag,
   (newVal) => {
-    console.log(newVal, '222') ///todo拿不到值
     if (newVal == true) {
       manualRef.value.show()
     } else {
