@@ -20,11 +20,12 @@
       <div class="designer-tab">
         <!-- todo  -->
         <div class="designer-tab-item" :key="tab" v-for="tab in tabs">
-          <span
-            @click="toChangPage(tab.id)"
-            :class="tab.id === route.path ? 'dot dot-this' : 'dot'"
-          ></span>
-          {{ tab.title }}
+          <div style="display: inline-block" @click="toChangPage(tab.id)">
+            <span :class="tab.id === route.path ? 'dot dot-this' : 'dot'">
+            </span>
+            {{ tab.title }}
+          </div>
+
           <lay-icon
             type="layui-icon-close"
             class="designer-close"

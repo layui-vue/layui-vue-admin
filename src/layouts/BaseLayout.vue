@@ -1,24 +1,50 @@
 <template>
-  <lay-config-provider :themeVariable="appStore.themeVariable" :theme="appStore.theme" :locales="locales"
-    :locale="appStore.locale">
-    <lay-layout :class="[
-      appStore.tab ? 'has-tab' : '',
-      appStore.collapse ? 'collapse' : '',
-      appStore.greyMode ? 'grey-mode' : ''
-    ]">
+  <lay-config-provider
+    :themeVariable="appStore.themeVariable"
+    :theme="appStore.theme"
+    :locales="locales"
+    :locale="appStore.locale"
+  >
+    <lay-layout
+      :class="[
+        appStore.tab ? 'has-tab' : '',
+        appStore.collapse ? 'collapse' : '',
+        appStore.greyMode ? 'grey-mode' : ''
+      ]"
+    >
       <!-- 遮盖层 -->
-      <div v-if="!appStore.collapse" class="layui-layer-shade hidden-sm-and-up" @click="collapse"></div>
+      <div
+        v-if="!appStore.collapse"
+        class="layui-layer-shade hidden-sm-and-up"
+        @click="collapse"
+      ></div>
       <!-- 核心菜单  -->
-      <lay-side :width="sideWidth" :class="appStore.sideTheme == 'dark' ? 'dark changeBgc' : 'light'">
+      <lay-side
+        :width="sideWidth"
+        :class="appStore.sideTheme == 'dark' ? 'dark changeBgc' : 'light'"
+      >
         <lay-logo v-if="appStore.logo"></lay-logo>
         <div class="side-menu-wrapper">
-          <div class="side-menu1" v-if="appStore.subfield && appStore.subfieldPosition == 'side'">
-            <global-main-menu :collapse="true" :menus="mainMenus" :selectedKey="mainSelectedKey"
-              @changeSelectedKey="changeMainSelectedKey"></global-main-menu>
+          <div
+            class="side-menu1"
+            v-if="appStore.subfield && appStore.subfieldPosition == 'side'"
+          >
+            <global-main-menu
+              :collapse="true"
+              :menus="mainMenus"
+              :selectedKey="mainSelectedKey"
+              @changeSelectedKey="changeMainSelectedKey"
+            ></global-main-menu>
           </div>
           <div class="side-menu2">
-            <global-menu :collapse="appStore.collapse" :menus="menus" :openKeys="openKeys" :selectedKey="selectedKey"
-              @changeOpenKeys="changeOpenKeys" @changeSelectedKey="changeSelectedKey"></global-menu>
+            <global-menu
+              :collapse="appStore.collapse"
+              :menus="menus"
+              :openKeys="openKeys"
+              :selectedKey="selectedKey"
+              @changeOpenKeys="changeOpenKeys"
+              @changeSelectedKey="changeSelectedKey"
+            ></global-menu>
           </div>
         </div>
       </lay-side>
@@ -27,33 +53,54 @@
         <lay-header style="display: flex">
           <lay-menu class="layui-layout-left">
             <lay-menu-item @click="collapse">
-              <lay-icon v-if="appStore.collapse" type="layui-icon-spread-left"></lay-icon>
+              <lay-icon
+                v-if="appStore.collapse"
+                type="layui-icon-spread-left"
+              ></lay-icon>
               <lay-icon v-else type="layui-icon-shrink-right"></lay-icon>
             </lay-menu-item>
             <lay-menu-item class="hidden-xs-only" @click="refresh">
               <lay-icon type="layui-icon-refresh-one"></lay-icon>
             </lay-menu-item>
-            <lay-menu-item class="hidden-xs-only" v-if="appStore.breadcrumb" style="padding: 0px 15px">
+            <lay-menu-item
+              class="hidden-xs-only"
+              v-if="appStore.breadcrumb"
+              style="padding: 0px 15px"
+            >
               <GlobalBreadcrumb></GlobalBreadcrumb>
             </lay-menu-item>
           </lay-menu>
           <!-- 菜单分组 -->
-          <lay-menu v-if="appStore.subfield && appStore.subfieldPosition == 'head'" class="layui-nav-center"
-            :selectedKey="mainSelectedKey" @changeSelectedKey="changeMainSelectedKey">
+          <lay-menu
+            v-if="appStore.subfield && appStore.subfieldPosition == 'head'"
+            class="layui-nav-center"
+            :selectedKey="mainSelectedKey"
+            @changeSelectedKey="changeMainSelectedKey"
+          >
             <template v-for="(menu, index) in mainMenus" :key="index">
               <lay-menu-item :id="menu.id" v-if="index < 4">
                 <template #title>{{ menu.title }}</template>
               </lay-menu-item>
             </template>
           </lay-menu>
-          <lay-dropdown v-if="appStore.subfield && appStore.subfieldPosition == 'head'" trigger="hover"
-            placement="bottom">
-            <lay-icon type="layui-icon-more" style="padding: 0px 15px"></lay-icon>
+          <lay-dropdown
+            v-if="appStore.subfield && appStore.subfieldPosition == 'head'"
+            trigger="hover"
+            placement="bottom"
+          >
+            <lay-icon
+              type="layui-icon-more"
+              style="padding: 0px 15px"
+            ></lay-icon>
             <template #content>
               <lay-dropdown-menu>
                 <template v-for="(menu, index) in mainMenus">
-                  <lay-dropdown-menu-item :key="menu.id" v-if="index >= 4" @click="changeMainSelectedKey(menu.id)">{{
-                    menu.title }}</lay-dropdown-menu-item>
+                  <lay-dropdown-menu-item
+                    :key="menu.id"
+                    v-if="index >= 4"
+                    @click="changeMainSelectedKey(menu.id)"
+                    >{{ menu.title }}</lay-dropdown-menu-item
+                  >
                 </template>
               </lay-dropdown-menu>
             </template>
@@ -61,39 +108,37 @@
           <lay-menu class="layui-layout-right">
             <lay-menu-item>
               <lay-fullscreen v-slot="{ toggle, isFullscreen }">
-                <lay-icon @click="toggle()" :type="isFullscreen
-                    ? 'layui-icon-screen-restore'
-                    : 'layui-icon-screen-full'
-                  "></lay-icon>
+                <lay-icon
+                  @click="toggle()"
+                  :type="
+                    isFullscreen
+                      ? 'layui-icon-screen-restore'
+                      : 'layui-icon-screen-full'
+                  "
+                ></lay-icon>
               </lay-fullscreen>
             </lay-menu-item>
             <lay-menu-item>
-              <lay-dropdown updateAtScroll placement="bottom">
-                <lay-icon type="layui-icon-notice"></lay-icon>
-                <template #content>
-                  <lay-tab type="brief" style="margin: 5px" v-model="currentIndex">
-                    <lay-tab-item title="选项一" id="1">
-                      <div style="padding: 20px">选项一</div>
-                    </lay-tab-item>
-                    <lay-tab-item title="选项二" id="2">
-                      <div style="padding: 20px">选项二</div>
-                    </lay-tab-item>
-                    <lay-tab-item title="选项三" id="3">
-                      <div style="padding: 20px">选项三</div>
-                    </lay-tab-item>
-                  </lay-tab>
-                </template>
-              </lay-dropdown>
+              <message-tab :flag="flag">
+                <lay-icon
+                  type="layui-icon-notice"
+                  @click="changeDropdown"
+                ></lay-icon>
+              </message-tab>
             </lay-menu-item>
             <lay-menu-item>
               <lay-dropdown updateAtScroll placement="bottom">
                 <lay-icon type="layui-icon-website"></lay-icon>
                 <template #content>
                   <lay-dropdown-menu>
-                    <lay-dropdown-menu-item @click="() => (appStore.locale = 'zh_CN')">
+                    <lay-dropdown-menu-item
+                      @click="() => (appStore.locale = 'zh_CN')"
+                    >
                       <template #default>中文</template>
                     </lay-dropdown-menu-item>
-                    <lay-dropdown-menu-item @click="() => (appStore.locale = 'en_US')">
+                    <lay-dropdown-menu-item
+                      @click="() => (appStore.locale = 'en_US')"
+                    >
                       <template #default>英文</template>
                     </lay-dropdown-menu-item>
                   </lay-dropdown-menu>
@@ -125,12 +170,15 @@
           </lay-menu>
         </lay-header>
         <lay-body>
-          <global-tab :class="appStore.tagsTheme == 'concise'
-              ? ''
-              : appStore.tagsTheme == 'underpainting'
+          <global-tab
+            :class="
+              appStore.tagsTheme == 'concise'
+                ? ''
+                : appStore.tagsTheme == 'underpainting'
                 ? 'underpainting'
                 : 'designer'
-            ">
+            "
+          >
           </global-tab>
           <global-content></global-content>
         </lay-body>
@@ -151,10 +199,12 @@ import GlobalBreadcrumb from './global/GlobalBreadcrumb.vue'
 import GlobalTab from './global/GlobalTab.vue'
 import GlobalMenu from './global/GlobalMenu.vue'
 import GlobalMainMenu from './global/GlobalMainMenu.vue'
+import MessageTab from './global/MessageTab.vue'
 import { useRouter } from 'vue-router'
 import { useMenu } from './composable/useMenu'
 import zh_CN from '../lang/zh_CN'
 import en_US from '../lang/en_US'
+import func from 'vue-editor-bridge'
 
 export default {
   components: {
@@ -163,7 +213,8 @@ export default {
     GlobalTab,
     GlobalMenu,
     GlobalBreadcrumb,
-    GlobalMainMenu
+    GlobalMainMenu,
+    MessageTab
   },
   setup() {
     const appStore = useAppStore()
@@ -174,8 +225,8 @@ export default {
       appStore.collapse
         ? '60px'
         : appStore.subfield && appStore.subfieldPosition == 'side'
-          ? '280px'
-          : '220px'
+        ? '280px'
+        : '220px'
     )
     const router = useRouter()
 
@@ -232,6 +283,11 @@ export default {
     function toSystemSet() {
       router.push('/system/menu')
     }
+    const flag = ref(false)
+    function changeDropdown() {
+      flag.value = !flag.value
+      console.log('触发', flag.value)
+    }
 
     return {
       sideWidth,
@@ -254,7 +310,8 @@ export default {
       logOut,
       locales,
       toUserInfo,
-      toSystemSet
+      toSystemSet,
+      changeDropdown
     }
   }
 }
@@ -288,7 +345,7 @@ export default {
 }
 
 /*取消默认a标签的padding:0 20px，否则扩大图标后容器变形*/
-.layui-header .layui-nav-item>a {
+.layui-header .layui-nav-item > a {
   padding: 0 !important;
 }
 
@@ -372,7 +429,12 @@ export default {
   }
 }
 
-.layui-body>.global-tab>.layui-tab>.layui-tab-head>.layui-tab-title>li {
+.layui-body
+  > .global-tab
+  > .layui-tab
+  > .layui-tab-head
+  > .layui-tab-title
+  > li {
   height: 38px !important;
   line-height: 38px !important;
 }

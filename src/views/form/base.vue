@@ -1,6 +1,6 @@
 <template>
   <div>
-    <lay-card>
+    <lay-card style="margin: 10px">
       <p class="title">基础表单</p>
       <p class="describe">
         表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。表单域标签也可支持响应式.
@@ -70,35 +70,34 @@
 </template>
 
 <script lang="ts">
-import { reactive } from "vue";
-import { layer } from "@layui/layer-vue";
-import { useRouter, useRoute } from "vue-router";
+import { reactive } from 'vue'
+import { layer } from '@layui/layer-vue'
+import { useRouter, useRoute } from 'vue-router'
 
 export default {
   setup() {
-
-    const route = useRoute();
-    const router = useRouter();
+    const route = useRoute()
+    const router = useRouter()
 
     const model = reactive({
-      username: "admin",
-      password: "123456",
-      desc: "修复开启 isLazyimg:true 后, 图片懒加载但是图片不存在的报错问题",
-      specialty: "1",
-      hobby: "1",
-    });
+      username: 'admin',
+      password: '123456',
+      desc: '修复开启 isLazyimg:true 后, 图片懒加载但是图片不存在的报错问题',
+      specialty: '1',
+      hobby: '1'
+    })
 
     const submitClick = function () {
-      layer.msg(`${JSON.stringify(model)}`, () => {});
-    };
+      layer.msg(`${JSON.stringify(model)}`, () => {})
+    }
 
     return {
       model,
       submitClick,
-      route,
-    };
-  },
-};
+      route
+    }
+  }
+}
 </script>
 
 <style scoped>
