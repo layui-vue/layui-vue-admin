@@ -386,36 +386,13 @@ export default {
   .layui-this {
     width: calc(100% - 3px) !important;
   }
-  .layui-nav-item :hover {
-    background-color: #000;
-    .layui-this {
-      background-color: var(--global-primary-color) !important;
-    }
-    // border-bottom: 0.1px solid var(--global-primary-color) !important;
-    box-shadow: 1px 1px 1px var(--global-primary-color) unset !important;
-    > span {
-      color: #fff !important;
-      border: unset !important;
-      background-color: unset !important;
-    }
-    .layui-icon-down {
-      color: #fff !important;
-    }
-    // .layui-icon {
-    //   color: #fff !important;
-    // }
-    // todo  不生效 或者错乱显示
-    .layui-sub-menu-icon {
-      color: #fff !important;
-    }
-  }
 }
 .underpainting {
   .layui-tab-title {
     .layui-this {
       color: var(--global-primary-color) !important;
-      background-color: #009b8e0d !important;
       border-bottom: 2px solid var(--global-primary-color) !important;
+      background-color: #009b8e0d !important;
       .layui-icon {
         color: var(--global-primary-color) !important;
       }
