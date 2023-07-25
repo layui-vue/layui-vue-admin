@@ -66,7 +66,11 @@
         @sortChange="sortChange"
       >
         <template v-slot:toolbar>
-          <lay-button size="sm" type="primary" @click="changeVisible11('新增')">
+          <lay-button
+            size="sm"
+            type="primary"
+            @click="changeVisible11('新增', null)"
+          >
             <lay-icon class="layui-icon-addition"></lay-icon>
             新增</lay-button
           >
@@ -155,16 +159,16 @@
 import { ref, reactive } from 'vue'
 import { layer } from '@layui/layui-vue'
 const searchQuery = ref({
-  userAccount: '',
-  userName: '',
-  sex: ''
+  roleName: '',
+  identifying: '',
+  mark: ''
 })
 
 function toReset() {
   searchQuery.value = {
-    userAccount: '',
-    userName: '',
-    sex: ''
+    roleName: '',
+    identifying: '',
+    mark: ''
   }
 }
 
@@ -250,18 +254,26 @@ const loadDataSource = (page: number, pageSize: number) => {
   }
   return response
 }
-const model11 = ref({})
+const model11 = ref({
+  name: '',
+  flage: '',
+  remark: ''
+})
 const layFormRef11 = ref()
 const visible11 = ref(false)
 
 const title = ref('新增')
 const changeVisible11 = (text: any, row: any) => {
   title.value = text
-  if (row) {
+  if (row != null) {
     let info = JSON.parse(JSON.stringify(row))
     model11.value = info
   } else {
-    model11.value = {}
+    model11.value = {
+      name: '',
+      flage: '',
+      remark: ''
+    }
   }
   visible11.value = !visible11.value
 }
@@ -434,7 +446,7 @@ const data2 = ref([
   }
 ])
 
-function toPrivileges() {
+function toPrivileges(row: any) {
   visible22.value = true
 }
 </script>

@@ -69,7 +69,11 @@
           <lay-button type="primary" size="sm" @click="getCheckData6"
             >获取选中数据</lay-button
           >
-          <lay-button size="sm" @click="changeVisible11('新建')" type="normal">
+          <lay-button
+            size="sm"
+            @click="changeVisible11('新建', null)"
+            type="normal"
+          >
             新建
           </lay-button>
           <lay-button size="sm" @click="expandAll6(true)">展开全部</lay-button>
@@ -81,7 +85,7 @@
         </template>
         <template #option="{ row }">
           <lay-button
-            @click="changeVisible11('新建')"
+            @click="changeVisible11('新建', null)"
             size="xs"
             border="blue"
             border-style="dashed"
@@ -172,16 +176,16 @@
 import { ref, reactive } from 'vue'
 import { layer } from '@layui/layui-vue'
 const searchQuery = ref({
-  userAccount: '',
-  userName: '',
-  type: ''
+  address: '',
+  identifying: '',
+  name: ''
 })
 
 function toReset() {
   searchQuery.value = {
-    userAccount: '',
-    userName: '',
-    type: ''
+    address: '',
+    identifying: '',
+    name: ''
   }
 }
 
@@ -647,18 +651,34 @@ const defaultExpandAll6 = ref(false)
 const expandAll6 = function (flag: any) {
   defaultExpandAll6.value = flag
 }
-const model11 = ref({})
+const model11 = ref({
+  name: '',
+  type: '',
+  sort: 0,
+  icon: '',
+  routePath: '',
+  compontPath: '',
+  isShow: '是'
+})
 const layFormRef11 = ref()
 const visible11 = ref(false)
 
 const title = ref('新增')
 const changeVisible11 = (text: any, row: any) => {
   title.value = text
-  if (row) {
+  if (row != null) {
     let info = JSON.parse(JSON.stringify(row))
     model11.value = info
   } else {
-    model11.value = {}
+    model11.value = {
+      name: '',
+      type: '',
+      sort: 0,
+      icon: '',
+      routePath: '',
+      compontPath: '',
+      isShow: '是'
+    }
   }
   visible11.value = !visible11.value
 }

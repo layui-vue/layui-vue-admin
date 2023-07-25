@@ -90,7 +90,7 @@
             size="xs"
             border="green"
             border-style="dashed"
-            @click="toDownload('编辑', row)"
+            @click="toDownload(row)"
             >下载</lay-button
           >
           <lay-popconfirm
@@ -140,7 +140,7 @@ const searchQuery = ref({
 })
 
 const visibleImport = ref(false)
-const file1 = ref([])
+const file1 = ref<never[]>()
 function toImport() {
   // layer.msg('导入')
   visibleImport.value = true
@@ -157,7 +157,7 @@ function toSearch() {
   page.current = 1
   change(page)
 }
-function toDownload() {
+function toDownload(row: any) {
   layer.msg('下载成功！')
 }
 

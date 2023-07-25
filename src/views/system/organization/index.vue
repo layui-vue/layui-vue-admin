@@ -21,11 +21,11 @@
           :data="data"
           v-model:selectedKey="selectedKey"
           :showLine="showLine"
-          expandKeys="[1,3,4]"
+          :expandKeys="[1, 3, 4]"
           @node-click="handleClick"
         >
           <template #title="{ data }">
-            <span :class="selectedKey == data.id ? isChecked : ''">
+            <span :class="selectedKey == data.id ? 'isChecked' : ''">
               {{ data.title }} {{ data.id }}
             </span>
           </template>
@@ -123,7 +123,7 @@
             <lay-button
               size="sm"
               type="primary"
-              @click="changeVisible11('新增')"
+              @click="changeVisible11('新增', null)"
               >新增</lay-button
             >
             <lay-button size="sm" @click="toRemove">删除</lay-button>
@@ -533,17 +533,33 @@ const loadDataSource = (page: number, pageSize: number) => {
   return response
 }
 
-const model11 = ref({})
+const model11 = ref({
+  organization: '',
+  name: '',
+  fullName: '',
+  code: '',
+  type: '',
+  sort: 0,
+  remark: ''
+})
 const layFormRef11 = ref()
 const visible11 = ref(false)
 const title = ref('新增')
 const changeVisible11 = (text: any, row: any) => {
   title.value = text
-  if (row) {
+  if (row != null) {
     let info = JSON.parse(JSON.stringify(row))
     model11.value = info
   } else {
-    model11.value = {}
+    model11.value = {
+      organization: '',
+      name: '',
+      fullName: '',
+      code: '',
+      type: '',
+      sort: 0,
+      remark: ''
+    }
   }
   visible11.value = !visible11.value
 }
@@ -618,7 +634,15 @@ function cancel() {
   layer.msg('您已取消操作')
 }
 
-const model22 = ref({})
+const model22 = ref({
+  organization: '',
+  name: '',
+  fullName: '',
+  code: '',
+  type: '',
+  sort: 0,
+  remark: ''
+})
 const layFormRef22 = ref()
 const visible22 = ref(false)
 const title22 = ref('新建')

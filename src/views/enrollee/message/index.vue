@@ -21,7 +21,7 @@
           </div>
         </div>
       </template>
-      <table-content :key="system" />
+      <table-content key="system" />
     </lay-tab-item>
     <lay-tab-item id="user">
       <template #title>
@@ -32,7 +32,7 @@
           </div>
         </div>
       </template>
-      <table-content :key="user" />
+      <table-content key="user" />
     </lay-tab-item>
     <lay-tab-item id="todo">
       <template #title>
@@ -43,7 +43,7 @@
           </div>
         </div>
       </template>
-      <table-content :key="todo" />
+      <table-content key="todo" />
     </lay-tab-item>
   </lay-tab>
 </template>

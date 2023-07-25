@@ -21,11 +21,11 @@
           :data="data"
           v-model:selectedKey="selectedKey"
           :showLine="showLine"
-          expandKeys="[1,3,4]"
+          :expandKeys="[1, 3, 4]"
           @node-click="handleClick"
         >
           <template #title="{ data }">
-            <span :class="selectedKey == data.id ? isChecked : ''">
+            <span :class="selectedKey == data.id ? 'isChecked' : ''">
               {{ data.title }}
             </span>
           </template>
@@ -66,7 +66,7 @@
             <lay-button
               size="sm"
               type="primary"
-              @click="changeVisible11('新增')"
+              @click="changeVisible11('新增', null)"
               >新增</lay-button
             >
             <lay-button size="sm" type="danger" @click="toRemove"
@@ -116,7 +116,7 @@
               </lay-form-item>
               <lay-form-item label="备注" prop="remark">
                 <lay-textarea
-                  rows="2"
+                  :rows="2"
                   allow-clear
                   placeholder="请输入备注"
                   v-model="model11.remark"
@@ -152,10 +152,10 @@
           </lay-form-item>
           <lay-form-item label="备注" prop="remark">
             <lay-textarea
-              rows="3"
+              :rows="3"
               allow-clear
               placeholder="请输入备注"
-              v-model="model11.remark"
+              v-model="model22.remark"
             ></lay-textarea>
           </lay-form-item>
         </lay-form>
@@ -201,15 +201,11 @@ const selectedNode = ref({
 })
 const isFold = ref(false)
 const searchQuery = ref({
-  userAccount: '',
-  userName: '',
-  sex: ''
+  name: ''
 })
 function toReset() {
   searchQuery.value = {
-    userAccount: '',
-    userName: '',
-    sex: ''
+    name: ''
   }
 }
 function handleClick(node: any) {
@@ -355,7 +351,12 @@ const remove = () => {
   layer.msg(selectedKeys.value, { area: '50%' })
 }
 
-const model11 = ref({})
+const model11 = ref({
+  name: '',
+  nameValue: '',
+  sort: 0,
+  remark: ''
+})
 const layFormRef11 = ref()
 const visible11 = ref(false)
 const title = ref('新增')
@@ -365,7 +366,12 @@ const changeVisible11 = (text: any, row: any) => {
     let info = JSON.parse(JSON.stringify(row))
     model11.value = info
   } else {
-    model11.value = {}
+    model11.value = {
+      name: '',
+      nameValue: '',
+      sort: 0,
+      remark: ''
+    }
   }
   visible11.value = !visible11.value
 }
@@ -466,7 +472,12 @@ function cancel() {
   layer.msg('您已取消操作')
 }
 
-const model22 = ref({})
+const model22 = ref({
+  name: '',
+  nameValue: '',
+  sort: 0,
+  remark: ''
+})
 const layFormRef22 = ref()
 const visible22 = ref(false)
 const title22 = ref('新建字典')

@@ -213,7 +213,7 @@ export default defineComponent({
     const userDistributionRef = ref()
     const browserDistributionRef = ref()
     const timeInfo = reactive({
-      setInterval: null,
+      setInterval: null, ///todo 定时器设置
       nowWeek: '',
       nowDate: '',
       nowTime: ''
@@ -381,7 +381,7 @@ export default defineComponent({
       //     document.body.offsetWidth / 2 - 100 + 'px' //页面一半的大小
       // }
       // resizeMyChartContainer()
-      echarts.registerMap('china', china)
+      echarts.registerMap('china', china) ///todo   china定义
       var userDistributionDomChart = echarts.init(userDistributionDom)
       userDistributionDomChart.on('dblclick', function (param) {
         let index = provincesText.indexOf(param.name)
@@ -405,7 +405,7 @@ export default defineComponent({
         browserDistributionDomChart.setOption(browserDistributionOption)
 
       timeInfo.setInterval = setInterval(() => {
-        timeInfo.value = setNowTimes()
+        timeInfo.setInterval = setNowTimes()
         if (countNum.second >= 1) {
           countNum.second -= 1
         } else {

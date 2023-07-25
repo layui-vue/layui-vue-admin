@@ -57,7 +57,6 @@
         <lay-radio-group
           name="action"
           v-model="appStore.tagsTheme"
-          @change="change4"
         >
           <lay-radio-button size="xs" value="concise">样式一</lay-radio-button>
           <lay-radio-button size="xs" value="underpainting">

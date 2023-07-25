@@ -311,6 +311,12 @@ const loadDataSource = (page: number, pageSize: number) => {
   }
   return response
 }
+function confirm(row: any) {
+  layer.msg('您已成功删除')
+}
+function cancel() {
+  layer.msg('您已取消操作')
+}
 </script>
 
 <style scoped>

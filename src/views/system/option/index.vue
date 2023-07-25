@@ -392,7 +392,19 @@ const loadDataSource = (page: number, pageSize: number) => {
   }
   return response
 }
-const dataLayer = ref({})
+const dataLayer = ref({
+  id: '0',
+  optionModule: '',
+  requestMethod: '',
+  requestPath: '',
+  optionFunction: '',
+  account: '',
+  status: '',
+  name: '',
+  time: '',
+  joinTime: '',
+  ipAddrees: ''
+})
 const visible11 = ref(false)
 function showDetail(row: any) {
   visible11.value = true

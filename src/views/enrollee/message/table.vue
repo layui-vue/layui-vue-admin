@@ -49,7 +49,7 @@ export default {
       }, 1000)
     })
 
-    const selectedKeys = ref('')
+    const selectedKeys = ref<string[]>([])
 
     const page = reactive({ current: 1, limit: 10, total: 100 })
 
@@ -206,7 +206,7 @@ export default {
     }
 
     const remove = () => {
-      layer.msg(selectedKeys.value, { area: '50%' })
+      layer.msg(selectedKeys.value[0], { area: '50%' })
     }
 
     const loadDataSource = (page: any, pageSize: number) => {
@@ -237,6 +237,7 @@ export default {
       columns,
       dataSource,
       selectedKeys,
+      loading,
       page,
       change,
       changeStatus,

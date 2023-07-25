@@ -149,7 +149,10 @@ export default {
     const model4 = reactive({
       username: 'admin',
       password: '123456',
-      phone: '12345678900'
+      phone: '12345678900',
+      desc: '',
+      sex: '',
+      email: ''
     })
 
     const layFormRef4 = ref()
