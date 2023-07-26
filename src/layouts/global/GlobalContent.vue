@@ -38,6 +38,6 @@ const appStore = useAppStore()
 
 .global-content::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background-color: #cccccc;
+    background-color: #e2e2e2;
 }
 </style>

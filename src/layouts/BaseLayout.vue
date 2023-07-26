@@ -204,7 +204,6 @@ import { useRouter } from 'vue-router'
 import { useMenu } from './composable/useMenu'
 import zh_CN from '../lang/zh_CN'
 import en_US from '../lang/en_US'
-import func from 'vue-editor-bridge'
 
 export default {
   components: {
@@ -378,7 +377,11 @@ export default {
 
 .side-menu-wrapper::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background-color: black;
+  background-color: rgb(40, 51, 62);
+}
+
+.light .side-menu-wrapper::-webkit-scrollbar-thumb{
+  background-color: #e2e2e2;
 }
 
 .side-menu1 {
