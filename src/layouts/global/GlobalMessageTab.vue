@@ -2,7 +2,7 @@
   <lay-dropdown
     updateAtScroll
     ref="manualRef"
-    :clickOutsideToClose="false"
+    :clickOutsideToClose="true"
     :clickToClose="false"
     placement="bottom"
   >

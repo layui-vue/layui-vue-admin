@@ -119,12 +119,12 @@
               </lay-fullscreen>
             </lay-menu-item>
             <lay-menu-item>
-              <message-tab :flag="flag">
+              <global-message-tab :flag="flag">
                 <lay-icon
                   type="layui-icon-notice"
                   @click="changeDropdown"
                 ></lay-icon>
-              </message-tab>
+              </global-message-tab>
             </lay-menu-item>
             <lay-menu-item>
               <lay-dropdown updateAtScroll placement="bottom">
@@ -199,7 +199,7 @@ import GlobalBreadcrumb from './global/GlobalBreadcrumb.vue'
 import GlobalTab from './global/GlobalTab.vue'
 import GlobalMenu from './global/GlobalMenu.vue'
 import GlobalMainMenu from './global/GlobalMainMenu.vue'
-import MessageTab from './global/MessageTab.vue'
+import GlobalMessageTab from './global/GlobalMessageTab.vue'
 import { useRouter } from 'vue-router'
 import { useMenu } from './composable/useMenu'
 import zh_CN from '../lang/zh_CN'
@@ -213,7 +213,7 @@ export default {
     GlobalMenu,
     GlobalBreadcrumb,
     GlobalMainMenu,
-    MessageTab
+    GlobalMessageTab
   },
   setup() {
     const appStore = useAppStore()
