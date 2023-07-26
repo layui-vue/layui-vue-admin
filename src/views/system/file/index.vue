@@ -140,7 +140,7 @@ const searchQuery = ref({
 })
 
 const visibleImport = ref(false)
-const file1 = ref<never[]>()
+const file1 = ref<any>([])
 function toImport() {
   // layer.msg('导入')
   visibleImport.value = true

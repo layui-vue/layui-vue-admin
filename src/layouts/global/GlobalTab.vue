@@ -17,8 +17,8 @@
       </template>
     </lay-tab>
     <div v-else-if="appStore.tagsTheme == 'designer'" class="designer">
+      <!-- <global-swiper-scroll> -->
       <div class="designer-tab">
-        <!-- todo  -->
         <div class="designer-tab-item" :key="tab" v-for="tab in tabs">
           <div style="display: inline-block" @click="toChangPage(tab.id)">
             <span :class="tab.id === route.path ? 'dot dot-this' : 'dot'">
@@ -33,6 +33,7 @@
           ></lay-icon>
         </div>
       </div>
+      <!-- </global-swiper-scroll> -->
     </div>
     <lay-dropdown>
       <lay-icon
@@ -71,6 +72,7 @@ import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAppStore } from '../../store/app'
 import { useTab } from '../composable/useTab'
+import GlobalSwiperScroll from './GlobalSwiperScroll.vue'
 
 const appStore = useAppStore()
 const route = useRoute()
@@ -138,7 +140,7 @@ function toChangPage(id: any) {
   position: relative;
   font-size: 14px;
   color: dimgray;
-  overflow-y: auto; ///todo
+  overflow-y: auto;
   cursor: pointer;
 
   box-shadow: unset;

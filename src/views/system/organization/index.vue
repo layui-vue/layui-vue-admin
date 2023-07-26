@@ -230,7 +230,7 @@
                 <lay-textarea
                   placeholder="请输入备注"
                   v-model="model22.remark"
-                  rows="4"
+                  :rows="4"
                 ></lay-textarea>
               </lay-form-item>
             </lay-col>
@@ -532,15 +532,12 @@ const loadDataSource = (page: number, pageSize: number) => {
   }
   return response
 }
-
 const model11 = ref({
-  organization: '',
   name: '',
-  fullName: '',
-  code: '',
-  type: '',
-  sort: 0,
-  remark: ''
+  role: '',
+  sex: '',
+  status: '',
+  account: ''
 })
 const layFormRef11 = ref()
 const visible11 = ref(false)
@@ -552,13 +549,11 @@ const changeVisible11 = (text: any, row: any) => {
     model11.value = info
   } else {
     model11.value = {
-      organization: '',
       name: '',
-      fullName: '',
-      code: '',
-      type: '',
-      sort: 0,
-      remark: ''
+      role: '',
+      sex: '',
+      status: '',
+      account: ''
     }
   }
   visible11.value = !visible11.value
