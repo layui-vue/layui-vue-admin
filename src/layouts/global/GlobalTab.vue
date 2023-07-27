@@ -1,7 +1,6 @@
 <template>
   <div class="global-tab" v-if="appStore.tab">
     <lay-tab
-      v-if="appStore.tagsTheme != 'designer'"
       :modelValue="currentPath"
       :allowClose="true"
       @change="to"
@@ -16,30 +15,8 @@
         </lay-tab-item>
       </template>
     </lay-tab>
-    <div v-else-if="appStore.tagsTheme == 'designer'" class="designer">
-      <!-- <global-swiper-scroll> -->
-      <div class="designer-tab">
-        <div class="designer-tab-item" :key="tab" v-for="tab in tabs">
-          <div style="display: inline-block" @click="toChangPage(tab.id)">
-            <span :class="tab.id === route.path ? 'dot dot-this' : 'dot'">
-            </span>
-            {{ tab.title }}
-          </div>
-
-          <lay-icon
-            type="layui-icon-close"
-            class="designer-close"
-            @click="close(tab.id)"
-          ></lay-icon>
-        </div>
-      </div>
-      <!-- </global-swiper-scroll> -->
-    </div>
     <lay-dropdown>
-      <lay-icon
-        type="layui-icon-down"
-        :class="appStore.tagsTheme == 'designer' ? 'designer-last-icon' : ''"
-      ></lay-icon>
+      <lay-icon type="layui-icon-down" class="designer-last-icon"></lay-icon>
       <template #content>
         <lay-dropdown-menu>
           <lay-dropdown-menu-item @click="closeAll"
@@ -72,7 +49,6 @@ import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAppStore } from '../../store/app'
 import { useTab } from '../composable/useTab'
-import GlobalSwiperScroll from './GlobalSwiperScroll.vue'
 
 const appStore = useAppStore()
 const route = useRoute()
@@ -140,8 +116,20 @@ function toChangPage(id: any) {
   position: relative;
   font-size: 14px;
   color: dimgray;
-  overflow-y: auto;
   cursor: pointer;
+
+  .layui-tab .layui-tab-bar {
+    height: 32px;
+    line-height: 32px;
+    margin-top: 5px;
+  }
+
+  .layui-tab .layui-tab-bar.prev {
+    border-left: none;
+    height: 32px;
+    line-height: 32px;
+    margin-top: 5px;
+  }
 
   box-shadow: unset;
   z-index: 999;

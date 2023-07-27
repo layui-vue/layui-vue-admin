@@ -61,145 +61,141 @@
 </template>
 
 <script lang="ts">
-import { ref, watch } from "vue";
-import { layer } from "@layui/layer-vue";
+import { ref, watch } from 'vue'
+import { layer } from '@layui/layer-vue'
 
 export default {
   setup() {
-    const selectedKeys = ref(["1"]);
-    const checkbox = ref(true);
-    const defaultToolbar = ref(true);
-    const page = ref({ total: 100, limit: 10, current: 2 });
+    const selectedKeys = ref(['1'])
+    const checkbox = ref(true)
+    const defaultToolbar = ref(true)
+    const page = ref({ total: 100, limit: 10, current: 2 })
 
     const columns = [
       {
-        title: "复选",
-        width: "50px",
-        type: "checkbox",
-        fixed: "left",
+        title: '复选',
+        width: '50px',
+        type: 'checkbox',
+        fixed: 'left'
       },
       {
-        title: "账户",
-        width: "200px",
-        customSlot: "username",
-        key: "username",
+        title: '账户',
+        width: '200px',
+        customSlot: 'username',
+        key: 'username'
       },
       {
-        title: "密码",
-        width: "180px",
-        customSlot: "password",
-        key: "password",
+        title: '密码',
+        width: '180px',
+        customSlot: 'password',
+        key: 'password'
       },
       {
-        title: "年龄",
-        width: "180px",
-        key: "age",
+        title: '年龄',
+        width: '180px',
+        key: 'age'
       },
       {
-        title: "描述",
-        key: "remark",
-        ellipsisTooltip: true,
+        title: '描述',
+        key: 'remark',
+        ellipsisTooltip: true
       },
       {
-        title: "操作",
-        width: "180px",
-        customSlot: "operator",
-        key: "operator",
-        fixed: "right",
-      },
-    ];
+        title: '操作',
+        width: '180px',
+        customSlot: 'operator',
+        key: 'operator',
+        fixed: 'right'
+      }
+    ]
 
     const dataSource = [
       {
-        id: "1",
-        username: "shana",
-        password: "夏娜",
-        remark: "花开堪折直须折,莫待无花空折枝",
-        age: "22",
+        id: '1',
+        username: 'shana',
+        password: '夏娜',
+        remark: '花开堪折直须折,莫待无花空折枝',
+        age: '22'
       },
       {
-        id: "2",
-        username: "shana",
-        password: "夏娜",
-        remark: "花开堪折直须折,莫待无花空折枝",
-        age: "22",
+        id: '2',
+        username: 'shana',
+        password: '夏娜',
+        remark: '花开堪折直须折,莫待无花空折枝',
+        age: '22'
       },
       {
-        id: "3",
-        username: "shana",
-        password: "夏娜",
-        remark: "花开堪折直须折,莫待无花空折枝",
-        age: "22",
+        id: '3',
+        username: 'shana',
+        password: '夏娜',
+        remark: '花开堪折直须折,莫待无花空折枝',
+        age: '22'
       },
       {
-        id: "4",
-        username: "shana",
-        password: "夏娜",
-        remark: "花开堪折直须折,莫待无花空折枝",
-        age: "22",
+        id: '4',
+        username: 'shana',
+        password: '夏娜',
+        remark: '花开堪折直须折,莫待无花空折枝',
+        age: '22'
       },
       {
-        id: "5",
-        username: "shana",
-        password: "夏娜",
-        remark: "花开堪折直须折,莫待无花空折枝",
-        age: "22",
+        id: '5',
+        username: 'shana',
+        password: '夏娜',
+        remark: '花开堪折直须折,莫待无花空折枝',
+        age: '22'
       },
       {
-        id: "6",
-        username: "shana",
-        password: "夏娜",
-        remark: "花开堪折直须折,莫待无花空折枝",
-        age: "22",
+        id: '6',
+        username: 'shana',
+        password: '夏娜',
+        remark: '花开堪折直须折,莫待无花空折枝',
+        age: '22'
       },
       {
-        id: "7",
-        username: "shana",
-        password: "夏娜",
-        remark: "花开堪折直须折,莫待无花空折枝",
-        age: "22",
+        id: '7',
+        username: 'shana',
+        password: '夏娜',
+        remark: '花开堪折直须折,莫待无花空折枝',
+        age: '22'
       },
       {
-        id: "8",
-        username: "shana",
-        password: "夏娜",
-        remark: "花开堪折直须折,莫待无花空折枝",
-        age: "22",
+        id: '8',
+        username: 'shana',
+        password: '夏娜',
+        remark: '花开堪折直须折,莫待无花空折枝',
+        age: '22'
       },
       {
-        id: "9",
-        username: "shana",
-        password: "夏娜",
-        remark: "花开堪折直须折,莫待无花空折枝",
-        age: "22",
+        id: '9',
+        username: 'shana',
+        password: '夏娜',
+        remark: '花开堪折直须折,莫待无花空折枝',
+        age: '22'
       },
       {
-        id: "10",
-        username: "shana",
-        password: "夏娜",
-        remark: "花开堪折直须折,莫待无花空折枝",
-        age: "22",
+        id: '10',
+        username: 'shana',
+        password: '夏娜',
+        remark: '花开堪折直须折,莫待无花空折枝',
+        age: '22'
       },
       {
-        id: "11",
-        username: "shana",
-        password: "夏娜",
-        remark: "花开堪折直须折,莫待无花空折枝",
-        age: "22",
-      },
-    ];
+        id: '11',
+        username: 'shana',
+        password: '夏娜',
+        remark: '花开堪折直须折,莫待无花空折枝',
+        age: '22'
+      }
+    ]
 
-    const rowClick = function (data: any) {
-      console.log(JSON.stringify(data));
-    };
+    const rowClick = function (data: any) {}
 
-    const rowDoubleClick = function (data: any) {
-      console.log(JSON.stringify(data));
-    };
+    const rowDoubleClick = function (data: any) {}
 
     const change = function ({ current, limit }: any) {
-      layer.msg("current:" + current + " limit:" + limit);
-    };
+      layer.msg('current:' + current + ' limit:' + limit)
+    }
 
     return {
       columns,
@@ -210,8 +206,8 @@ export default {
       page,
       rowClick,
       rowDoubleClick,
-      change,
-    };
-  },
-};
+      change
+    }
+  }
+}
 </script>

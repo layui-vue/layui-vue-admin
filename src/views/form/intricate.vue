@@ -385,7 +385,6 @@ export default {
           {
             text: '取消',
             callback: () => {
-              console.log('1241324123432')
               layer.closeAll()
             }
           }
@@ -426,7 +425,6 @@ export default {
       layFormRef.value.validate(
         (isValidate: boolean, model: any, errors: any) => {
           if (isValidate) {
-            console.log('校验通过', formData.value, tableData.value)
             let id = layer.load(1)
             setTimeout(() => {
               layer.close(id)
@@ -450,7 +448,6 @@ export default {
               }, 200)
             }, 2000)
           } else {
-            console.log('校验失败')
           }
         }
       )

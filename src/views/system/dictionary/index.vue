@@ -210,7 +210,6 @@ function toReset() {
 }
 function handleClick(node: any) {
   selectedNode.value = JSON.parse(JSON.stringify(node))
-  console.log(selectedNode.value.id, 'selectedNode.value')
   change(page)
 }
 
@@ -324,13 +323,10 @@ const change = (page: any) => {
   loading.value = true
   setTimeout(() => {
     if (selectedNode.value.id == 1) {
-      dataSource.value = dataSourceSex.value
       page.total = dataSourceSex.value.length
     } else if (selectedNode.value.id == 2) {
-      dataSource.value = dataSourceOri.value
       page.total = dataSourceOri.value.length
     }
-    console.log(dataSource.value, ' dataSource.value')
     loading.value = false
   }, 1000)
 }

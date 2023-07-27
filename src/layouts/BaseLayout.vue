@@ -380,7 +380,7 @@ export default {
   background-color: rgb(40, 51, 62);
 }
 
-.light .side-menu-wrapper::-webkit-scrollbar-thumb{
+.light .side-menu-wrapper::-webkit-scrollbar-thumb {
   background-color: #e2e2e2;
 }
 
@@ -421,24 +421,31 @@ export default {
     }
   }
 }
-
-.designer {
-  .layui-tab-head {
-    background-color: unset !important;
-  }
-
-  .layui-tab-title {
-    background-color: unset !important;
-  }
-}
-
 .layui-body
   > .global-tab
   > .layui-tab
   > .layui-tab-head
   > .layui-tab-title
   > li {
-  height: 38px !important;
-  line-height: 38px !important;
+  height: 38px;
+  line-height: 38px;
+}
+.designer {
+  padding-left: 5px;
+  box-sizing: border-box;
+  .layui-tab-head {
+    background-color: unset !important;
+  }
+
+  .layui-tab-title {
+    background-color: unset !important;
+    > li {
+      background-color: #fff;
+      margin: 5px 0 0 5px;
+      border-radius: 4px;
+      height: 32px !important;
+      line-height: 32px !important;
+    }
+  }
 }
 </style>
