@@ -48,6 +48,11 @@ const menus = [
         icon: "layui-icon-form",
         title: "复杂表单"
       }
+      , {
+        id: "/form/step",
+        icon: "layui-icon-form",
+        title: "分步表单"
+      }
     ]
   },
   {
