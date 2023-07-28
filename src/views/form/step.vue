@@ -1,14 +1,14 @@
 <template>
   <div>
     <lay-card>
-      <p class="title">分步表单</p>
+      <p class="top-title">分步表单</p>
       <p class="describe">
         表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。表单域标签也可支持响应式.
       </p>
     </lay-card>
     <lay-container :fluid="true" style="padding: 10px; padding-top: 0px">
       <lay-card style="padding: 40px">
-        <lay-step :active="active" center>
+        <lay-step :active="active" current-status="primary" center>
           <lay-step-item title="第一步" content="填写转账信息">
             <template #pace>
               <lay-icon type="layui-icon-ok"></lay-icon>
@@ -20,9 +20,14 @@
 
         <div class="step-form">
           <lay-notice-bar
+            v-show="active < 2"
             leftIcon="layui-icon-help-circle"
             rightIcon="layui-icon-close"
-            text="请确认您填写的信息无误哦"
+            :text="
+              active < 1
+                ? '请确认您填写的信息无误哦'
+                : '确认转账后，资金将直接打入对方账户，无法退回'
+            "
             background="#ecf5ff"
           ></lay-notice-bar>
           <div style="height: 20px"></div>
@@ -88,24 +93,79 @@
               </lay-input>
             </lay-form-item>
           </lay-form>
-          <lay-row style="margin-top: 0px">
-            <div style="display: inline-block; width: 120px"></div>
+          <div v-if="active == 2" class="option-result">
+            <div style="width: 100%; height: 210px; text-align: center">
+              <img
+                src="../../assets/common/success.png"
+                alt=""
+                style="width: 80px; height: 80px"
+              />
+              <div
+                style="
+                  font-size: 20px;
+                  color: #101662;
+                  font-weight: 600;
+                  margin-top: 15px;
+                "
+              >
+                操作成功
+              </div>
+              <div style="font-size: 12px; color: #ccc; margin-top: 5px">
+                预计两小时内到账
+              </div>
 
+              <div style="font-size: 10px; color: #ccc; margin-top: 15px">
+                <lay-button size="sm" type="normal" @click="next">
+                  在转一笔
+                </lay-button>
+                <lay-button size="sm"> 查看账单 </lay-button>
+              </div>
+            </div>
+
+            <lay-row>
+              <lay-col md="4" class="title">付款账户</lay-col>
+              <lay-col md="20" class="content borderR">
+                {{ formValue.account }}
+              </lay-col>
+            </lay-row>
+            <lay-row>
+              <lay-col md="4" class="title">收款账户</lay-col>
+              <lay-col md="20" class="content borderR">
+                {{ formValue.payee }}
+              </lay-col>
+            </lay-row>
+            <lay-row>
+              <lay-col md="4" class="title">收款人姓名</lay-col>
+              <lay-col md="20" class="content borderR">
+                {{ formValue.payeeName }}
+              </lay-col>
+            </lay-row>
+            <lay-row>
+              <lay-col md="4" class="title borderB">转账金额</lay-col>
+              <lay-col md="20" class="content borderR borderB">
+                <span style="font-size: 18px">
+                  {{ formValue.amount }} &nbsp;</span
+                >元
+              </lay-col>
+            </lay-row>
+          </div>
+          <lay-row style="margin-top: 0px" v-if="active < 2">
+            <div style="display: inline-block; width: 120px"></div>
             <lay-button
               type="primary"
-              style="margin-right: 15px"
+              :style="{
+                marginRight: '15px',
+                marginLeft: active < 1 ? '15px' : '0px'
+              }"
               size="sm"
               @click="next"
             >
               下一步
             </lay-button>
-            <lay-button size="sm" @click="previous" v-if="active > 0">
+            <lay-button size="sm" v-show="active > 0" @click="previous">
               上一步
             </lay-button>
           </lay-row>
-          <!-- 
-          <lay-button size="xs" @click="previous">上一步</lay-button>
-          <lay-button size="xs" @click="next">下一步</lay-button> -->
         </div>
       </lay-card>
     </lay-container>
@@ -132,7 +192,6 @@ const loading = ref(true)
 const active = ref(0)
 const next = () => {
   if (active.value++ >= 2) active.value = 0
-  console.log(active.value)
 }
 const previous = () => {
   if (active.value-- === 0) active.value = 0
@@ -160,7 +219,7 @@ const submit2 = function () {
 </script>
 
 <style lang="less" scoped>
-.title {
+.top-title {
   font-size: 20px;
   font-weight: 500;
   margin-top: 12px;
@@ -179,6 +238,38 @@ const submit2 = function () {
   .layui-row:after,
   .layui-row:before {
     display: none;
+  }
+}
+.option-result {
+  width: 100%;
+  height: 400px;
+  font-size: 14px;
+
+  .title {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    display: inline-block;
+    background: #f7f7f7;
+    border-top: 1px solid #e8e8e8;
+    border-left: 1px solid #e8e8e8;
+  }
+  .content {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 3px 0 10px;
+    border-top: 1px solid #e8e8e8;
+    border-left: 1px solid #e8e8e8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+  }
+  .borderR {
+    border-right: 1px solid #e8e8e8;
+  }
+  .borderB {
+    border-bottom: 1px solid #e8e8e8;
   }
 }
 </style>
