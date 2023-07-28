@@ -23,32 +23,59 @@
         </lay-card>
       </lay-col>
       <lay-col :md="24">
-        <lay-card>
-          <lay-row :space="10">
-            <lay-col :md="6" v-for="(item, index) in dataSource" :key="index">
-              <lay-card class="card-list-item">
-                <img
-                  src="https://gw.alipayobjects.com/zos/rmsportal/iXjVmWVHbCJAyqvDxdtx.png"
-                />
-                <template #footer>
-                  <div class="button-list">
-                    <div><lay-icon type="layui-icon-flag"></lay-icon></div>
-                    <div><lay-icon type="layui-icon-edit"></lay-icon></div>
-                    <div><lay-icon type="layui-icon-share"></lay-icon></div>
-                    <div><lay-icon type="layui-icon-more"></lay-icon></div>
+        <!-- <lay-card> -->
+        <lay-row :space="10">
+          <lay-col :md="6" v-for="(item, index) in dataSource" :key="index">
+            <lay-card class="card-list-item">
+              <img
+                src="https://gw.alipayobjects.com/zos/rmsportal/iXjVmWVHbCJAyqvDxdtx.png"
+              />
+              <div class="button-list">
+                <div class="title">layui-vue</div>
+                <div class="content">
+                  layui - vue（谐音：类 UI) 是 一 套 Vue 3.0 的 桌 面 端 组 件
+                  库
+                </div>
+                <div class="time-avater">
+                  12小时前
+                  <div style="flex: 1; text-align: right">
+                    <lay-avatar-list>
+                      <lay-tooltip
+                        :visible="visible"
+                        trigger="click"
+                        content="假装这里有文字提示"
+                      >
+                        <lay-avatar :src="src" size="sm" radius></lay-avatar>
+                      </lay-tooltip>
+                      <lay-tooltip
+                        :visible="visible"
+                        trigger="click"
+                        content="假装这里有文字提示"
+                      >
+                        <lay-avatar :src="src" size="sm" radius></lay-avatar>
+                      </lay-tooltip>
+                      <lay-tooltip
+                        :visible="visible"
+                        trigger="click"
+                        content="假装这里有文字提示"
+                      >
+                        <lay-avatar :src="src" size="sm" radius></lay-avatar>
+                      </lay-tooltip>
+                    </lay-avatar-list>
                   </div>
-                </template>
-              </lay-card>
-            </lay-col>
-          </lay-row>
-          <lay-page
-            v-model="page.current"
-            :total="page.total"
-            :limit="page.limit"
-            :showPage="true"
-          >
-          </lay-page>
-        </lay-card>
+                </div>
+              </div>
+            </lay-card>
+          </lay-col>
+        </lay-row>
+        <lay-page
+          v-model="page.current"
+          :total="page.total"
+          :limit="page.limit"
+          :showPage="true"
+        >
+        </lay-page>
+        <!-- </lay-card> -->
       </lay-col>
     </lay-row>
   </lay-container>
@@ -119,10 +146,16 @@ export default {
         age: '22'
       }
     ]
+    const src = ref(
+      'https://foruda.gitee.com/avatar/1677022544584087390/4835367_jmysy_1578975358.png'
+    )
+    const visible = ref(false)
 
     return {
       dataSource,
-      page
+      page,
+      src,
+      visible
     }
   }
 }
@@ -136,14 +169,33 @@ export default {
 :deep(.card-list-item .layui-card-body) {
   padding: 0px !important;
 }
-
+.layui-card:last-child {
+  border-radius: 4px;
+}
 .button-list {
-  display: flex;
+  height: 140px;
+  padding: 10px;
 }
 
-.button-list > div {
-  flex: 1;
-  text-align: center;
-  color: #909399;
+.title {
+  font-size: 18px;
+  color: #000000e0;
+  margin: 15px 0px 5px;
+}
+.content {
+  font-size: 14px;
+  color: #ccc;
+}
+.time-avater {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #ccc;
+  margin-top: 15px;
+}
+.card-list-item:hover {
+  box-shadow: 2px 2px 14px #ccc;
+  cursor: pointer;
 }
 </style>

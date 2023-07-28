@@ -69,6 +69,16 @@ const menus = [
         id: "/table/card",
         icon: "layui-icon-file-b",
         title: "卡片列表"
+      },
+      {
+        id: "/table/project",
+        icon: "layui-icon-templeate-one",
+        title: "项目列表"
+      },
+      {
+        id: "/table/article",
+        icon: "layui-icon-carousel",
+        title: "文章列表"
       }
     ]
   },
