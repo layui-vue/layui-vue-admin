@@ -16,7 +16,7 @@
       </template>
     </lay-tab>
     <lay-dropdown>
-      <lay-icon type="layui-icon-down" class="designer-last-icon"></lay-icon>
+      <lay-icon type="layui-icon-down" :class=" appStore.tagsTheme == 'designer' ? 'designer-last-icon' : ''"></lay-icon>
       <template #content>
         <lay-dropdown-menu>
           <lay-dropdown-menu-item @click="closeAll"
