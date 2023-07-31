@@ -2,9 +2,11 @@
   <lay-container :fluid="true" style="padding: 10px">
     <lay-card>
       <div class="search-div">
-        <lay-input style="width: 200px"></lay-input>
-        <lay-button type="primary" style="margin-left: 10px">查询</lay-button>
-        <lay-button>重置</lay-button>
+        <lay-input style="width: 200px" v-model="searchTitle"></lay-input>
+        <lay-button type="primary" style="margin-left: 10px" @click="toSearch"
+          >查询</lay-button
+        >
+        <lay-button @click="toReset">重置</lay-button>
       </div>
     </lay-card>
 
@@ -49,18 +51,22 @@
           </div>
         </div>
       </div>
+      <div class="getmore">
+        <lay-button @click="toGetMore">加载更多</lay-button>
+      </div>
     </lay-card>
   </lay-container>
 </template>
 
 <script lang="ts">
 import { ref } from 'vue'
+import { layer } from '@layui/layui-vue'
 
 export default {
   setup() {
     const page = ref({ total: 100, limit: 10, current: 2 })
 
-    const articleList = [
+    const articleList = ref([
       {
         id: '1',
         title: 'layui-vue',
@@ -125,11 +131,37 @@ export default {
         tags: ['layui-vue', 'UI框架', '设计语言'],
         user: '就眠儀式'
       }
-    ]
-
+    ])
+    function toGetMore() {
+      layer.load(2, { time: 3000 })
+      setTimeout(() => {
+        for (let i = 0; i < 10; i++) {
+          let item = {
+            id: (articleList.value.length + 1).toString(),
+            title: 'layui-vue',
+            content:
+              'layui - vue（谐音：类 UI) 是 一 套 Vue 3.0 的 桌 面 端 组 件 库',
+            tags: ['layui-vue', 'UI框架', '设计语言'],
+            user: '就眠儀式'
+          }
+          articleList.value.push(item)
+        }
+      }, 1000)
+    }
+    const searchTitle = ref('')
+    function toSearch() {
+      layer.load(2, { time: 3000 })
+    }
+    function toReset() {
+      searchTitle.value = ''
+    }
     return {
       articleList,
-      page
+      page,
+      searchTitle,
+      toGetMore,
+      toSearch,
+      toReset
     }
   }
 }
@@ -215,5 +247,11 @@ export default {
 }
 .borderR {
   border-right: 1px solid #ebeef5;
+}
+.getmore {
+  width: 100%;
+  height: 30px;
+  margin: 20px auto;
+  text-align: center;
 }
 </style>

@@ -7,18 +7,24 @@
             <lay-row>
               <lay-col :md="6">
                 <lay-form-item label="账号：" label-width="50">
-                  <lay-input style="width: 90%"></lay-input>
+                  <lay-input
+                    v-model="searchAccount"
+                    style="width: 90%"
+                  ></lay-input>
                 </lay-form-item>
               </lay-col>
               <lay-col :md="6">
                 <lay-form-item label="邮箱：" label-width="50">
-                  <lay-input style="width: 90%"></lay-input>
+                  <lay-input
+                    v-model="searchEmail"
+                    style="width: 90%"
+                  ></lay-input>
                 </lay-form-item>
               </lay-col>
               <lay-col :md="6">
                 <lay-form-item label-width="0">
-                  <lay-button type="primary">查询</lay-button>
-                  <lay-button>重置</lay-button>
+                  <lay-button type="primary" @click="toSearch">查询</lay-button>
+                  <lay-button @click="toReset">重置</lay-button>
                 </lay-form-item>
               </lay-col>
             </lay-row>
@@ -196,6 +202,15 @@ export default {
     const change = function ({ current, limit }: any) {
       layer.msg('current:' + current + ' limit:' + limit)
     }
+    function toSearch() {
+      layer.load(2, { time: 3000 })
+    }
+    const searchAccount = ref('')
+    const searchEmail = ref('')
+    function toReset() {
+      searchAccount.value = ''
+      searchEmail.value = ''
+    }
 
     return {
       columns,
@@ -206,7 +221,11 @@ export default {
       page,
       rowClick,
       rowDoubleClick,
-      change
+      change,
+      toReset,
+      toSearch,
+      searchAccount,
+      searchEmail
     }
   }
 }

@@ -7,15 +7,21 @@
             <lay-row>
               <lay-col :md="4">
                 <lay-form-item :label-width="0">
-                  <lay-input style="width: 100%"></lay-input>
+                  <lay-input
+                    v-model="searchTitle"
+                    style="width: 100%"
+                  ></lay-input>
                 </lay-form-item>
               </lay-col>
               <lay-col :md="6">
                 <lay-form-item label-width="0">
-                  <lay-button type="primary" style="margin-left: 10px"
+                  <lay-button
+                    type="primary"
+                    style="margin-left: 10px"
+                    @click="toSearch"
                     >查询</lay-button
                   >
-                  <lay-button>重置</lay-button>
+                  <lay-button @click="toSearch">重置</lay-button>
                 </lay-form-item>
               </lay-col>
             </lay-row>
@@ -56,6 +62,7 @@
 
 <script lang="ts">
 import { ref } from 'vue'
+import { layer } from '@layui/layer-vue'
 
 export default {
   setup() {
@@ -119,10 +126,20 @@ export default {
         age: '22'
       }
     ]
+    const searchTitle = ref('')
+    function toSearch() {
+      layer.load(2, { time: 3000 })
+    }
+    function toReset() {
+      searchTitle.value = ''
+    }
 
     return {
       dataSource,
-      page
+      page,
+      toSearch,
+      toReset,
+      searchTitle
     }
   }
 }
