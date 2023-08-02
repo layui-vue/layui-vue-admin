@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@layui/layui-vue':
-    specifier: 2.3.7
-    version: 2.3.7(vue@3.3.4)
+    specifier: 2.3.8
+    version: 2.3.8(vue@3.3.4)
   axios:
     specifier: ^1.3.4
     version: 1.3.4
@@ -406,8 +406,8 @@ packages:
       '@layui/icons-vue': 1.1.0
     dev: false
 
-  /@layui/layui-vue@2.3.7(vue@3.3.4):
-    resolution: {integrity: sha512-vZ/8XfhQXTARWRgRow/vygBay1x/9aGwnbhzpVpuDacqUi31I3QCFjYlDIO/S0mDN8m2gmW1nH/h6bNdQSSGKA==}
+  /@layui/layui-vue@2.3.8(vue@3.3.4):
+    resolution: {integrity: sha512-w7vHvE3YaGx4U6+jooYAilMjGEKwyD2IKM9jn6GRJ/OgFd3dh50IUBd+W9ypnUc2uxJQRNa0BvS4TbZev8U/wg==}
     dependencies:
       '@babel/types': 7.21.0
       '@ctrl/tinycolor': 3.4.1
