@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@layui/layui-vue':
-    specifier: 2.3.15
-    version: 2.3.15(vue@3.3.4)
+    specifier: 2.6.2
+    version: 2.6.2(vue@3.3.4)
   axios:
     specifier: ^1.3.4
     version: 1.3.4
@@ -400,19 +400,19 @@ packages:
     resolution: {integrity: sha512-ndc53qyUZSslUkO8ZHeBMh6i4gSTtAUqsPpKQZWML0JH6E/X3LIySe6LATeqEMmD7wWSnHJ+WBVGO4ij85Dk1g==}
     dev: false
 
-  /@layui/layer-vue@1.9.1:
-    resolution: {integrity: sha512-KCnwyDpoJRqyFZcmy/dSl7GDhBAcbTihoIqi4k+hRT1OBPswccIy+xkxmyVDZat4yCDWzvy9QPu6dAU7xlFqag==}
+  /@layui/layer-vue@2.0.0:
+    resolution: {integrity: sha512-a/+RgbrB4ulM9eoN7AwDjiHRXCUeajDnV+BqZUUobmmG2yNdF8bsRiQc8pkIAhaREX0t5Xdu4O8CzYXO52Z4sA==}
     dependencies:
       '@layui/icons-vue': 1.1.0
     dev: false
 
-  /@layui/layui-vue@2.3.15(vue@3.3.4):
-    resolution: {integrity: sha512-BoK30GBjT+V99Q2tbiC4ZkD0dF/T7YgVaSS6bNb4qVIhE4x8nyiNChxuKhLQPDFc/V8dVDW6+l7Igzo1mbAksg==}
+  /@layui/layui-vue@2.6.2(vue@3.3.4):
+    resolution: {integrity: sha512-aNQnBuIr2GVezSwZcWSAGHPG/q16CyKZV4QqukjwvMz0wpzdrYJVFFFRXCrMG45uejaYcVJ7VGxXDEbzSWTKAw==}
     dependencies:
       '@babel/types': 7.21.0
       '@ctrl/tinycolor': 3.4.1
       '@layui/icons-vue': 1.1.0
-      '@layui/layer-vue': 1.9.1
+      '@layui/layer-vue': 2.0.0
       '@rollup/plugin-terser': 0.4.3
       '@types/qrcode': 1.5.0
       '@umijs/ssr-darkreader': 4.9.45

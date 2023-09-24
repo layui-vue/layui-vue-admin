@@ -47,7 +47,7 @@ export function useMenu() {
       if (andParents && andParents.length > 0) {
         let andParentKeys = andParents.map((item: any) => item.id);
         if (isAccordion.value) {
-          openKeys.value = andParentKeys;
+          openKeys.value = [...andParentKeys];
         } else {
           openKeys.value = [...andParentKeys, ...openKeys.value];
         }
@@ -85,9 +85,11 @@ export function useMenu() {
     const addArr = diff(openKeys.value, keys);
     if (keys.length > openKeys.value.length && isAccordion.value) {
       var arr = getParents(menus.value, addArr[0]);
-      openKeys.value = arr.map((item: any) => {
-        return item.id;
-      });
+      if(arr && arr.length > 0) {
+        openKeys.value = arr.map((item: any) => {
+          return item.id;
+        });
+      }
     } else {
       openKeys.value = keys;
     }
