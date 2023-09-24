@@ -402,12 +402,6 @@ export default {
   background-color: #171717 !important;
 }
 
-.side-menu-wrapper {
-  .layui-this {
-    width: calc(100% - 3px) !important;
-  }
-}
-
 .underpainting {
   .layui-tab-title {
     .layui-this {
