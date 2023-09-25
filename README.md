@@ -2,7 +2,7 @@
 <br/>
 
   <h1 align="center">
-    Pear Admin Next
+    layui vue admin
   </h1>
 
   <h4 align="center">
