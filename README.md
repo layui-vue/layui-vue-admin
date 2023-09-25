@@ -21,7 +21,7 @@
         <img src="https://img.shields.io/badge/vue-3.0.0+-green.svg" alt="Vue Version">
     </a>
     <a href="#">
-        <img src="https://img.shields.io/badge/layui vue-1.4.9-green.svg" alt="Ant Design Vue Version">
+        <img src="https://img.shields.io/badge/layui vue-2.6.3-green.svg" alt="Ant Design Vue Version">
     </a>
     <a href="#">
         <img src="https://img.shields.io/badge/node-16.0.0-red.svg" alt="Node Version">
