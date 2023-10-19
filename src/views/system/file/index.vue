@@ -59,6 +59,7 @@
         class="table-style"
         :page="page"
         :columns="columns"
+        :height="'100%'"
         :loading="loading"
         :default-toolbar="true"
         :data-source="dataSource"
