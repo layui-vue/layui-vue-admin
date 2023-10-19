@@ -99,8 +99,8 @@
           </lay-form>
         </lay-card>
         <lay-table
-          class="table-style"
           :page="page"
+          :height="'100%'"
           :columns="columns"
           :loading="loading"
           :default-toolbar="true"
@@ -685,9 +685,7 @@ const title22 = ref('新建')
   width: 98%;
   margin-right: 10px;
 }
-.table-style {
-  margin-top: 10px;
-}
+
 .isChecked {
   display: inline-block;
   background-color: #e8f1ff;

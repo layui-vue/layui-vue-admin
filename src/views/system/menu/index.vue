@@ -55,7 +55,7 @@
     <!-- table -->
     <div class="table-box">
       <lay-table
-        :height="`570px`"
+        :height="`100%`"
         ref="tableRef6"
         :loading="loading"
         children-column-name="children"

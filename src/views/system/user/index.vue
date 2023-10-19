@@ -58,8 +58,8 @@
     <!-- table -->
     <div class="table-box">
       <lay-table
-        class="table-style"
         :page="page"
+        :height="'100%'"
         :columns="columns"
         :loading="loading"
         :default-toolbar="true"
@@ -521,10 +521,6 @@ const beforeUpload10 = (file: File) => {
   display: inline-block;
   width: 98%;
   margin-right: 10px;
-}
-
-.table-style {
-  margin-top: 10px;
 }
 
 .isChecked {

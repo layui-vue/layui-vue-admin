@@ -55,8 +55,8 @@
     <!-- table -->
     <div class="table-box">
       <lay-table
-        class="table-style"
         :page="page"
+        :height="'100%'"
         :columns="columns"
         :loading="loading"
         :default-toolbar="true"
@@ -349,9 +349,7 @@ function cancel() {
   width: 98%;
   margin-right: 10px;
 }
-.table-style {
-  margin-top: 10px;
-}
+
 .isChecked {
   display: inline-block;
   background-color: #e8f1ff;

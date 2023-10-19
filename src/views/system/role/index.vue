@@ -55,8 +55,8 @@
     <!-- table -->
     <div class="table-box">
       <lay-table
-        class="table-style"
         :page="page"
+        :height="'100%'"
         :columns="columns"
         :loading="loading"
         :default-toolbar="true"
@@ -480,9 +480,6 @@ function toPrivileges(row: any) {
   display: inline-block;
   width: 98%;
   margin-right: 10px;
-}
-.table-style {
-  margin-top: 10px;
 }
 .isChecked {
   display: inline-block;

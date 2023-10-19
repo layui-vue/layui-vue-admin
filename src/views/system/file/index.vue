@@ -56,7 +56,6 @@
     <!-- table -->
     <div class="table-box">
       <lay-table
-        class="table-style"
         :page="page"
         :columns="columns"
         :height="'100%'"

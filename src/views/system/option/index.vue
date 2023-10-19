@@ -55,8 +55,8 @@
     <!-- table -->
     <div class="table-box">
       <lay-table
-        class="table-style"
         :page="page"
+        :height="'100%'"
         :columns="columns"
         :loading="loading"
         :default-toolbar="true"
