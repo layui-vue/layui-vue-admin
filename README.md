@@ -9,7 +9,7 @@
      开 箱 即 用 的 layui vue 企 业 级 前 端 模 板
   </h4> 
 
-  [官 网](http://www.layui-vue.com/) |   [预 览](http://next.pearadmin.com) 
+  [官 网](http://www.layui-vue.com/) |   [预 览](http://admin.layui-vue.com/) 
 
 </div>
 
