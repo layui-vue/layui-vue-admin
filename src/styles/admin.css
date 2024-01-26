@@ -1,10 +1,9 @@
 .layui-logo {
   width: 100%;
   font-size: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.75);
   height: 50px !important;
   line-height: 50px;
-  /* border-bottom: 1px solid #222324;*/
-  border-bottom: 1px solid rgba(0, 0, 0, 0.75)
 }
 
 .layui-body {

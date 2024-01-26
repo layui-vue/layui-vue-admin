@@ -1,6 +1,6 @@
 <template>
   <div>
-    <lay-card>
+    <lay-card style="margin: 10px">
       <p class="top-title">分步表单</p>
       <p class="describe">
         表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。表单域标签也可支持响应式.

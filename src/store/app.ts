@@ -27,6 +27,7 @@ export const useAppStore = defineStore({
         "--global-normal-color": "#1e9fff",
         "--global-danger-color": "#ff5722",
         "--global-warm-color": "#ffb800",
+        "--global-border-radius": "4px"
       },
     }
   },
