@@ -276,13 +276,17 @@ export default {
       { name: 'zh_CN', locale: zh_CN, merge: true },
       { name: 'en_US', locale: en_US, merge: true }
     ]
+
     function toUserInfo() {
       router.push('/enrollee/profile')
     }
+
     function toSystemSet() {
       router.push('/system/menu')
     }
+
     const flag = ref(false)
+    
     function changeDropdown() {
       flag.value = !flag.value
     }
