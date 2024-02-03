@@ -9,6 +9,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
+    "typeRoots": ["./node_modules/@types", "./node_modules"],
     "types": ["vite/client", "@layui/layui-vue/types/components"],
     "baseUrl": "./",
     "paths": {
