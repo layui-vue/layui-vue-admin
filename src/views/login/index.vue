@@ -287,8 +287,8 @@ export default defineComponent({
 
 .login-ID {
   padding: 20px 30px;
-  width: 380px;
-  min-width: 380px;
+  width: 420px;
+  min-width: 420px;
 }
 
 .login-container .layui-tab-head {
