@@ -287,7 +287,6 @@ export default defineComponent({
 
 .login-ID {
   padding: 20px 30px;
-  width: 420px;
   min-width: 420px;
 }
 
