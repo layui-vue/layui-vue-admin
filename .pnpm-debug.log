@@ -10,7 +10,7 @@
         "dev": "vite",
         "build": "vue-tsc --noEmit && vite build",
         "serve": "vite preview"
-      },
+      },.
       "dependencies": {
         "@layui/layui-vue": "1.7.0-dev.10",
         "axios": "^0.27.2",
